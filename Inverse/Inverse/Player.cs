@@ -44,7 +44,7 @@ namespace Inverse
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            playerSprite.Draw(spriteBatch);
+            playerSprite.Draw(spriteBatch, game);
         }
 
         private void UpdateInput(float deltaTime)
@@ -55,6 +55,8 @@ namespace Inverse
             {
                 localAcceleration.Y -= jumpStrength;
             }
+
+            playerSprite.position += playerSprite.velocity * deltaTime;
 
             /*collision.game = game;
             playerSprite = collision.CollideWithPlatforms(playerSprite, deltaTime);*/

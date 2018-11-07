@@ -1,7 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
+using MonoGame.Extended.ViewportAdapters;
 using System.Collections;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
+using System.Collections.Generic;
 
 namespace Inverse
 {
@@ -13,7 +18,14 @@ namespace Inverse
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Player player = new Player();
+
         public Vector2 gravity = new Vector2(0, 1500);
+
+        Camera2D camera = null;
+
+        SpriteFont arialFont;
+
 
         public Game1()
         {
@@ -43,10 +55,18 @@ namespace Inverse
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            player.Load(Content, this);
+
+            arialFont = Content.Load<SpriteFont>("arial");
+
             AIE.StateManager.CreateState("SPLASH", new TitleScreen());
             AIE.StateManager.CreateState("GAME", new MainGame());
             AIE.StateManager.CreateState("GAMEOVER", new GameOverState());
+
+            BoxingViewportAdapter viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height);
+
+            camera = new Camera2D(viewportAdapter);
+            camera.Position = new Vector2(0, graphics.GraphicsDevice.Viewport.Height);
         }
 
         /// <summary>
@@ -68,8 +88,12 @@ namespace Inverse
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            player.Update(deltaTime);
+
             AIE.StateManager.Update(Content, gameTime);
+
+            camera.Position = player.playerSprite.position - new Vector2(graphics.GraphicsDevice.Viewport.Width / 2, graphics.GraphicsDevice.Viewport.Height / 2);
 
             base.Update(gameTime);
         }
@@ -81,6 +105,14 @@ namespace Inverse
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.DarkSlateGray);
+
+            var viewMatrix = camera.GetViewMatrix();
+            var projectionMatrix = Matrix.CreateOrthographicOffCenter(0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0, 0f, -1f);
+
+            spriteBatch.Begin(transformMatrix: viewMatrix);
+            player.Draw(spriteBatch);
+
+            spriteBatch.End();
 
             // TODO: Add your drawing code here
             AIE.StateManager.Draw(spriteBatch);

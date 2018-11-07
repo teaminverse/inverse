@@ -61,13 +61,13 @@ namespace Inverse
 
         public void Update(float deltaTime)
         {
-            animations[currentAnimation].UpdateFrame(deltaTime);
+            //animations[currentAnimation].UpdateFrame(deltaTime);
 
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Game1 game)
         {
-            animations[currentAnimation].DrawFrame(spriteBatch, position + animationOffsets[currentAnimation], effects);
+            spriteBatch.Draw(texture, new Vector2(200, 200), Color.White);
         }
 
         public void AddAnimation(AnimatedTexture animation, int xOffset = 0, int yOffset = 0)
