@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections;
 
 namespace Inverse
 {
@@ -11,6 +12,8 @@ namespace Inverse
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        public Vector2 gravity = new Vector2(0, 1500);
 
         public Game1()
         {

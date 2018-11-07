@@ -17,15 +17,9 @@ namespace Inverse
 
         Game1 game = null;
         float runSpeed = 250f;
-        float maxRunSpeed = 500f;
-        float friction = 500f;
-        float terminalVelocity = 500f;
         public float jumpStrength = 50000f;
 
-        Collision collision = new Collision();
-
-        SoundEffect jumpSound;
-        SoundEffectInstance jumpSoundInstance;
+        //Collision collision = new Collision();
 
         public Player()
         {
@@ -45,12 +39,7 @@ namespace Inverse
         {
             UpdateInput(deltaTime);
             playerSprite.Update(deltaTime);
-            playerSprite.UpdateHitBox();
-
-            if (collision.IsColliding(playerSprite, game.goal.chestSprite))
-            {
-                game.Exit();
-            }           
+            playerSprite.UpdateHitBox();       
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -60,72 +49,15 @@ namespace Inverse
 
         private void UpdateInput(float deltaTime)
         {
-            bool wasMovingLeft = playerSprite.velocity.X < 0;
-            bool wasMovingRight = playerSprite.velocity.X > 0;
-
             Vector2 localAcceleration = game.gravity;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Left) == true)
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) == true)
             {
-                localAcceleration.X += -runSpeed;
-                playerSprite.SetFlipped(true);
-                playerSprite.Play();
-            }
-            else if (wasMovingLeft == true)
-            {
-                localAcceleration.X += friction;
-                playerSprite.Pause();
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Right) == true)
-            {
-                localAcceleration.X += runSpeed;
-                playerSprite.SetFlipped(false);
-                playerSprite.Play();
-            }
-            else if (wasMovingRight == true)
-            {
-                localAcceleration.X += -friction;
-                playerSprite.Pause();
-            }
-
-            if (Keyboard.GetState().IsKeyUp(Keys.Left) == true && Keyboard.GetState().IsKeyUp(Keys.Right) == true)
-            {
-                playerSprite.Pause();
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) == true && playerSprite.canJump == true)
-            {
-                playerSprite.canJump = false;
                 localAcceleration.Y -= jumpStrength;
-                jumpSoundInstance.Play();
             }
 
-            playerSprite.velocity += localAcceleration * deltaTime;
-
-            if (playerSprite.velocity.X > maxRunSpeed)
-            {
-                playerSprite.velocity.X = maxRunSpeed;
-            }
-            else if (playerSprite.velocity.X < -maxRunSpeed)
-            {
-                playerSprite.velocity.X = -maxRunSpeed;
-            }
-
-            if (wasMovingLeft && (playerSprite.velocity.X > 0) || wasMovingRight && (playerSprite.velocity.X < 0))
-            {
-                playerSprite.velocity.X = 0;
-            }
-
-            if (playerSprite.velocity.Y > terminalVelocity)
-            {
-                playerSprite.velocity.Y = terminalVelocity;
-            }
-
-            playerSprite.position += playerSprite.velocity * deltaTime;
-
-            collision.game = game;
-            playerSprite = collision.CollideWithPlatforms(playerSprite, deltaTime);
+            /*collision.game = game;
+            playerSprite = collision.CollideWithPlatforms(playerSprite, deltaTime);*/
         }
     }
 }
