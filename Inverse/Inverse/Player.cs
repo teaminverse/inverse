@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PLATFORMER1
+namespace Inverse
 {
     public class Player
     {
@@ -34,17 +34,7 @@ namespace PLATFORMER1
 
         public void Load(ContentManager content, Game1 theGame)
         {
-            playerSprite.Load(content, "hero", true);
-
-            AnimatedTexture animation = new AnimatedTexture(playerSprite.offset, 0, 1, 1);
-            animation.Load(content, "walk", 12, 20);
-            playerSprite.AddAnimation(animation, 0, 0);
-            playerSprite.Pause();
-
-            jumpSound = content.Load<SoundEffect>("Jump");
-            jumpSoundInstance = jumpSound.CreateInstance();
-
-            //playerSprite.offset = new Vector2(24, 24);
+            playerSprite.Load(content, "hero", true);           
 
             game = theGame;
             playerSprite.velocity = Vector2.Zero;

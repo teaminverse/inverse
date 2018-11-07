@@ -51,7 +51,7 @@ namespace Inverse
 
             UpdateHitbox();
         }
-        public void UpdateHitbox()
+        public void UpdateHitBox()
         {
             leftEdge = (int)position.X - (int)offset.X;
             rightEdge = leftEdge + width;
