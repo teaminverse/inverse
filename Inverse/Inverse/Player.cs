@@ -50,12 +50,7 @@ namespace Inverse
             if (collision.IsColliding(playerSprite, game.goal.chestSprite))
             {
                 game.Exit();
-            }
-
-            for (int i = 0; i < game.enemies.Count; i++)
-            {
-                playerSprite = collision.CollideWithMonster(this, game.enemies[i], deltaTime, game);
-            }
+            }           
         }
 
         public void Draw(SpriteBatch spriteBatch)
