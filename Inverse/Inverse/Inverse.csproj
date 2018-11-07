@@ -41,12 +41,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="GameOverScreen.cs" />
     <Compile Include="MainGame.cs" />
-=======
     <Compile Include="Sprite.cs" />
->>>>>>> 26c2a7d738ab92700396bf7ed41b1890e3c08d8a
     <Compile Include="Game1.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
