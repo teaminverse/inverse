@@ -87,7 +87,17 @@ namespace Inverse
                 effects = SpriteEffects.None;
             }
         }
-
+        //public void SetVertFlipped(bool state)
+        //{
+        //    if (state == true)
+        //    {
+        //        effects = SpriteEffects.FlipVertically;
+        //    }
+        //    else
+        //    {
+        //        effects = SpriteEffects.None;
+        //    }
+        //}
         public void Pause()
 
         {

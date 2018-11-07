@@ -41,7 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Collisions.cs" />
+    <Compile Include="AnimatedTexture.cs" />
     <Compile Include="GameOverScreen.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Sprite.cs" />
