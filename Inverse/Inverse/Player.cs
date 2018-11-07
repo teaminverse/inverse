@@ -16,7 +16,6 @@ namespace Inverse
         public Sprite playerSprite = new Sprite();
 
         Game1 game = null;
-        float runSpeed = 250f;
         public float jumpStrength = 50000f;
 
         //Collision collision = new Collision();
