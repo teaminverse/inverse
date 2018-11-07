@@ -41,6 +41,9 @@ namespace Inverse
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            AIE.StateManager.CreateState("SPLASH", new TitleScreen());
+            AIE.StateManager.CreateState("GAME", new MainGame());
+            AIE.StateManager.CreateState("GAMEOVER", new GameOverState());
         }
 
         /// <summary>
@@ -63,6 +66,7 @@ namespace Inverse
                 Exit();
 
             // TODO: Add your update logic here
+            AIE.StateManager.Update(Content, gameTime);
 
             base.Update(gameTime);
         }
@@ -73,9 +77,10 @@ namespace Inverse
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.DarkSlateGray);
 
             // TODO: Add your drawing code here
+            AIE.StateManager.Draw(spriteBatch);
 
             base.Draw(gameTime);
         }
