@@ -49,7 +49,7 @@ namespace Inverse
                 offset = new Vector2(leftEdge + width / 2, topEdge + height / 2);
             }
 
-            UpdateHitbox();
+            UpdateHitBox();
         }
         public void UpdateHitBox()
         {
