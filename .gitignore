@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 Inverse/Inverse/Inverse.csproj
+Inverse/Inverse/Collision.cs
