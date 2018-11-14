@@ -61,7 +61,7 @@ namespace Inverse
 
         public void Update(float deltaTime)
         {
-            animations[currentAnimation].UpdateFrame(deltaTime);
+            //animations[currentAnimation].UpdateFrame(deltaTime);
 
         }
 

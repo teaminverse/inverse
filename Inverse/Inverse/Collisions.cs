@@ -32,7 +32,7 @@ namespace Inverse
 
 
         // for upsidedown ground collision
-        Sprite CollideAbove(Game1 game, Sprite hero, Sprite platform)
+        Sprite CollideAbove(Sprite hero, Sprite platform)
         {
             
             if (IsColliding(hero, platform) == true && hero.velocity.Y < 0)
@@ -45,11 +45,11 @@ namespace Inverse
             return hero;
         }
         //for right way up ground collision
-        Sprite CollideBelow(Game1 game, Sprite platform, Sprite playerPrediction)
+        Sprite CollideBelow(Sprite hero, Sprite platform)
         {
             Sprite ground = platform;
 
-            if (IsColliding(playerPrediction, ground) == true && hero.velocity.Y > 0)
+            if (IsColliding(hero,platform ) == true && hero.velocity.Y > 0)
             {
                 hero.position.Y = ground.topEdge - hero.height + hero.offset.Y;
                 hero.velocity.Y = 0;
