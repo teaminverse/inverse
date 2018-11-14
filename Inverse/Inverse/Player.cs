@@ -31,7 +31,7 @@ namespace Inverse
 
             game = theGame;
             playerSprite.velocity = Vector2.Zero;
-            playerSprite.position = new Vector2(theGame.GraphicsDevice.Viewport.Width / 2, 0);
+            //playerSprite.position = new Vector2(theGame.GraphicsDevice.Viewport.Width / 2, 0);
         }
 
         public void Update(float deltaTime)
@@ -41,9 +41,10 @@ namespace Inverse
             playerSprite.UpdateHitBox();       
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Game1 theGame)
         {
             playerSprite.Draw(spriteBatch, game);
+            playerSprite.position = new Vector2(theGame.GraphicsDevice.Viewport.Width / 2, 0);
         }
 
         private void UpdateInput(float deltaTime)
