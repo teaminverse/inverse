@@ -18,7 +18,7 @@ namespace Inverse
         Game1 game = null;
         public float jumpStrength = 50000f;
 
-        //Collision collision = new Collision();
+        Collisions collision = new Collisions();
 
         public Player()
         {
@@ -61,8 +61,8 @@ namespace Inverse
 
             playerSprite.position += playerSprite.velocity * deltaTime;
 
-            //collision.game = game;
-            //playerSprite = collision.CollideWithPlatforms(playerSprite, deltaTime);
+            playerSprite = collision.CollideAbove(playerSprite, game.platform.platformSprite);
+            playerSprite = collision.CollideBelow(playerSprite, game.platform.platformSprite);
         }
     }
 }
