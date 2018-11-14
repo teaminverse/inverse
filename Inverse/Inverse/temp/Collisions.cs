@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Inverse
 {
+<<<<<<< HEAD
     class Collisions
 
 
@@ -62,3 +63,10 @@ namespace Inverse
         
 
     
+=======
+    class Collision
+    {
+
+    }
+}
+>>>>>>> 7317f9d48e379f9fc1cce2deb53fbdc308a395d3

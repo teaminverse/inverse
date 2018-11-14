@@ -61,13 +61,13 @@ namespace Inverse
 
         public void Update(float deltaTime)
         {
-            //animations[currentAnimation].UpdateFrame(deltaTime);
+            animations[currentAnimation].UpdateFrame(deltaTime);
 
         }
 
         public void Draw(SpriteBatch spriteBatch, Game1 game)
         {
-            spriteBatch.Draw(texture, new Vector2(100, 150), Color.White);
+            spriteBatch.Draw(texture, position, Color.White);
         }
 
         public void AddAnimation(AnimatedTexture animation, int xOffset = 0, int yOffset = 0)
@@ -87,17 +87,17 @@ namespace Inverse
                 effects = SpriteEffects.None;
             }
         }
-        //public void SetVertFlipped(bool state)
-        //{
-        //    if (state == true)
-        //    {
-        //        effects = SpriteEffects.FlipVertically;
-        //    }
-        //    else
-        //    {
-        //        effects = SpriteEffects.None;
-        //    }
-        //}
+        public void SetVertFlipped(bool state)
+        {
+           if (state == true)
+            {
+                effects = SpriteEffects.FlipVertically;
+           }
+            else
+            {
+               effects = SpriteEffects.None;
+           }
+        }
         public void Pause()
 
         {
