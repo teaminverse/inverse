@@ -22,6 +22,8 @@ namespace Inverse
         {
             game = theGame;
 
+            platformSprite.position = new Vector2(0, game.GraphicsDevice.Viewport.Height / 2);
+
             platformSprite.Load(content, "Platform (test)", true );         
         }
 
