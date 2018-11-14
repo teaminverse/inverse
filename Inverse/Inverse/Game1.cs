@@ -19,10 +19,9 @@ namespace Inverse
         SpriteBatch spriteBatch;
 
         Player player = new Player();
+        Platform platform = new Platform();
 
         public Vector2 gravity = new Vector2(0, 1500);
-
-        Camera2D camera = null;
 
         SpriteFont arialFont;
 
@@ -56,6 +55,7 @@ namespace Inverse
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             player.Load(Content, this);
+            platform.Load(Content, this);
 
             arialFont = Content.Load<SpriteFont>("arial");
 
@@ -65,8 +65,6 @@ namespace Inverse
 
             BoxingViewportAdapter viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height);
 
-            camera = new Camera2D(viewportAdapter);
-            camera.Position = new Vector2(0, graphics.GraphicsDevice.Viewport.Height);
         }
 
         /// <summary>
@@ -89,11 +87,11 @@ namespace Inverse
                 Exit();
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             player.Update(deltaTime);
+            platform.Update(deltaTime);
 
             AIE.StateManager.Update(Content, gameTime);
-
-            camera.Position = player.playerSprite.position - new Vector2(graphics.GraphicsDevice.Viewport.Width / 2, graphics.GraphicsDevice.Viewport.Height / 2);
 
             base.Update(gameTime);
         }
@@ -106,11 +104,9 @@ namespace Inverse
         {
             GraphicsDevice.Clear(Color.DarkSlateGray);
 
-            var viewMatrix = camera.GetViewMatrix();
-            var projectionMatrix = Matrix.CreateOrthographicOffCenter(0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0, 0f, -1f);
-
-            spriteBatch.Begin(transformMatrix: viewMatrix);
+            spriteBatch.Begin();
             player.Draw(spriteBatch);
+            platform.Draw(spriteBatch);
 
             spriteBatch.End();
 

@@ -67,7 +67,7 @@ namespace Inverse
 
         public void Draw(SpriteBatch spriteBatch, Game1 game)
         {
-            spriteBatch.Draw(texture, new Vector2(200, 200), Color.White);
+            spriteBatch.Draw(texture, new Vector2(100, 150), Color.White);
         }
 
         public void AddAnimation(AnimatedTexture animation, int xOffset = 0, int yOffset = 0)
