@@ -41,10 +41,10 @@ namespace Inverse
             playerSprite.UpdateHitBox();       
         }
 
-        public void Draw(SpriteBatch spriteBatch, Game1 theGame)
+        public void Draw(SpriteBatch spriteBatch)
         {
             playerSprite.Draw(spriteBatch, game);
-            playerSprite.position = new Vector2(theGame.GraphicsDevice.Viewport.Width / 2, 0);
+            playerSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width / 2, 0);
         }
 
         private void UpdateInput(float deltaTime)
