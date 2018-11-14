@@ -20,20 +20,21 @@ namespace Inverse
         {
             game = theGame;
 
-            AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
-            animation.Load(content, "obstacle", 1, 1);
+            obstacleSprite.position = new Vector2(0, game.GraphicsDevice.Viewport.Height / 2);
 
-            obstacleSprite.AddAnimation(animation, 0, 3);
+            obstacleSprite.Load(content, "Obstacle", true);
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
-        //    ObstacleSprite.Draw(spriteBatch);
+            obstacleSprite.Draw(spriteBatch, game);
         }
 
         public void Update(float deltaTime)
         {
-        //    collision.game = game;
-        //    obstacleSprite.UpdateHitbox();
+            //collision.game = game;
+            obstacleSprite.Update(deltaTime);
+            obstacleSprite.UpdateHitBox();
         }
 
     }
