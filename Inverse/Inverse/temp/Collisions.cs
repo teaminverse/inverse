@@ -7,11 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Inverse
 {
-<<<<<<< HEAD
     class Collisions
-
-
-
     {
         public bool IsColliding(Sprite hero, Sprite otherSprite)
         {
@@ -28,29 +24,35 @@ namespace Inverse
             return true;
         }
 
-        Sprite CollideAbove(Game1 game, Sprite hero, Vector2 GroundPos, Sprite playerPrediction)
+
+        //need to find platform edges??? 
+
+
+        // for upsidedown ground collision
+        Sprite CollideAbove(Sprite hero, Sprite platform)
         {
-            Sprite ground = ;
-            if (IsColliding(playerPrediction, ground) == true && hero.velocity.Y < 0)
+            
+            if (IsColliding(hero, platform) == true && hero.velocity.Y < 0)
             {
-                hero.position.Y = ground.topEdge + hero.offset.Y;
+                hero.position.Y = platform.bottomEdge + hero.offset.Y;
                 hero.velocity.Y = 0;
                 hero.canjump = true;
             }
 
             return hero;
         }
-
-        Sprite CollideBelow(Game1 game, Sprite hero, Vector2 GroundPos, Sprite playerPrediction)
+        //for right way up ground collision
+        Sprite CollideBelow(Sprite hero, Sprite platform)
         {
-            Sprite ground = ;
+            if (IsColliding(hero,platform ) == true && hero.velocity.Y > 0)
 
-
-        if (IsColliding(playerPrediction, ground) == true && hero.velocity.Y > 0)
             {
-                hero.position.Y = ground.bottomEdge + hero.offset.Y;
+
+                hero.position.Y = platform.topEdge - hero.height + hero.offset.Y;
                 hero.velocity.Y = 0;
                 hero.canjump = true;
+
+             
             }
 
             return hero;
@@ -63,10 +65,3 @@ namespace Inverse
         
 
     
-=======
-    class Collision
-    {
-
-    }
-}
->>>>>>> 7317f9d48e379f9fc1cce2deb53fbdc308a395d3

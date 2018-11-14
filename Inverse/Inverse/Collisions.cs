@@ -8,9 +8,6 @@ using Microsoft.Xna.Framework;
 namespace Inverse
 {
     class Collisions
-
-
-
     {
         public bool IsColliding(Sprite hero, Sprite otherSprite)
         {
@@ -48,10 +45,14 @@ namespace Inverse
         Sprite CollideBelow(Sprite hero, Sprite platform)
         {
             if (IsColliding(hero,platform ) == true && hero.velocity.Y > 0)
+
             {
+
                 hero.position.Y = platform.topEdge - hero.height + hero.offset.Y;
                 hero.velocity.Y = 0;
                 hero.canjump = true;
+
+             
             }
 
             return hero;
