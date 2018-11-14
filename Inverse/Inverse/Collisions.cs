@@ -47,11 +47,9 @@ namespace Inverse
         //for right way up ground collision
         Sprite CollideBelow(Sprite hero, Sprite platform)
         {
-            Sprite ground = platform;
-
             if (IsColliding(hero,platform ) == true && hero.velocity.Y > 0)
             {
-                hero.position.Y = ground.topEdge - hero.height + hero.offset.Y;
+                hero.position.Y = platform.topEdge - hero.height + hero.offset.Y;
                 hero.velocity.Y = 0;
                 hero.canjump = true;
             }
