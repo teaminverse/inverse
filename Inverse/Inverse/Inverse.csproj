@@ -42,9 +42,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AnimatedTexture.cs" />
+    <Compile Include="Colis.cs" />
     <Compile Include="GameOverScreen.cs" />
     <Compile Include="MainGame.cs" />
+<<<<<<< HEAD
     <Compile Include="Platform.cs" />
+=======
+    <Compile Include="Obstacle.cs" />
+>>>>>>> ff14b64dfe2b3b06db0273c27820c0c3a80298e7
     <Compile Include="Sprite.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Player.cs" />
