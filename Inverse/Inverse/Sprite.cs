@@ -61,7 +61,7 @@ namespace Inverse
 
         public void Update(float deltaTime)
         {
-            //animations[currentAnimation].UpdateFrame(deltaTime);
+            animations[currentAnimation].UpdateFrame(deltaTime);
 
         }
 
@@ -87,17 +87,17 @@ namespace Inverse
                 effects = SpriteEffects.None;
             }
         }
-        //public void SetVertFlipped(bool state)
-        //{
-        //    if (state == true)
-        //    {
-        //        effects = SpriteEffects.FlipVertically;
-        //    }
-        //    else
-        //    {
-        //        effects = SpriteEffects.None;
-        //    }
-        //}
+        public void SetVertFlipped(bool state)
+        {
+           if (state == true)
+            {
+                effects = SpriteEffects.FlipVertically;
+           }
+            else
+            {
+               effects = SpriteEffects.None;
+           }
+        }
         public void Pause()
 
         {
