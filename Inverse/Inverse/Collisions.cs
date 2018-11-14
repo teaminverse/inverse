@@ -26,19 +26,18 @@ namespace Inverse
 
             return true;
         }
+
+
         //need to find platform edges??? 
 
 
         // for upsidedown ground collision
-        Sprite CollideAbove(Game1 game, Sprite platform, Sprite playerPrediction)
+        Sprite CollideAbove(Game1 game, Sprite hero, Sprite platform)
         {
-            Sprite ground = platform;
-
-           
-
-            if (IsColliding(playerPrediction, ground) == true && hero.velocity.Y < 0)
+            
+            if (IsColliding(hero, platform) == true && hero.velocity.Y < 0)
             {
-                hero.position.Y = ground.bottomEdge + hero.offset.Y;
+                hero.position.Y = platform.bottomEdge + hero.offset.Y;
                 hero.velocity.Y = 0;
                 hero.canjump = true;
             }
@@ -50,10 +49,9 @@ namespace Inverse
         {
             Sprite ground = platform;
 
-
-        if (IsColliding(playerPrediction, ground) == true && hero.velocity.Y > 0)
+            if (IsColliding(playerPrediction, ground) == true && hero.velocity.Y > 0)
             {
-                hero.position.Y = ground.topEdge + hero.offset.Y;
+                hero.position.Y = ground.topEdge - hero.height + hero.offset.Y;
                 hero.velocity.Y = 0;
                 hero.canjump = true;
             }
