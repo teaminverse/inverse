@@ -26,28 +26,34 @@ namespace Inverse
 
             return true;
         }
+        //need to find platform edges??? 
 
-        Sprite CollideAbove(Game1 game, Sprite hero, Vector2 GroundPos, Sprite playerPrediction)
+
+        // for upsidedown ground collision
+        Sprite CollideAbove(Game1 game, Sprite platform, Sprite playerPrediction)
         {
-            Sprite ground = ;
+            Sprite ground = platform;
+
+           
+
             if (IsColliding(playerPrediction, ground) == true && hero.velocity.Y < 0)
             {
-                hero.position.Y = ground.topEdge + hero.offset.Y;
+                hero.position.Y = ground.bottomEdge + hero.offset.Y;
                 hero.velocity.Y = 0;
                 hero.canjump = true;
             }
 
             return hero;
         }
-
-        Sprite CollideBelow(Game1 game, Sprite hero, Vector2 GroundPos, Sprite playerPrediction)
+        //for right way up ground collision
+        Sprite CollideBelow(Game1 game, Sprite platform, Sprite playerPrediction)
         {
-            Sprite ground = ;
+            Sprite ground = platform;
 
 
         if (IsColliding(playerPrediction, ground) == true && hero.velocity.Y > 0)
             {
-                hero.position.Y = ground.bottomEdge + hero.offset.Y;
+                hero.position.Y = ground.topEdge + hero.offset.Y;
                 hero.velocity.Y = 0;
                 hero.canjump = true;
             }

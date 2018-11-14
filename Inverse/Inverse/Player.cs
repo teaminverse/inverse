@@ -57,8 +57,8 @@ namespace Inverse
 
             playerSprite.position += playerSprite.velocity * deltaTime;
 
-            /*collision.game = game;
-            playerSprite = collision.CollideWithPlatforms(playerSprite, deltaTime);*/
+            //collision.game = game;
+            //playerSprite = collision.CollideWithPlatforms(playerSprite, deltaTime);
         }
     }
 }
