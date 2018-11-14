@@ -51,6 +51,9 @@ namespace Inverse
         {
             Vector2 localAcceleration = game.gravity;
 
+            playerSprite.velocity += localAcceleration * deltaTime;
+            playerSprite.position += playerSprite.velocity * deltaTime;
+
             if (Keyboard.GetState().IsKeyDown(Keys.Space) == true)
             {
                 localAcceleration.Y -= jumpStrength;
