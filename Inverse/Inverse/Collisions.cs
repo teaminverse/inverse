@@ -31,9 +31,9 @@ namespace Inverse
 
 
         // for upsidedown ground collision
-        public Sprite CollideAbove(Sprite hero, Sprite platform)
+        public Sprite CollideAbove(Sprite hero, Sprite platform, float deltaTime)
         {
-            
+
             if (IsColliding(hero, platform) == true && hero.velocity.Y < 0)
             {
                 hero.position.Y = platform.bottomEdge + hero.offset.Y;
@@ -44,9 +44,9 @@ namespace Inverse
             return hero;
         }
         //for right way up ground collision
-        public Sprite CollideBelow(Sprite hero, Sprite platform)
+        public Sprite CollideBelow(Sprite hero, Sprite platform, float deltaTime)
         {
-            if (IsColliding(hero,platform ) == true && hero.velocity.Y > 0)
+            if (IsColliding(hero, platform) == true && hero.velocity.Y > 0)
 
             {
 
@@ -54,16 +54,50 @@ namespace Inverse
                 hero.velocity.Y = 0;
                 hero.canjump = true;
 
-             
+
             }
 
             return hero;
         }
+        //for upsidedown portal collision
+        public Sprite CollideAbovePortal(Sprite hero, Sprite portal, float deltaTime)
+        {
+
+            if (IsColliding(hero, portal) == true && hero.velocity.Y < 0)
+            {
+                hero.position.Y = portal.topEdge + hero.offset.Y;
+                hero.gravityUp = false;
+
+                //hero.velocity.Y = 0;
+                hero.canjump = true;
+            }
+
+            return hero;
+        }
+        //for right way up portal collision
+        public Sprite CollideBelowPortal(Sprite hero, Sprite portal, float deltaTime)
+        {
+            if (IsColliding(hero, portal) == true && hero.velocity.Y > 0)
+
+            {
+
+                hero.position.Y = portal.bottomEdge - hero.height + hero.offset.Y;
+                hero.gravityDown = false;
+
+                //hero.velocity.Y = 0;
+                hero.canjump = true;
+
+
+            }
+
+            return hero;
+
+        }
     }
 }
 
-                
-          
-        
 
-    
+
+
+
+
