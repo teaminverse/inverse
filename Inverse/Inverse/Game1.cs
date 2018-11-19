@@ -19,9 +19,9 @@ namespace Inverse
         SpriteBatch spriteBatch;
 
         Player player = new Player();
-        Platform platform = new Platform();
+        public Platform platform = new Platform();
 
-        public Vector2 gravity = new Vector2(0, 1500);
+        public Vector2 gravity = new Vector2(0, 7500);
 
         SpriteFont arialFont;
 

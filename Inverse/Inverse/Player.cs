@@ -16,9 +16,9 @@ namespace Inverse
         public Sprite playerSprite = new Sprite();
 
         Game1 game = null;
-        public float jumpStrength = 50000f;
+        public float jumpStrength = 5000f;
 
-        //Collision collision = new Collision();
+        Collisions collision = new Collisions();
 
         public Player()
         {
@@ -59,10 +59,12 @@ namespace Inverse
                 localAcceleration.Y -= jumpStrength;
             }
 
+            playerSprite.velocity += localAcceleration * deltaTime;
+
             playerSprite.position += playerSprite.velocity * deltaTime;
 
-            //collision.game = game;
-            //playerSprite = collision.CollideWithPlatforms(playerSprite, deltaTime);
+            //playerSprite = collision.CollideAbove(playerSprite, game.platform.platformSprite);
+            playerSprite = collision.CollideBelow(playerSprite, game.platform.platformSprite);
         }
     }
 }
