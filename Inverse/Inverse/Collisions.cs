@@ -31,7 +31,7 @@ namespace Inverse
 
 
         // for upsidedown ground collision
-        Sprite CollideAbove(Sprite hero, Sprite platform)
+        public Sprite CollideAbove(Sprite hero, Sprite platform)
         {
             
             if (IsColliding(hero, platform) == true && hero.velocity.Y < 0)
@@ -44,7 +44,7 @@ namespace Inverse
             return hero;
         }
         //for right way up ground collision
-        Sprite CollideBelow(Sprite hero, Sprite platform)
+        public Sprite CollideBelow(Sprite hero, Sprite platform)
         {
             if (IsColliding(hero,platform ) == true && hero.velocity.Y > 0)
 

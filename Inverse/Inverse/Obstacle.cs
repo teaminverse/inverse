@@ -33,7 +33,7 @@ namespace Inverse
         public void Update(float deltaTime)
         {
            collision.game = game;
-           //obstacleSprite.UpdateHitbox();
+           obstacleSprite.UpdateHitbox();
         }
 
     }
