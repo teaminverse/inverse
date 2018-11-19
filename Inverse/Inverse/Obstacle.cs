@@ -13,7 +13,7 @@ namespace Inverse
     public class Obstacle
     {
         public Sprite obstacleSprite = new Sprite();
-        //Collision collision = new Collision();
+        Collisions collision = new Collisions();
         Game1 game = null;
 
         public void Load(ContentManager content, Game1 theGame)
@@ -27,13 +27,13 @@ namespace Inverse
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-        //    ObstacleSprite.Draw(spriteBatch);
+           obstacleSprite.Draw(spriteBatch, game);
         }
 
         public void Update(float deltaTime)
         {
-        //    collision.game = game;
-        //    obstacleSprite.UpdateHitbox();
+           collision.game = game;
+           //obstacleSprite.UpdateHitbox();
         }
 
     }

@@ -14,7 +14,7 @@ namespace Inverse
     public class Platform
     {
         public Sprite platformSprite = new Sprite();
-        //Collision collision = new Collision();
+        Collisions collision = new Collisions();
         Game1 game = null;
         public Vector2 platform = new Vector2(0, 0);
 
@@ -34,7 +34,7 @@ namespace Inverse
 
         public void Update(float deltaTime)
         {
-            //collision.game = game;
+            collision.game = game;
             platformSprite.Update(deltaTime);
             platformSprite.UpdateHitBox();
         }
