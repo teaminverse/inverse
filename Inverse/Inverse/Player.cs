@@ -16,7 +16,7 @@ namespace Inverse
         public Sprite playerSprite = new Sprite();
 
         Game1 game = null;
-        public float jumpStrength = 5000f;
+        public float jumpStrength = 7000f;
 
         Collisions collision = new Collisions();
 
@@ -54,8 +54,9 @@ namespace Inverse
             playerSprite.velocity += localAcceleration * deltaTime;
             playerSprite.position += playerSprite.velocity * deltaTime;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) == true)
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && playerSprite.canJump == true)
             {
+                playerSprite.canJump = false;
                 localAcceleration.Y -= jumpStrength;
             }
 

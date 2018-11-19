@@ -38,7 +38,7 @@ namespace Inverse
             {
                 hero.position.Y = platform.bottomEdge + hero.offset.Y;
                 hero.velocity.Y = 0;
-                hero.canjump = true;
+                hero.canJump = true;
             }
 
             return hero;
@@ -52,7 +52,7 @@ namespace Inverse
 
                 hero.position.Y = platform.topEdge - hero.height + hero.offset.Y;
                 hero.velocity.Y = 0;
-                hero.canjump = true;
+                hero.canJump = true;
 
              
             }

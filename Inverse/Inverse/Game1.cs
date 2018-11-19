@@ -21,7 +21,7 @@ namespace Inverse
         Player player = new Player();
         public Platform platform = new Platform();
 
-        public Vector2 gravity = new Vector2(0, 7500);
+        public Vector2 gravity = new Vector2(0, 3500);
 
         SpriteFont arialFont;
 
