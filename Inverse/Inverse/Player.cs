@@ -16,7 +16,7 @@ namespace Inverse
         public Sprite playerSprite = new Sprite();
 
         Game1 game = null;
-        public float jumpStrength = 7000f;
+        public float jumpStrength = 25000f;
 
         Collisions collision = new Collisions();
 
@@ -44,15 +44,11 @@ namespace Inverse
         public void Draw(SpriteBatch spriteBatch)
         {
             playerSprite.Draw(spriteBatch, game);
-            playerSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width / 2, 0);
         }
 
         private void UpdateInput(float deltaTime)
         {
             Vector2 localAcceleration = game.gravity;
-
-            playerSprite.velocity += localAcceleration * deltaTime;
-            playerSprite.position += playerSprite.velocity * deltaTime;
 
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && playerSprite.canJump == true)
             {
