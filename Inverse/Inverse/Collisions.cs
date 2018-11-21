@@ -66,7 +66,7 @@ namespace Inverse
             if (IsColliding(hero, portal) == true && hero.velocity.Y < 0)
             {
                 hero.position.Y = portal.topEdge + hero.offset.Y;
-                hero.gravityUp = false;
+                //hero.gravityUp = false;
 
                 //hero.velocity.Y = 0;
                 hero.canJump = true;
@@ -82,7 +82,7 @@ namespace Inverse
             {
 
                 hero.position.Y = portal.bottomEdge - hero.height + hero.offset.Y;
-                hero.gravityDown = false;
+                //hero.gravityDown = false;
 
                 //hero.velocity.Y = 0;
                 hero.canJump = true;
