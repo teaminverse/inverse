@@ -43,11 +43,15 @@
   <ItemGroup>
     <Compile Include="AnimatedTexture.cs" />
     <Compile Include="Collisions.cs" />
+    <Compile Include="Extra Life.cs" />
     <Compile Include="GameOverScreen.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Obstacle.cs" />
+    <Compile Include="One-Hit Shield.cs" />
+    <Compile Include="Phaser.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="Portal.cs" />
+    <Compile Include="Slo-Mo.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Player.cs" />

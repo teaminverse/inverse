@@ -9,30 +9,29 @@ using Microsoft.Xna.Framework;
 
 namespace Inverse
 {
-    public class Portal
+    class Phaser
     {
-        public Sprite portalSprite = new Sprite();
+        public Sprite phaserSprite = new Sprite();
         Collisions collision = new Collisions();
         Game1 game = null;
 
         public void Load(ContentManager content, Game1 theGame)
         {
             game = theGame;
-            portalSprite.Load(content, "Portal #1", true);
-            portalSprite.velocity = Vector2.Zero; portalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width / 2, game.GraphicsDevice.Viewport.Height / 2);
+            phaserSprite.Load(content, "phaser", true);
 
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            portalSprite.Draw(spriteBatch, game);
+            phaserSprite.Draw(spriteBatch, game);
             // Random generation off screen moving into view
         }
 
         public void Update(float deltaTime)
         {
             collision.game = game;
-            portalSprite.Update(deltaTime);
-            portalSprite.UpdateHitBox();
+            phaserSprite.Update(deltaTime);
+            phaserSprite.UpdateHitBox();
         }
     }
 }
