@@ -14,7 +14,7 @@ namespace Inverse
     public class Player
     {
         public Sprite playerSprite = new Sprite();
-
+        public bool gravDown = true;
         Game1 game = null;
         public float jumpStrength = 25000f;
 
@@ -27,7 +27,7 @@ namespace Inverse
 
         public void Load(ContentManager content, Game1 theGame)
         {
-            playerSprite.Load(content, "hero", true);           
+            playerSprite.Load(content, "hero", true);
 
             game = theGame;
             playerSprite.velocity = Vector2.Zero;
@@ -38,7 +38,7 @@ namespace Inverse
         {
             UpdateInput(deltaTime);
             playerSprite.Update(deltaTime);
-            playerSprite.UpdateHitBox();       
+            playerSprite.UpdateHitBox();
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -48,20 +48,43 @@ namespace Inverse
 
         private void UpdateInput(float deltaTime)
         {
-            Vector2 localAcceleration = game.gravity;
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && playerSprite.canJump == true)
+            if(gravDown == true)
             {
-                playerSprite.canJump = false;
-                localAcceleration.Y -= jumpStrength;
+
+                playerSprite = collision.CollideBelow(playerSprite, game.platform.platformSprite, deltaTime);
+
+                Vector2 localAcceleration = game.gravity;
+
+                if (Keyboard.GetState().IsKeyDown(Keys.Space) && playerSprite.canJump == true)
+                {
+                    playerSprite.canJump = false;
+                    localAcceleration.Y -= jumpStrength;
+                }
+
+                playerSprite.velocity += localAcceleration * deltaTime;
+                playerSprite.position += playerSprite.velocity * deltaTime;
+
+
+
+            }
+            else
+            {
+                playerSprite = collision.CollideAbove(playerSprite, game.platform.platformSprite, deltaTime);
+                Vector2 localAcceleration = -game.gravity;
+
+                if (Keyboard.GetState().IsKeyDown(Keys.Space) && playerSprite.canJump == true)
+
+                {
+                    playerSprite.canJump = false;
+                    localAcceleration.Y += jumpStrength;
+
+                }
+
+                playerSprite.velocity += localAcceleration * deltaTime;
+                playerSprite.position += playerSprite.velocity * deltaTime;
+
             }
 
-            playerSprite.velocity += localAcceleration * deltaTime;
-
-            playerSprite.position += playerSprite.velocity * deltaTime;
-
-            playerSprite = collision.CollideAbove(playerSprite, game.platform.platformSprite, deltaTime);
-            playerSprite = collision.CollideBelow(playerSprite, game.platform.platformSprite, deltaTime);
         }
     }
 }
