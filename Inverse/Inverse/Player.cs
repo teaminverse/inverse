@@ -31,7 +31,7 @@ namespace Inverse
 
             game = theGame;
             playerSprite.velocity = Vector2.Zero;
-            //playerSprite.position = new Vector2(theGame.GraphicsDevice.Viewport.Width / 2, 0);
+            playerSprite.position = new Vector2(50, 150);
         }
 
         public void Update(float deltaTime)
@@ -60,8 +60,8 @@ namespace Inverse
 
             playerSprite.position += playerSprite.velocity * deltaTime;
 
-            //playerSprite = collision.CollideAbove(playerSprite, game.platform.platformSprite);
-            playerSprite = collision.CollideBelow(playerSprite, game.platform.platformSprite);
+            playerSprite = collision.CollideAbove(playerSprite, game.platform.platformSprite, deltaTime);
+            playerSprite = collision.CollideBelow(playerSprite, game.platform.platformSprite, deltaTime);
         }
     }
 }
