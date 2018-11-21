@@ -93,6 +93,15 @@ namespace Inverse
             return hero;
 
         }
+
+        //public Sprite CollideObstacle(Sprite hero, Sprite Obstacle, float deltaTime)
+        //{
+        //    if (IsColliding(hero, Obstacle) == true && hero.velocity.Y > 0)
+         //   {
+        //        hero.position.Y = Obstacle.rightEdge - hero.height + hero.offset.Y;
+         //   }
+
+       // }
     }
 }
 

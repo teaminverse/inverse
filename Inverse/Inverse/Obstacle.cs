@@ -35,7 +35,7 @@ namespace Inverse
            collision.game = game;
            
 
-          //obstacleSprite.UpdateHitbox();
+          obstacleSprite.UpdateHitBox();
 
         }
 
