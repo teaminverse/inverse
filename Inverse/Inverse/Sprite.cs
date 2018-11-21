@@ -15,7 +15,7 @@ namespace Inverse
         public Vector2 velocity = Vector2.Zero;
         public Vector2 offset = Vector2.Zero;
 
-        public bool canjump = false;
+        public bool canJump = false;
 
         Texture2D texture;
 

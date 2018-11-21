@@ -7,37 +7,31 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-
 namespace Inverse
 {
-    public class Obstacle
+    public class Portal
     {
-        public Sprite obstacleSprite = new Sprite();
+        public Sprite portalSprite = new Sprite();
         Collisions collision = new Collisions();
         Game1 game = null;
 
         public void Load(ContentManager content, Game1 theGame)
         {
             game = theGame;
+            portalSprite.Load(content, "Portal #1", true);
 
-            AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
-            animation.Load(content, "obstacle", 1, 1);
-
-            obstacleSprite.AddAnimation(animation, 0, 3);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-           obstacleSprite.Draw(spriteBatch, game);
+            portalSprite.Draw(spriteBatch, game);
+            // Random generation off screen moving into view
         }
 
         public void Update(float deltaTime)
         {
-           collision.game = game;
-           
-
-          obstacleSprite.UpdateHitbox();
-
+            collision.game = game;
+            portalSprite.Update(deltaTime);
+            portalSprite.UpdateHitBox();
         }
-
     }
 }
