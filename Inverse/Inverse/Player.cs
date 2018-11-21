@@ -27,7 +27,12 @@ namespace Inverse
 
         public void Load(ContentManager content, Game1 theGame)
         {
-            playerSprite.Load(content, "hero", true);           
+            playerSprite.Load(content, "hero", true);
+
+            AnimatedTexture animation = new AnimatedTexture(playerSprite.offset, 0, 1, 1);
+            animation.Load(content, "walk (1)", 12, 20);
+            playerSprite.AddAnimation(animation, 0, -5);
+            playerSprite.Play();
 
             game = theGame;
             playerSprite.velocity = Vector2.Zero;
@@ -49,6 +54,7 @@ namespace Inverse
         private void UpdateInput(float deltaTime)
         {
             Vector2 localAcceleration = game.gravity;
+            playerSprite.Play();
 
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && playerSprite.canJump == true)
             {

@@ -18,8 +18,9 @@ namespace Inverse
         public void Load(ContentManager content, Game1 theGame)
         {
             game = theGame;
-            portalSprite.Load(content, "Portal #1", true);
-            portalSprite.velocity = Vector2.Zero; portalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width / 2, game.GraphicsDevice.Viewport.Height / 2);
+            portalSprite.Load(content, "Portal", true);
+            portalSprite.velocity = Vector2.Zero;
+            portalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width / 2, game.GraphicsDevice.Viewport.Height / 2);
 
         }
         public void Draw(SpriteBatch spriteBatch)
