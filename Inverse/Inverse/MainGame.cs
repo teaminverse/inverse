@@ -12,8 +12,19 @@ namespace Inverse
 {
     public class MainGame : AIE.State
     {
-        bool isLoaded = false;
+
+        GraphicsDeviceManager graphics;
+        SpriteBatch spriteBatch;
+
+        Player player = new Player();
+        public Platform platform = new Platform();
+
+        public Vector2 gravity = new Vector2(0, 1000);
+
         SpriteFont font = null;
+
+        bool isLoaded = false;
+
         public MainGame() : base()
         {
         }
