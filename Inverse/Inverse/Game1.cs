@@ -20,7 +20,7 @@ namespace Inverse
 
         Player player = new Player();
         public Platform platform = new Platform();
-
+        public Portal portal = new Portal();
         public Vector2 gravity = new Vector2(0, 1000);
 
         SpriteFont arialFont;
@@ -56,6 +56,7 @@ namespace Inverse
 
             player.Load(Content, this);
             platform.Load(Content, this);
+            portal.Load(Content, this);
 
             arialFont = Content.Load<SpriteFont>("arial");
 
@@ -90,6 +91,7 @@ namespace Inverse
 
             player.Update(deltaTime);
             platform.Update(deltaTime);
+            portal.Update(deltaTime);
 
             AIE.StateManager.Update(Content, gameTime);
 
@@ -107,6 +109,7 @@ namespace Inverse
             spriteBatch.Begin();
             player.Draw(spriteBatch);
             platform.Draw(spriteBatch);
+            portal.Draw(spriteBatch);
 
             spriteBatch.End();
 
