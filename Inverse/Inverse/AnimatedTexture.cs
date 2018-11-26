@@ -28,7 +28,7 @@ namespace Inverse
         public float Rotation, Scale, Depth;
         public Vector2 Origin;
 
-        Game1 game = null;
+        //MainGame game = null;
 
         public AnimatedTexture(Vector2 origin, float rotation,
             float scale, float depth)

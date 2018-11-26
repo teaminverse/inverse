@@ -13,10 +13,10 @@ namespace Inverse
     {
         public Sprite sloMoSprite = new Sprite();
         Collisions collision = new Collisions();
-        Game1 game = null;
+        MainGame game = null;
         float sloMo = 0;
 
-        public void Load(ContentManager content, Game1 theGame)
+        public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame;
 
@@ -34,7 +34,7 @@ namespace Inverse
         {
             collision.game = game;
 
-            sloMoSprite.velocity = new Vector2(sloMoSpeed, 0) * deltaTime;
+           // sloMoSprite.velocity = new Vector2(sloMoSpeed, 0) * deltaTime;
             sloMoSprite.position += sloMoSprite.velocity * deltaTime;
 
             //obstacleSprite.UpdateHitbox();

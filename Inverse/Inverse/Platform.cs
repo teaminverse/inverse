@@ -15,16 +15,25 @@ namespace Inverse
     {
         public Sprite platformSprite = new Sprite();
         Collisions collision = new Collisions();
-        Game1 game = null;
+        MainGame game = null;
         public Vector2 platform = new Vector2(0, 0);
 
-        public void Load(ContentManager content, Game1 theGame)
+        public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame;
 
-            platformSprite.position = new Vector2(0, game.GraphicsDevice.Viewport.Height / 2);
+            platformSprite.Load(content, "Platform (test)", true );
+            
 
-            platformSprite.Load(content, "Platform (test)", true );         
+            AnimatedTexture animation = new AnimatedTexture(platformSprite.offset, 0, 1, 1);
+            animation.Load(content, "walk (1)", 12, 20);
+            platformSprite.AddAnimation(animation, 0, -5);
+            platformSprite.Play();
+            //playerSprite.Pause();
+
+            game = theGame;
+            platformSprite.velocity = Vector2.Zero;
+            platformSprite.position = new Vector2(0, game.GraphicsDevice.Viewport.Height / 2);
         }
 
         public void Draw(SpriteBatch spriteBatch)

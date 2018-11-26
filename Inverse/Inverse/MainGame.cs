@@ -1,57 +1,91 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
+using MonoGame.Extended.ViewportAdapters;
+using System.Collections;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
+using System.Collections.Generic;
 
 namespace Inverse
 {
-    public class MainGame : AIE.State
+    public class MainGame : Game
     {
-
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         Player player = new Player();
         public Platform platform = new Platform();
-
+        public Portal portal = new Portal();
         public Vector2 gravity = new Vector2(0, 1000);
 
-        SpriteFont font = null;
+        SpriteFont arialFont;
 
-        bool isLoaded = false;
 
-        public MainGame() : base()
+        public MainGame()
         {
+            graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
         }
-        public override void Update(ContentManager content, GameTime gameTime)
-        {
-            if (isLoaded == false)
-            {
-                isLoaded = true;
-                font = content.Load<SpriteFont>("Arial");
-            }
 
-            /*if (Keyboard.GetState().IsKeyDown(Keys.Enter) == true)
-            {
-                AIE.StateManager.ChangeState("GAMEOVER");
-            }*/
-        }
-        public override void Draw(SpriteBatch spriteBatch)
+        protected override void Initialize()
         {
+            base.Initialize();
+        }
+
+        protected override void LoadContent()
+        {
+            // Create a new SpriteBatch, which can be used to draw textures.
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+             
+            player.Load(Content, this);
+            platform.Load(Content, this);
+            portal.Load(Content, this);
+
+            arialFont = Content.Load<SpriteFont>("arial");
+
+            AIE.StateManager.CreateState("SPLASH", new TitleScreen());
+            AIE.StateManager.CreateState("GAME", new GameState());
+            AIE.StateManager.CreateState("GAMEOVER", new GameOverState());
+
+        }
+
+        protected override void UnloadContent()
+        {
+            // TODO: Unload any non ContentManager content here
+        }
+
+        protected override void Update(GameTime gameTime)
+        {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            player.Update(deltaTime);
+            platform.Update(deltaTime);
+            portal.Update(deltaTime);
+
+            AIE.StateManager.Update(Content, gameTime);
+
+            base.Update(gameTime);
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.DarkSlateGray);
+
             spriteBatch.Begin();
-            spriteBatch.DrawString(font, "Game State",
-            new Vector2(200, 200), Color.White);
+            player.Draw(spriteBatch);
+            platform.Draw(spriteBatch);
+            portal.Draw(spriteBatch);
+
             spriteBatch.End();
-        }
-        public override void CleanUp()
-        {
-            font = null;
-            isLoaded = false;
+
+            AIE.StateManager.Draw(spriteBatch);
+
+            base.Draw(gameTime);
         }
     }
 }

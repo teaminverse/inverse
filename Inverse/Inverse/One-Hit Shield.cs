@@ -13,10 +13,10 @@ namespace Inverse
     {
         public Sprite oneHitShieldSprite = new Sprite();
         Collisions collision = new Collisions();
-        Game1 game = null;
+        MainGame game = null;
         float oneHitShieldSpeed = 0;
 
-        public void Load(ContentManager content, Game1 theGame)
+        public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame;
 

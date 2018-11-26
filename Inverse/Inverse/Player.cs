@@ -15,7 +15,7 @@ namespace Inverse
     {
         public Sprite playerSprite = new Sprite();
         public bool gravDown = true;
-        Game1 game = null;
+        MainGame game = null;
         public float jumpStrength = 25000f;
 
         Collisions collision = new Collisions();
@@ -25,9 +25,16 @@ namespace Inverse
 
         }
 
-        public void Load(ContentManager content, Game1 theGame)
+        public void Load(ContentManager content, MainGame theGame)
         {
             playerSprite.Load(content, "hero", true);
+
+            AnimatedTexture animation = new AnimatedTexture(playerSprite.offset, 0, 1, 1);
+            animation.Load(content, "walk (1)", 12, 20);
+            playerSprite.AddAnimation(animation, 0, -5);
+            playerSprite.Play();
+            //playerSprite.Pause();
+
 
             game = theGame;
             playerSprite.velocity = Vector2.Zero;
@@ -48,6 +55,15 @@ namespace Inverse
 
         private void UpdateInput(float deltaTime)
         {
+
+            /*if (collision.IsColliding(playerSprite, game.platform.platformSprite) == true)
+            {
+                playerSprite.Play();
+            }
+            else
+            {
+                playerSprite.Pause();
+            }*/
             if(gravDown == true)
             {
 
