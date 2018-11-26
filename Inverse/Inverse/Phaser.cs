@@ -38,7 +38,7 @@ namespace Inverse
             phaserSprite.position += phaserSprite.velocity * deltaTime;
 
 
-            //obstacleSprite.UpdateHitbox();
+            phaserSprite.UpdateHitBox();
 
         }
     }

@@ -37,7 +37,7 @@ namespace Inverse
             extraLifeSprite.velocity = new Vector2(extraLifeSpeed, 0) * deltaTime;
             extraLifeSprite.position += extraLifeSprite.velocity * deltaTime;
 
-            //obstacleSprite.UpdateHitbox();
+            extraLifeSprite.UpdateHitBox();
 
         }
     }

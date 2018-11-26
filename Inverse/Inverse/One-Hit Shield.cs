@@ -37,7 +37,7 @@ namespace Inverse
             oneHitShieldSprite.velocity = new Vector2(oneHitShieldSpeed, 0) * deltaTime;
             oneHitShieldSprite.position += oneHitShieldSprite.velocity * deltaTime;
 
-            //obstacleSprite.UpdateHitbox();
+            oneHitShieldSprite.UpdateHitBox();
 
         }
     }
