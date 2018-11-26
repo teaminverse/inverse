@@ -20,12 +20,15 @@ namespace Inverse
         {
             game = theGame;
 
+           obstacleSprite.Load(content, "obstacle", false);
+
             AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
             animation.Load(content, "obstacle", 1, 1);
 
             obstacleSprite.AddAnimation(animation, 0, 3);
 
             obstacleSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 200);
+            obstacleSprite.Pause();
         }
         public void Draw(SpriteBatch spriteBatch)
         {
