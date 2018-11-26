@@ -15,7 +15,7 @@ namespace Inverse
         public Sprite obstacleSprite = new Sprite();
         Collisions collision = new Collisions();
         Game1 game = null;
-
+        float obstacleSpeed = 400f;
         public void Load(ContentManager content, Game1 theGame)
         {
             game = theGame;
@@ -24,6 +24,8 @@ namespace Inverse
             animation.Load(content, "obstacle", 1, 1);
 
             obstacleSprite.AddAnimation(animation, 0, 3);
+
+            obstacleSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 200);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -33,9 +35,13 @@ namespace Inverse
         public void Update(float deltaTime)
         {
            collision.game = game;
-           
 
-          obstacleSprite.UpdateHitBox();
+            obstacleSprite.velocity = new Vector2(obstacleSpeed, 0) * deltaTime;
+            obstacleSprite.position += obstacleSprite.velocity * deltaTime;
+
+            obstacleSprite.Update(deltaTime);
+            obstacleSprite.UpdateHitBox();
+
 
         }
 
