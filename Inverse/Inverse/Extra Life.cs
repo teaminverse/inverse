@@ -22,8 +22,8 @@ namespace Inverse
 
             AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
             animation.Load(content, "extraLife", 1, 1);
-
             extraLifeSprite.AddAnimation(animation, 0, 3);
+            extraLifeSprite.Pause();
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -36,7 +36,7 @@ namespace Inverse
 
             extraLifeSprite.velocity = new Vector2(extraLifeSpeed, 0) * deltaTime;
             extraLifeSprite.position += extraLifeSprite.velocity * deltaTime;
-
+            extraLifeSprite.Update(deltaTime);
             extraLifeSprite.UpdateHitBox();
 
         }

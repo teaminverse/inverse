@@ -9,6 +9,8 @@ namespace Inverse
 {
     class Collisions
     {
+        public Game1 game { get; internal set; }
+
         public bool IsColliding(Sprite hero, Sprite otherSprite)
         {
             // compare postions of each rectangle edge ie left edge to right edge
@@ -29,39 +31,83 @@ namespace Inverse
 
 
         // for upsidedown ground collision
-        Sprite CollideAbove(Sprite hero, Sprite platform)
+        public Sprite CollideAbove(Sprite hero, Sprite platform, float deltaTime)
         {
-            
+
             if (IsColliding(hero, platform) == true && hero.velocity.Y < 0)
             {
                 hero.position.Y = platform.bottomEdge + hero.offset.Y;
                 hero.velocity.Y = 0;
-                hero.canjump = true;
+                hero.canJump = true;
             }
 
             return hero;
         }
         //for right way up ground collision
-        Sprite CollideBelow(Sprite hero, Sprite platform)
+        public Sprite CollideBelow(Sprite hero, Sprite platform, float deltaTime)
         {
-            if (IsColliding(hero,platform ) == true && hero.velocity.Y > 0)
+            if (IsColliding(hero, platform) == true && hero.velocity.Y > 0)
 
             {
 
                 hero.position.Y = platform.topEdge - hero.height + hero.offset.Y;
                 hero.velocity.Y = 0;
-                hero.canjump = true;
+                hero.canJump = true;
 
-             
+
             }
 
             return hero;
         }
+        //for upsidedown portal collision
+        public Sprite CollideAbovePortal(Sprite hero, Sprite portal, float deltaTime)
+        {
+
+            if (IsColliding(hero, portal) == true && hero.velocity.Y < 0)
+            {
+                hero.position.Y = portal.topEdge + hero.offset.Y;
+                //hero.gravityUp = false;
+
+                //hero.velocity.Y = 0;
+                hero.canJump = true;
+            }
+
+            return hero;
+        }
+        //for right way up portal collision
+        public Sprite CollideBelowPortal(Sprite hero, Sprite portal, float deltaTime)
+        {
+            if (IsColliding(hero, portal) == true && hero.velocity.Y > 0)
+
+            {
+
+                hero.position.Y = portal.bottomEdge - hero.height + hero.offset.Y;
+                //hero.gravityDown = false;
+
+                //hero.velocity.Y = 0;
+                hero.canJump = true;
+
+
+            }
+
+            return hero;
+
+        }
+
+        //public Sprite CollideObstacle(Sprite hero, Sprite obstacle, float deltaTime)
+        //{
+        //    if (IsColliding(hero, obstacle) == true && hero.velocity.Y > 0)
+        //    {
+        //        hero.position.Y = obstacle.rightEdge - hero.height + hero.offset.Y;
+        //        hero.position.Y = obstacle.bottomEdge - hero.height + hero.offset.Y;
+        //    }
+
+      //  }
     }
 }
 
-                
-          
-        
 
-    
+
+
+
+

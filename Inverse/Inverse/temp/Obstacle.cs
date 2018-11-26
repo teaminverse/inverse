@@ -14,9 +14,9 @@ namespace Inverse
     {
         public Sprite obstacleSprite = new Sprite();
         Collisions collision = new Collisions();
-        MainGame game = null;
+        Game1 game = null;
         float obstacleSpeed = 400f;
-        public void Load(ContentManager content, MainGame theGame)
+        public void Load(ContentManager content, Game1 theGame)
         {
             game = theGame;
 
