@@ -9,7 +9,7 @@ namespace Inverse
 {
     class Collisions
     {
-        public Game1 game { get; internal set; }
+        public MainGame game { get; internal set; }
 
         public bool IsColliding(Sprite hero, Sprite otherSprite)
         {
