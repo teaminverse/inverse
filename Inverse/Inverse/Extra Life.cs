@@ -20,8 +20,6 @@ namespace Inverse
         {
             game = theGame;
 
-            extraLifeSprite.Load(content, "extraLife", false);
-
             AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
             animation.Load(content, "extraLife", 1, 1);
             extraLifeSprite.AddAnimation(animation, 0, 3);

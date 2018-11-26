@@ -20,13 +20,10 @@ namespace Inverse
         {
             game = theGame;
 
-            oneHitShieldSprite.Load(content, "oneHitShield", false);
-
             AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
             animation.Load(content, "oneHitShield", 1, 1);
 
             oneHitShieldSprite.AddAnimation(animation, 0, 3);
-            oneHitShieldSprite.Pause();
         }
         public void Draw(SpriteBatch spriteBatch)
         {
