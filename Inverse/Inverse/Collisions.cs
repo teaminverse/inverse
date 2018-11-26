@@ -94,15 +94,14 @@ namespace Inverse
 
         }
 
-        //public Sprite CollideObstacle(Sprite hero, Sprite obstacle, float deltaTime)
+        //public Sprite CollideObstacle(Sprite hero, Sprite Obstacle, float deltaTime)
         //{
-        //    if (IsColliding(hero, obstacle) == true && hero.velocity.Y > 0)
-        //    {
-        //        hero.position.Y = obstacle.rightEdge - hero.height + hero.offset.Y;
-        //        hero.position.Y = obstacle.bottomEdge - hero.height + hero.offset.Y;
-        //    }
+        //    if (IsColliding(hero, Obstacle) == true && hero.velocity.Y > 0)
+         //   {
+        //        hero.position.Y = Obstacle.rightEdge - hero.height + hero.offset.Y;
+         //   }
 
-      //  }
+       // }
     }
 }
 
