@@ -20,10 +20,14 @@ namespace Inverse
         {
             game = theGame;
 
-            AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
-            animation.Load(content, "sloMo", 1, 1);
+            sloMoSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 200);
 
-            sloMoSprite.AddAnimation(animation, 0, 3);
+            sloMoSprite.Load(content, "sloMo", false);
+
+            AnimatedTexture animation = new AnimatedTexture(sloMoSprite.offset, 0, 1, 1);
+            animation.Load(content, "sloMo", 1, 1);
+            sloMoSprite.AddAnimation(animation, 0, 0);
+            sloMoSprite.Pause();
         }
         public void Draw(SpriteBatch spriteBatch)
         {

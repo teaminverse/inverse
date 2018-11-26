@@ -18,14 +18,16 @@ namespace Inverse
 
         public void Load(ContentManager content, MainGame theGame)
         {
-            portalSprite.Load(content, "Portal", true);
-            AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
-            animation.Load(content, "Portal", 1, 1);
-
             game = theGame;
-            portalSprite.velocity = Vector2.Zero;
+
             portalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 200);
 
+            portalSprite.Load(content, "Portal", false);
+
+            AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
+            animation.Load(content, "Portal", 1, 1);
+            portalSprite.AddAnimation(animation, 0, 0);
+            portalSprite.Pause();
         }
         public void Draw(SpriteBatch spriteBatch)
         {

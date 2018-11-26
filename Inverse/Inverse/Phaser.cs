@@ -20,10 +20,14 @@ namespace Inverse
         {
             game = theGame;
 
-            AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
-            animation.Load(content, "phaser", 1, 1);
+            phaserSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 200);
 
-            phaserSprite.AddAnimation(animation, 0, 3);
+            phaserSprite.Load(content, "phaser", false);
+
+            AnimatedTexture animation = new AnimatedTexture(phaserSprite.offset, 0, 1, 1);
+            animation.Load(content, "phaser", 1, 1);
+            phaserSprite.AddAnimation(animation, 0, 0);
+            phaserSprite.Pause();
         }
         public void Draw(SpriteBatch spriteBatch)
         {
