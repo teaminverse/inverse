@@ -45,7 +45,7 @@
     <Compile Include="Collisions.cs" />
     <Compile Include="Extra Life.cs" />
     <Compile Include="GameOverScreen.cs" />
-    <Compile Include="MainGame.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="Obstacle.cs" />
     <Compile Include="One-Hit Shield.cs" />
     <Compile Include="Phaser.cs" />
@@ -53,7 +53,7 @@
     <Compile Include="Portal.cs" />
     <Compile Include="Slo-Mo.cs" />
     <Compile Include="Sprite.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="MainGame.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
