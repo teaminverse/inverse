@@ -14,7 +14,7 @@ namespace Inverse
         public Sprite portalSprite = new Sprite();
         Collisions collision = new Collisions();
         MainGame game = null;
-        float portalSpeed = -0;
+        float portalSpeed = 0;
 
         public void Load(ContentManager content, MainGame theGame)
         {
@@ -44,6 +44,8 @@ namespace Inverse
 
             portalSprite.Update(deltaTime);
             portalSprite.UpdateHitBox();
+
         }
+
     }
 }
