@@ -65,7 +65,7 @@ namespace Inverse
 
         }
 
-        public void Draw(SpriteBatch spriteBatch, Game1 game)
+        public void Draw(SpriteBatch spriteBatch, MainGame game)
         {
             animations[currentAnimation].DrawFrame(spriteBatch, position + animationOffsets[currentAnimation], effects);
         }
