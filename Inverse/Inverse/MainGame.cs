@@ -20,6 +20,9 @@ namespace Inverse
         public Portal portal = new Portal();
         public Vector2 gravity = new Vector2(0, 1000);
 
+        public LevelGenerator levelGenerator = new LevelGenerator();
+        public ArrayList spawnedObjects = new ArrayList();
+
         SpriteFont arialFont;
 
 
@@ -42,6 +45,7 @@ namespace Inverse
             player.Load(Content, this);
             platform.Load(Content, this);
             portal.Load(Content, this);
+            levelGenerator.Load(Content, this);
 
             arialFont = Content.Load<SpriteFont>("arial");
 
@@ -66,10 +70,20 @@ namespace Inverse
             player.Update(deltaTime);
             platform.Update(deltaTime);
             portal.Update(deltaTime);
+            levelGenerator.Update(deltaTime);
 
-            AIE.StateManager.Update(Content, gameTime);
 
-            base.Update(gameTime);
+            foreach (object o in this.spawnedObjects)
+            {
+                if (o is Obstacle)
+                {
+                    Obstacle thisoObstacle = (Obstacle)o;
+                }
+
+                AIE.StateManager.Update(Content, gameTime);
+
+                base.Update(gameTime);
+            }
         }
 
         protected override void Draw(GameTime gameTime)

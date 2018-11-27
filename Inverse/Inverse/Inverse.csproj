@@ -46,6 +46,7 @@
     <Compile Include="Extra Life.cs" />
     <Compile Include="GameOverScreen.cs" />
     <Compile Include="GameState.cs" />
+    <Compile Include="LevelGenerator.cs" />
     <Compile Include="Obstacle.cs" />
     <Compile Include="One-Hit Shield.cs" />
     <Compile Include="Phaser.cs" />
