@@ -9,8 +9,6 @@ using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using MonoGame.Extended.ViewportAdapters;
 using System.Collections;
-using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 
 namespace Inverse
@@ -22,8 +20,6 @@ namespace Inverse
         Random rand = new Random();
 
         ContentManager content = null;
-
-        
 
         float objectSpawnTime;
         float objectDefaultSpawnTime = 1.0f;
@@ -41,25 +37,24 @@ namespace Inverse
             spawnableThings.Add(new Portal());
             spawnableThings.Add(new One_Hit_Shield());
             spawnableThings.Add(new Phaser());
+            spawnableThings.Add(new Slo_Mo());
             objectSpawnTime = objectDefaultSpawnTime;
 
             nextThing = rand.Next(1, spawnableThings.Count);
-
-            
         }
 
         public void Update(float deltaTime)
         {
             // Decreasing our objectspawntimer
-            objectSpawnTime -= deltaTime;
+           /* objectSpawnTime -= deltaTime;
 
-            // if timer is expired
+            // If timer is expired
             if (objectSpawnTime <= 0)
             {
-                //spawn an object
+                // Spawn an object
                 game.spawnedObjects.Add(spawnableThings[nextThing]);
 
-                // activate load function
+                // Activate load function
                 if (game.spawnedObjects[game.spawnedObjects.Count] is Obstacle)
                 {
                     Obstacle thisObstacle = (Obstacle)game.spawnedObjects[game.spawnedObjects.Count];
@@ -72,12 +67,12 @@ namespace Inverse
                     thisPortal.Load(content, game);
                 }
 
-                    //reset the timer 
+                // Reset the timer 
                 objectSpawnTime = objectDefaultSpawnTime; 
 
-                // randomize again for next thing
+                // Randomize again for next spawn
                 nextThing = rand.Next(1, spawnableThings.Count);
-            }
+            }*/
         }
     }
 }

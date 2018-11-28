@@ -39,6 +39,7 @@ namespace Inverse
             game = theGame;
             playerSprite.velocity = Vector2.Zero;
             playerSprite.position = new Vector2(50, 150);
+            playerSprite.gravDown = true; 
         }
 
         public void Update(float deltaTime)
@@ -56,17 +57,18 @@ namespace Inverse
         private void UpdateInput(float deltaTime)
         {
 
-            /*if (collision.IsColliding(playerSprite, game.platform.platformSprite) == true)
+            if (collision.IsColliding(playerSprite, game.platform.platformSprite) == true)
             {
                 playerSprite.Play();
             }
             else
             {
                 playerSprite.Pause();
-            }*/
-            if(gravDown == true)
-            {
+            }
 
+            if(playerSprite.gravDown == true)
+            {
+                playerSprite = collision.CollideBelowPortal(playerSprite, game.portal.portalSprite, deltaTime);
                 playerSprite = collision.CollideBelow(playerSprite, game.platform.platformSprite, deltaTime);
 
                 Vector2 localAcceleration = game.gravity;
@@ -77,14 +79,12 @@ namespace Inverse
                     localAcceleration.Y -= jumpStrength;
                 }
 
-                playerSprite.velocity += localAcceleration * deltaTime;
+                playerSprite.velocity += localAcceleration * deltaTime;               
                 playerSprite.position += playerSprite.velocity * deltaTime;
-
-
-
             }
             else
             {
+                playerSprite = collision.CollideAbovePortal(playerSprite, game.portal.portalSprite, deltaTime);
                 playerSprite = collision.CollideAbove(playerSprite, game.platform.platformSprite, deltaTime);
                 Vector2 localAcceleration = -game.gravity;
 
@@ -98,7 +98,6 @@ namespace Inverse
 
                 playerSprite.velocity += localAcceleration * deltaTime;
                 playerSprite.position += playerSprite.velocity * deltaTime;
-
             }
 
         }

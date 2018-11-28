@@ -14,16 +14,16 @@ namespace Inverse
         public Sprite portalSprite = new Sprite();
         Collisions collision = new Collisions();
         MainGame game = null;
-        float portalSpeed = 0;
+        public float portalSpeed = -20000;
 
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame;
 
-            portalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 200);
-
             portalSprite.Load(content, "Portal", false);
-
+            portalSprite.velocity = new Vector2(-300, 0);
+            portalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 196);
+          
             AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
             animation.Load(content, "Portal", 1, 1);
             portalSprite.AddAnimation(animation, 0, 0);

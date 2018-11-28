@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Inverse
 {
-    class Collisions
+    public class Collisions
     {
         public MainGame game { get; internal set; }
 
@@ -63,10 +63,10 @@ namespace Inverse
         public Sprite CollideAbovePortal(Sprite hero, Sprite portal, float deltaTime)
         {
 
-            if (IsColliding(hero, portal) == true && hero.velocity.Y < 0)
+            if (IsColliding(hero, portal) == true)
             {
                 hero.position.Y = portal.topEdge + hero.offset.Y;
-                //hero.gravityUp = false;
+                //hero.gravDown = false; 
 
                 //hero.velocity.Y = 0;
                 hero.canJump = true;
@@ -77,11 +77,11 @@ namespace Inverse
         //for right way up portal collision
         public Sprite CollideBelowPortal(Sprite hero, Sprite portal, float deltaTime)
         {
-            if (IsColliding(hero, portal) == true && hero.velocity.Y > 0)
+            if (IsColliding(hero, portal) == true)
 
             {
 
-                hero.position.Y = portal.bottomEdge - hero.height + hero.offset.Y;
+                hero.position.Y = portal.bottomEdge + hero.height + hero.offset.Y;
                 //hero.gravityDown = false;
 
                 //hero.velocity.Y = 0;
