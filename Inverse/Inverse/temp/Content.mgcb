@@ -176,21 +176,3 @@
 /processorParam:TextureFormat=Color
 /build:Obstacle3.png
 
-#begin Jump.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Jump.mp3
-
-#begin itemPickup.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:itemPickup.mp3
-
-#begin Portal.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Portal.mp3
-
