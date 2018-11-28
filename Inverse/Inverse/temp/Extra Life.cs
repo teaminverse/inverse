@@ -14,7 +14,7 @@ namespace Inverse
         public Sprite extraLifeSprite = new Sprite();
         Collisions collision = new Collisions();
         MainGame game = null;
-        float extraLifeSpeed = -400;
+        float extraLifeSpeed = 0;
 
         public void Load(ContentManager content, MainGame theGame)
         {
