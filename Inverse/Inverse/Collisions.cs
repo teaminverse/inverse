@@ -63,10 +63,10 @@ namespace Inverse
         public Sprite CollideAbovePortal(Sprite hero, Sprite portal, float deltaTime)
         {
 
-            if (IsColliding(hero, portal) == true)
+            if (IsColliding(hero, portal) == true && hero.velocity.Y < 0)
             {
                 hero.position.Y = portal.topEdge + hero.offset.Y;
-                //hero.gravDown = false; 
+                hero.gravDown = false; 
 
                 //hero.velocity.Y = 0;
                 hero.canJump = true;
