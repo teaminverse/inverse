@@ -30,7 +30,7 @@ namespace Inverse
             playerSprite.Load(content, "hero", true);
 
             AnimatedTexture animation = new AnimatedTexture(playerSprite.offset, 0, 1, 1);
-            animation.Load(content, "Run (spritesheet)", 10, 20);
+            animation.Load(content, "Run (spritesheet)", 10, 30);
             playerSprite.AddAnimation(animation, 0, -5);
             playerSprite.Play();
             //playerSprite.Pause();

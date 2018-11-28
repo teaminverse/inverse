@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AnimatedTexture.cs" />
+    <Compile Include="Background.cs" />
     <Compile Include="Collisions.cs" />
     <Compile Include="Extra Life.cs" />
     <Compile Include="GameOverScreen.cs" />
