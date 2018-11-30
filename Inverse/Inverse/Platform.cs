@@ -24,11 +24,11 @@ namespace Inverse
 
             platformSprite.position = new Vector2(0, game.GraphicsDevice.Viewport.Height / 2);
 
-            platformSprite.Load(content, "Platform (test)", false);
+            platformSprite.Load(content, "Inverse Platform", false);
             
 
             AnimatedTexture animation = new AnimatedTexture(platformSprite.offset, 0, 1, 1);
-            animation.Load(content, "Platform (test)", 1, 1);
+            animation.Load(content, "Inverse Platform", 1, 1);
             platformSprite.AddAnimation(animation, 0, 0);
             platformSprite.Pause();
         }
