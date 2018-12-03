@@ -29,6 +29,10 @@ namespace Inverse
         public int topEdge = 0;
         public int bottomEdge = 0;
 
+        public int leftCollisionOffset = 0;
+        public int rightCollisionOffset = 0;
+        public int vertCollisionOffset = 0;
+
         List<AnimatedTexture> animations = new List<AnimatedTexture>();
         List<Vector2> animationOffsets = new List<Vector2>();
         int currentAnimation = 0;
@@ -67,8 +71,19 @@ namespace Inverse
         }
 
         public void Draw(SpriteBatch spriteBatch, MainGame game)
-        {
-            animations[currentAnimation].DrawFrame(spriteBatch, position + animationOffsets[currentAnimation], effects);
+        {          
+            if (game.staticObject == true)
+            {
+                spriteBatch.Draw(texture, position, Color.White);
+            }
+            else if (game.staticObject == false)
+            {
+                animations[currentAnimation].DrawFrame(spriteBatch, position + animationOffsets[currentAnimation], effects);
+            }
+            if (game.debug == true)
+            {
+                game.DrawRectangle(new Rectangle(leftEdge, topEdge, width - rightCollisionOffset, height - vertCollisionOffset), Color.Red);
+            }
         }
 
         public void AddAnimation(AnimatedTexture animation, int xOffset = 0, int yOffset = 0)

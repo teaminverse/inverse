@@ -23,6 +23,7 @@ namespace Inverse
             portalSprite.Load(content, "Portal", false);
             portalSprite.velocity = new Vector2(-300, 0);
             portalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 196);
+            portalSprite.UpdateHitBox();
           
             AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
             animation.Load(content, "Portal", 1, 1);

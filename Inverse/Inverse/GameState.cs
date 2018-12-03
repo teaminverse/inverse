@@ -12,13 +12,6 @@ namespace Inverse
 {
     public class GameState : AIE.State
     {
-
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-
-        Player player = new Player();
-        public Platform platform = new Platform();
-
         public Vector2 gravity = new Vector2(0, 1000);
 
         SpriteFont font = null;
