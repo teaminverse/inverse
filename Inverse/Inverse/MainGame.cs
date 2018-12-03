@@ -22,8 +22,6 @@ namespace Inverse
         public Vector2 gravity = new Vector2(0, 1000);
         Background background = new Background();
         Background background2 = new Background();
-        Background background3 = new Background();
-        Background background4 = new Background();
         public LevelGenerator levelGenerator = new LevelGenerator();
         public ArrayList spawnedObjects = new ArrayList();
 
@@ -53,11 +51,9 @@ namespace Inverse
             platform.Load(Content, this);
             portal.Load(Content, this);
             levelGenerator.Load(Content, this);
-
             background.Load(Content, this);
             background2.Load(Content, this);
             background2.background.position.X = 737;
-            
 
             arialFont = Content.Load<SpriteFont>("arial");
 
@@ -87,8 +83,6 @@ namespace Inverse
             levelGenerator.Update(deltaTime);
             background.Update(deltaTime);
             background2.Update(deltaTime);
-            background3.Update(deltaTime);
-            background4.Update(deltaTime);
 
             foreach (object o in this.spawnedObjects)
             {
@@ -110,8 +104,6 @@ namespace Inverse
             spriteBatch.Begin();
             background.Draw(spriteBatch, this);
             background2.Draw(spriteBatch, this);
-            background3.Draw(spriteBatch, this);
-            background4.Draw(spriteBatch, this);
             player.Draw(spriteBatch);
             platform.Draw(spriteBatch);
             portal.Draw(spriteBatch);
