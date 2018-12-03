@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 
 namespace Inverse
 {
-    public class Blocks
+    public class Objects
     {
         MainGame game = null;
 

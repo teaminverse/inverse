@@ -20,14 +20,46 @@ namespace Inverse
         public Platform platform = new Platform();
         public Portal portal = new Portal();
         public Vector2 gravity = new Vector2(0, 1000);
+        public Collisions collisions = new Collisions();
+        public Extra_Life exLife = new Extra_Life();
         Background background = new Background();
         Background background2 = new Background();
         Background background3 = new Background();
         Background background4 = new Background();
-        public LevelGenerator levelGenerator = new LevelGenerator();
-        public ArrayList spawnedObjects = new ArrayList();
+        public Obstacle obstacle = new Obstacle();
+        public ObstacleSpawner obstacleSpawner = new ObstacleSpawner();
+
+        public bool debug = false;
+
+        public bool staticObject = false;
+
+        public float totalScore = 0.0f;
+        public int counter = 0;
 
         SpriteFont arialFont;
+
+        int lives = 3;
+        Texture2D heart = null;
+        Texture2D phaser = null;
+        Texture2D sloMo = null;
+        Texture2D oneHitShield = null;
+        Texture2D pub = null;
+        public bool powerUp = false;
+        public bool phaserPickUp = false;
+        public bool sloMoPickUp = false;
+        public bool oneHitShieldPickUp = false;
+
+        public Texture2D rect;
+
+        public void DrawRectangle(Rectangle coords, Color color)
+        {
+            if (rect == null)
+            {
+                rect = new Texture2D(GraphicsDevice, 1, 1);
+                rect.SetData(new[] { Color.White });
+            }
+            spriteBatch.Draw(rect, coords, color);
+        }
 
 
         public MainGame()
@@ -52,21 +84,25 @@ namespace Inverse
             player.Load(Content, this);
             platform.Load(Content, this);
             portal.Load(Content, this);
-            levelGenerator.Load(Content, this);
+            obstacleSpawner.Load(Content, this);
 
             background.Load(Content, this);
             background2.Load(Content, this);
             background2.background.position.X = 737;
-            
+            background3.Load(Content, this);
+            background4.Load(Content, this);
+            background4.background.position.X = 737;            
 
             arialFont = Content.Load<SpriteFont>("arial");
+            heart = Content.Load<Texture2D>("Heart");
+            phaser = Content.Load<Texture2D>("phaser");
+            sloMo = Content.Load<Texture2D>("sloMo");
+            oneHitShield = Content.Load<Texture2D>("oneHitShield");
+            pub = Content.Load<Texture2D>("powerUpBox");
 
             AIE.StateManager.CreateState("SPLASH", new TitleScreen());
             AIE.StateManager.CreateState("GAME", new GameState());
             AIE.StateManager.CreateState("GAMEOVER", new GameOverState());
-
-            
-
         }
 
         protected override void UnloadContent()
@@ -79,27 +115,31 @@ namespace Inverse
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if (Keyboard.GetState().IsKeyDown(Keys.F1))
+            {
+                debug = true;
+            }
+            else if (Keyboard.GetState().IsKeyUp(Keys.F1))
+            {
+                debug = false;
+            }
+
+            totalScore += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             player.Update(deltaTime);
             platform.Update(deltaTime);
             portal.Update(deltaTime);
-            levelGenerator.Update(deltaTime);
+            obstacleSpawner.Update(deltaTime);
             background.Update(deltaTime);
             background2.Update(deltaTime);
             background3.Update(deltaTime);
             background4.Update(deltaTime);
 
-            foreach (object o in this.spawnedObjects)
+            foreach (Obstacle obstacle in obstacleSpawner.spawnedObstacles)
             {
-                if (o is Obstacle)
-                {
-                    Obstacle thisoObstacle = (Obstacle)o;
-                }
-
-                AIE.StateManager.Update(Content, gameTime);
-
-                base.Update(gameTime);
+                obstacle.Update(deltaTime);
             }
         }
 
@@ -108,6 +148,45 @@ namespace Inverse
             GraphicsDevice.Clear(Color.DarkSlateGray);
             
             spriteBatch.Begin();
+            foreach (Obstacle obstacle in obstacleSpawner.spawnedObstacles)
+            {
+                obstacle.Draw(spriteBatch);
+            }
+
+            spriteBatch.DrawString(arialFont, "SCORE: " + AddToScore(), new Vector2(20, 20), Color.LightBlue);
+
+            if (debug == true)
+            {
+                spriteBatch.DrawString(arialFont, "Debug = " + debug.ToString(), new Vector2(20, 40), Color.Red);
+            }
+
+            int loopCount = 0;
+            while (loopCount < lives)
+            {
+                spriteBatch.Draw(heart, new Vector2(GraphicsDevice.Viewport.Width - 60 - loopCount * 40, 20), Color.White);
+                loopCount++;
+            }
+
+            spriteBatch.Draw(pub, new Vector2(GraphicsDevice.Viewport.Width - 100, 380), Color.White);
+
+            if (powerUp == false && phaserPickUp == true)
+            {
+                spriteBatch.Draw(phaser, new Vector2(GraphicsDevice.Viewport.Width - 80, 400), Color.White);
+                powerUp = true;
+            }
+
+            if (powerUp == false && sloMoPickUp == true)
+            {
+                spriteBatch.Draw(sloMo, new Vector2(GraphicsDevice.Viewport.Width - 80, 400), Color.White);
+                powerUp = true;
+            }
+
+            if (powerUp == false && oneHitShieldPickUp == true)
+            {
+                spriteBatch.Draw(oneHitShield, new Vector2(GraphicsDevice.Viewport.Width - 80, 400), Color.White);
+                powerUp = true;
+            }
+
             background.Draw(spriteBatch, this);
             background2.Draw(spriteBatch, this);
             background3.Draw(spriteBatch, this);
@@ -115,12 +194,23 @@ namespace Inverse
             player.Draw(spriteBatch);
             platform.Draw(spriteBatch);
             portal.Draw(spriteBatch);
-            
+
+            // Run the Draw function for each obstacle inside of our spawned obsatcles array
+
             spriteBatch.End();
 
             AIE.StateManager.Draw(spriteBatch);
 
             base.Draw(gameTime);
+        }
+        private string AddToScore()
+        {
+            totalScore += 0.15f;
+            if (collisions.IsColliding(player.playerSprite, exLife.extraLifeSprite))
+            {
+                totalScore += 200;
+            }
+            return totalScore.ToString();
         }
     }
 }
