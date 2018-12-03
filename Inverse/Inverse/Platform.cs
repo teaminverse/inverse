@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Inverse
 {
-    public class Platform
+     public class Platform
     {
         public Sprite platformSprite = new Sprite();
         Collisions collision = new Collisions();
@@ -35,6 +35,7 @@ namespace Inverse
 
         public void Draw(SpriteBatch spriteBatch)
         {
+
             platformSprite.Draw(spriteBatch, game);
         }
 

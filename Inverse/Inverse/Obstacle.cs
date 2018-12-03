@@ -12,37 +12,41 @@ namespace Inverse
 {
     public class Obstacle
     {
+        MainGame game = null;
         public Sprite obstacleSprite = new Sprite();
         Collisions collision = new Collisions();
-        MainGame game = null;
         float obstacleSpeed = 400f;
+
+        public string myTexture;
+
+        public float xSpeed = 0;
+        
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame;
 
             AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
-            animation.Load(content, "obstacle", 1, 1);
-
+            animation.Load(content, myTexture, 1, 1);
             obstacleSprite.AddAnimation(animation, 0, 3);
 
+            obstacleSprite.velocity = Vector2.Zero; 
             obstacleSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 200);
-        }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-           obstacleSprite.Draw(spriteBatch, game);
         }
 
         public void Update(float deltaTime)
         {
-           collision.game = game;
+            collision.game = game;
+            obstacleSprite.velocity = new Vector2(xSpeed, 0) * deltaTime;
 
-            obstacleSprite.velocity = new Vector2(obstacleSpeed, 0) * deltaTime;
             obstacleSprite.position += obstacleSprite.velocity * deltaTime;
 
             obstacleSprite.Update(deltaTime);
             obstacleSprite.UpdateHitBox();
+        }
 
-
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            obstacleSprite.Draw(spriteBatch, game);
         }
 
     }

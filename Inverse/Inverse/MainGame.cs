@@ -15,17 +15,37 @@ namespace Inverse
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        public bool debug = false;
+
         Player player = new Player();
+        Collisions collisions = new Collisions();
+        Extra_Life exLife = new Extra_Life();
+       
         public Platform platform = new Platform();
         public Portal portal = new Portal();
         public Vector2 gravity = new Vector2(0, 1000);
         //Background background = new Background();
+        public Obstacle obstacle = new Obstacle();
+        public ObstacleSpawner obstacleSpawner = new ObstacleSpawner();
+        
+        public bool staticObject = false; 
 
-        public LevelGenerator levelGenerator = new LevelGenerator();
-        public ArrayList spawnedObjects = new ArrayList();
+        public float totalScore = 0.0f;
+        public int counter = 0;
 
-        SpriteFont arialFont;
+        public SpriteFont arialFont;
 
+        public Texture2D rect;
+
+        public void DrawRectangle(Rectangle coords, Color color)
+        {
+            if (rect == null)
+            {
+                rect = new Texture2D(GraphicsDevice, 1, 1);
+                rect.SetData(new[] { Color.White });
+            }
+            spriteBatch.Draw(rect, coords, color);
+        }
 
         public MainGame()
         {
@@ -47,7 +67,8 @@ namespace Inverse
             platform.Load(Content, this);
             portal.Load(Content, this);
             //background.Load(Content, this);
-            levelGenerator.Load(Content, this);
+            obstacleSpawner.Load(Content, this);
+            
 
             arialFont = Content.Load<SpriteFont>("arial");
 
@@ -67,25 +88,29 @@ namespace Inverse
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if (Keyboard.GetState().IsKeyDown(Keys.F1))
+            {
+                debug = true;
+            }
+            else if (Keyboard.GetState().IsKeyUp(Keys.F1))
+            {
+                debug = false;
+            }
+
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            totalScore += (float)gameTime.ElapsedGameTime.TotalSeconds;
+      
             player.Update(deltaTime);
             platform.Update(deltaTime);
             portal.Update(deltaTime);
-            levelGenerator.Update(deltaTime);
+            obstacleSpawner.Update(deltaTime);
            // background.Update(deltaTime);
 
-
-            foreach (object o in this.spawnedObjects)
+           // Run the Update function for each obstacle inside of our spawned obstacles array 
+            foreach (Obstacle obstacle in obstacleSpawner.spawnedObstacles)
             {
-                if (o is Obstacle)
-                {
-                    Obstacle thisoObstacle = (Obstacle)o;
-                }
-
-                AIE.StateManager.Update(Content, gameTime);
-
-                base.Update(gameTime);
+                obstacle.Update(deltaTime);
             }
         }
 
@@ -96,14 +121,37 @@ namespace Inverse
             spriteBatch.Begin();
             player.Draw(spriteBatch);
             platform.Draw(spriteBatch);
+            //background.Draw(spriteBatch);
             portal.Draw(spriteBatch);
-          //  background.Draw(spriteBatch);
 
+            // Run the Draw function for each obstacle inside of our spawned obsatcles array
+            foreach (Obstacle obstacle in obstacleSpawner.spawnedObstacles)
+            {
+                obstacle.Draw(spriteBatch);
+            }
+
+            spriteBatch.DrawString(arialFont, "SCORE: " + AddToScore(), new Vector2(20, 20), Color.LightBlue);
+
+            if (debug == true)
+            {
+                spriteBatch.DrawString(arialFont, "Debug = " + debug.ToString(), new Vector2(20, 40), Color.Red);
+            }
+            
             spriteBatch.End();
 
             AIE.StateManager.Draw(spriteBatch);
 
             base.Draw(gameTime);
+        }
+
+        private string AddToScore()
+        {
+            totalScore +=0.15f;
+            if (collisions.IsColliding(player.playerSprite, exLife.extraLifeSprite))
+            {
+                totalScore += 200;
+            }
+            return totalScore.ToString();
         }
     }
 }

@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 
 namespace Inverse
 {
-    class Extra_Life
+    public class Extra_Life
     {
         public Sprite extraLifeSprite = new Sprite();
         Collisions collision = new Collisions();
