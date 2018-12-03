@@ -9,42 +9,35 @@ using System.Threading.Tasks;
 
 namespace Inverse
 {
+
+
     class Background
     {
-        public Sprite background = new Sprite();
+
+
+        public Sprite BGscroll = new Sprite();
 
         MainGame game = null;
-        float scrollMove = -40f;
+        float scrollMove = -40;
 
         public void Load(ContentManager content, MainGame theGame)
         {
-            background.Load(content, "BGflip", false);
             game = theGame;
 
+            BGscroll.Load(content, "BGflip", false);
+
             AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
-            animation.Load(content, "BGflip", 1, 0);
-            background.AddAnimation(animation, 0, 1);
-            background.Pause();
-
-            background.velocity = Vector2.Zero;
-            background.position = new Vector2(0, 0);
+            animation.Load(content, "BGflip", 1, 1);
+            BGscroll.AddAnimation(animation, 0, 0);
+            BGscroll.Pause();
         }
-        public void Update(float deltaTime)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            background.velocity = new Vector2(scrollMove, 0);
-
-            background.position += background.velocity * deltaTime;
-
-            background.Update(deltaTime);
-
-            if (background.position.X < -737)
-            {
-                background.position.X = 736;
-            }
+            BGscroll.Draw(spriteBatch, game);
         }
-        public void Draw(SpriteBatch spriteBatch,MainGame game)
+        public void Update(float deltaTime);
         {
-            background.Draw(spriteBatch,game);
+        
         }
 
 
