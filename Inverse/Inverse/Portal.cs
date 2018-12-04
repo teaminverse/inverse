@@ -15,13 +15,15 @@ namespace Inverse
         public Sprite portalSprite = new Sprite();
         Collisions collision = new Collisions();
 
+        public string textureToLoad = null;
+
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame;
 
             AnimatedTexture portalAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
-            portalAnimation.Load(content, game.myTexture, 1, 1);
-            portalSprite.AddAnimation(portalAnimation, 0, 3);
+            portalAnimation.Load(content, textureToLoad, 1, 1);
+            portalSprite.AddAnimation(portalAnimation, 0, 0);
 
             portalSprite.velocity = Vector2.Zero;
             portalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 196);
@@ -30,7 +32,7 @@ namespace Inverse
         public void Update(float deltaTime)
         {
             collision.game = game;
-            portalSprite.velocity = new Vector2(game.xSpeed, 0) * deltaTime;
+            portalSprite.velocity = new Vector2(portalSprite.xSpeed, 0) * deltaTime;
 
             portalSprite.position += portalSprite.velocity * deltaTime;
 

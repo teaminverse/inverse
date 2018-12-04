@@ -14,14 +14,16 @@ namespace Inverse
         MainGame game = null;
         public Sprite obstacleSprite = new Sprite();
         Collisions collision = new Collisions();
+
+        public string textureToLoad = null;
         
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame;
 
             AnimatedTexture obstacleAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
-            obstacleAnimation.Load(content, game.myTexture, 1, 1);
-            obstacleSprite.AddAnimation(obstacleAnimation, 0, 3);
+            obstacleAnimation.Load(content, textureToLoad, 1, 1);
+            obstacleSprite.AddAnimation(obstacleAnimation, 0, 0);
 
             obstacleSprite.velocity = Vector2.Zero; 
             obstacleSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 200);
@@ -30,7 +32,7 @@ namespace Inverse
         public void Update(float deltaTime)
         {
             collision.game = game;
-            obstacleSprite.velocity = new Vector2(game.xSpeed, 0) * deltaTime;
+            obstacleSprite.velocity = new Vector2(obstacleSprite.xSpeed, 0) * deltaTime;
 
             obstacleSprite.position += obstacleSprite.velocity * deltaTime;
 

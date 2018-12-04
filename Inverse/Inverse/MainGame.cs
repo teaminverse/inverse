@@ -33,10 +33,6 @@ namespace Inverse
 
         public bool staticObject = false;
 
-        public string myTexture;
-
-        public float xSpeed = 0;
-
         public float totalScore = 0.0f;
         public int counter = 1;
 
@@ -140,10 +136,20 @@ namespace Inverse
             background3.Update(deltaTime);
             background4.Update(deltaTime);
 
-            foreach (Item item in itemSpawner.spawnedItems)
+
+            if (itemSpawner.spawnedItems.Count > 0)
             {
-                item.Update(deltaTime);
+                foreach (Item item in itemSpawner.spawnedItems)
+                {
+                    item.Update(deltaTime);
+                    
+                    if (item.removeItem == true)
+                    {
+                        return;
+                    }
+                }
             }
+
         }
 
         protected override void Draw(GameTime gameTime)
@@ -159,10 +165,14 @@ namespace Inverse
             player.Draw(spriteBatch);
             platform.Draw(spriteBatch);
 
-            foreach (Item item in itemSpawner.spawnedItems)
+            if (itemSpawner.spawnedItems.Count > 0)
             {
-                item.Draw(spriteBatch);
+                foreach (Item item in itemSpawner.spawnedItems)
+                {
+                    item.Draw(spriteBatch);
+                }
             }
+
 
             if (debug == true)
             {
@@ -197,6 +207,8 @@ namespace Inverse
             }
 
             spriteBatch.DrawString(arialFont, "SCORE: " + AddToScore(), new Vector2(20, 20), Color.LightBlue);
+            spriteBatch.DrawString(arialFont, "SpawnTimer: " + itemSpawner.spawnTimer, new Vector2(20, 50), Color.LightBlue);
+
 
             spriteBatch.End();
 

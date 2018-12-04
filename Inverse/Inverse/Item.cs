@@ -14,78 +14,81 @@ namespace Inverse
     {
         MainGame game = null;
 
-        public Obstacle obstacle = new Obstacle();
-        public Portal portal = new Portal();
-
         Random random = new Random();
 
         public int itemType = 0;
 
-        int nextPosX = 0;
-        int nextPosY = 0;
+        public Obstacle obstacle = new Obstacle();
+        public Portal portal = new Portal();
 
+        public bool removeItem = false;
+
+        float screenBuffer = -300f;          // remove items  after they move this amount of pixels off screen
 
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame; 
-            int itemType = random.Next(1, 2);
+            itemType = random.Next(1, 3);
 
             switch (itemType)
             {
                 case 1:
                     // Small Obstacle
-                    game.myTexture = "obstacle";
-                    game.xSpeed = -game.gameSpeed;
+                    obstacle.textureToLoad = "obstacle";
+                    obstacle.obstacleSprite.xSpeed = -game.gameSpeed;
 
-                    // Randomize the starting poistion 
-                    nextPosX = random.Next(0, game.GraphicsDevice.Viewport.Width);
-                    obstacle.obstacleSprite.position = new Vector2(nextPosX, game.GraphicsDevice.Viewport.Height);
+                    // Init obstacle
+                    obstacle.Load(content, game);
+
+                    // Randomize between top and bottom (to be implemented)
+                    obstacle.obstacleSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, (game.GraphicsDevice.Viewport.Height / 2) - (game.platform.platformSprite.height / 2));
                     break;
                 case 2:
                     // Portal
-                    game.myTexture = "Portal";
-                    game.xSpeed = -64;
+                    portal.textureToLoad = "Portal";
+                    portal.portalSprite.xSpeed = -game.gameSpeed;
 
-                    // Randomize the starting poistion 
-                    nextPosX = random.Next(0, game.GraphicsDevice.Viewport.Width);
-                    obstacle.obstacleSprite.position = new Vector2(nextPosX, game.GraphicsDevice.Viewport.Height);
+                    // Init portal
+                    portal.Load(content, game);
+
+                    // set portal position
+                    portal.portalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, (game.GraphicsDevice.Viewport.Height / 2) - (game.platform.platformSprite.height / 2));
                     break;
                 case 3:
                     // Large Obstacle
-                    //obstacle.myTexture = "";
-                    game.xSpeed = -64;
+                    //largeObstacle.myTexture = "LargeObstacle";
+                    //largeObstacle.largeObstacleSprite.xSpeed = -game.gameSpeed;
 
                     // Randomize the starting poistion 
-                    nextPosX = random.Next(0, game.GraphicsDevice.Viewport.Width);
-                    obstacle.obstacleSprite.position = new Vector2(nextPosX, game.GraphicsDevice.Viewport.Height);
+                    //nextPosX = random.Next(0, game.GraphicsDevice.Viewport.Width);
+                    //largeObstacle.obstacleSprite.position = new Vector2(nextPosX, game.GraphicsDevice.Viewport.Height);
                     break;
-
-            }
-
-            obstacle.Load(content, game);
+            }          
         }
 
         public void Update(float deltaTime)
         {
-            obstacle.Update(deltaTime);
-
             switch (itemType)
             {
-
                 case 1:
                     // Small Obstacle 
-                    if (obstacle.obstacleSprite.position.X < 0)
+                    obstacle.Update(deltaTime);
+                    if (obstacle.obstacleSprite.position.X < screenBuffer)
                     {
+                        removeItem = true;
                         game.itemSpawner.spawnedItems.Remove(this);
+                        return;
                     }
-                        break;
+                    break;
                 case 2:
                     // Portal
-                    if (portal.portalSprite.position.X < 0)
+                    portal.Update(deltaTime);
+                    if (portal.portalSprite.position.X < screenBuffer)
                     {
+                        removeItem = true;
                         game.itemSpawner.spawnedItems.Remove(this);
+                        return;
                     }
-
                     break;
                 case 3:
 
@@ -95,9 +98,20 @@ namespace Inverse
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            obstacle.Draw(spriteBatch);
-            portal.Draw(spriteBatch);
-        }
+            switch (itemType)
+            {
+                case 1:
+                    // Small Obstacle 
+                    obstacle.Draw(spriteBatch);
+                    break;
+                case 2:
+                    // Portal
+                    portal.Draw(spriteBatch);
+                    break;
+                case 3:
 
+                    break;
+            }
+        }
     }
 }

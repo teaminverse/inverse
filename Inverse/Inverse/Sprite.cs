@@ -38,6 +38,9 @@ namespace Inverse
         int currentAnimation = 0;
         SpriteEffects effects = SpriteEffects.None;
 
+        public float xSpeed = 0f;
+        public float ySpeed = 0f;
+
         public Sprite()
         {
 

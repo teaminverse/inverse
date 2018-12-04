@@ -18,7 +18,7 @@ namespace Inverse
         MainGame game = null;
         ContentManager content = null;
 
-        float spawnTimer = 0f;
+        public float spawnTimer = 0f;
         float defaultSpawnTimer = 2.5f;
 
         public ArrayList spawnedItems = new ArrayList();
@@ -51,6 +51,7 @@ namespace Inverse
                 // Add this instance to ArrayList
                 spawnedItems.Add(newItem);
 
+                /*
                 // Increase difficulty
                 if (game.totalScore > currentScoreLevel)
                 {
@@ -64,6 +65,7 @@ namespace Inverse
                         defaultSpawnTimer = maxSpawnRate;
                     }
                 }
+                */
 
                 // Reset the timer 
                 spawnTimer = defaultSpawnTimer;
