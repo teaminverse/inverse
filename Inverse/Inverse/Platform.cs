@@ -35,7 +35,6 @@ namespace Inverse
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
             platformSprite.Draw(spriteBatch, game);
         }
 

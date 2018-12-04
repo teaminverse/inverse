@@ -11,41 +11,36 @@ namespace Inverse
 {
     public class Portal
     {
+        MainGame game = null;
         public Sprite portalSprite = new Sprite();
         Collisions collision = new Collisions();
-        MainGame game = null;
-        public float portalSpeed = -20000;
 
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame;
 
-            portalSprite.Load(content, "Portal", false);
-            portalSprite.velocity = new Vector2(-300, 0);
+            AnimatedTexture portalAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
+            portalAnimation.Load(content, game.myTexture, 1, 1);
+            portalSprite.AddAnimation(portalAnimation, 0, 3);
+
+            portalSprite.velocity = Vector2.Zero;
             portalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 196);
-            portalSprite.UpdateHitBox();
-          
-            AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
-            animation.Load(content, "Portal", 1, 1);
-            portalSprite.AddAnimation(animation, 0, 0);
-            portalSprite.Pause();
-        }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            portalSprite.Draw(spriteBatch, game);
-            // Random generation off screen moving into view
         }
 
         public void Update(float deltaTime)
         {
             collision.game = game;
+            portalSprite.velocity = new Vector2(game.xSpeed, 0) * deltaTime;
 
-            portalSprite.velocity = new Vector2(portalSpeed, 0) * deltaTime;
             portalSprite.position += portalSprite.velocity * deltaTime;
 
             portalSprite.Update(deltaTime);
             portalSprite.UpdateHitBox();
+        }
 
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            portalSprite.Draw(spriteBatch, game);
         }
 
     }

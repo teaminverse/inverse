@@ -67,19 +67,12 @@ namespace Inverse
         public void Update(float deltaTime)
         {
             animations[currentAnimation].UpdateFrame(deltaTime);
-
         }
 
         public void Draw(SpriteBatch spriteBatch, MainGame game)
         {          
-            if (game.staticObject == true)
-            {
-                spriteBatch.Draw(texture, position, Color.White);
-            }
-            else if (game.staticObject == false)
-            {
-                animations[currentAnimation].DrawFrame(spriteBatch, position + animationOffsets[currentAnimation], effects);
-            }
+             animations[currentAnimation].DrawFrame(spriteBatch, position + animationOffsets[currentAnimation], effects);
+            
             if (game.debug == true)
             {
                 game.DrawRectangle(new Rectangle(leftEdge, topEdge, width - rightCollisionOffset, height - vertCollisionOffset), Color.Red);

@@ -27,18 +27,25 @@ namespace Inverse
         Background background3 = new Background();
         Background background4 = new Background();
         public Obstacle obstacle = new Obstacle();
-        public ObstacleSpawner obstacleSpawner = new ObstacleSpawner();
+        public ItemSpawner itemSpawner = new ItemSpawner();
 
         public bool debug = false;
 
         public bool staticObject = false;
 
+        public string myTexture;
+
+        public float xSpeed = 0;
+
         public float totalScore = 0.0f;
-        public int counter = 0;
+        public int counter = 1;
+
+        public float gameSpeed = 16000;
+        public float speedMultiplier = 1.2f; 
 
         SpriteFont arialFont;
 
-        int lives = 3;
+        public int lives = 3;
         Texture2D heart = null;
         Texture2D phaser = null;
         Texture2D sloMo = null;
@@ -78,14 +85,11 @@ namespace Inverse
 
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             player.Load(Content, this);
             platform.Load(Content, this);
-            portal.Load(Content, this);
-            obstacleSpawner.Load(Content, this);
-
+            itemSpawner.Load(Content, this);
             background.Load(Content, this);
             background2.Load(Content, this);
             background2.background.position.X = 737;
@@ -107,7 +111,7 @@ namespace Inverse
 
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -130,30 +134,35 @@ namespace Inverse
 
             player.Update(deltaTime);
             platform.Update(deltaTime);
-            portal.Update(deltaTime);
-            obstacleSpawner.Update(deltaTime);
+            itemSpawner.Update(deltaTime);
             background.Update(deltaTime);
             background2.Update(deltaTime);
             background3.Update(deltaTime);
             background4.Update(deltaTime);
 
-            foreach (Obstacle obstacle in obstacleSpawner.spawnedObstacles)
+            foreach (Item item in itemSpawner.spawnedItems)
             {
-                obstacle.Update(deltaTime);
+                item.Update(deltaTime);
             }
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.DarkSlateGray);
-            
-            spriteBatch.Begin();
-            foreach (Obstacle obstacle in obstacleSpawner.spawnedObstacles)
-            {
-                obstacle.Draw(spriteBatch);
-            }
 
-            spriteBatch.DrawString(arialFont, "SCORE: " + AddToScore(), new Vector2(20, 20), Color.LightBlue);
+            spriteBatch.Begin();
+
+            background.Draw(spriteBatch, this);
+            background2.Draw(spriteBatch, this);
+            background3.Draw(spriteBatch, this);
+            background4.Draw(spriteBatch, this);
+            player.Draw(spriteBatch);
+            platform.Draw(spriteBatch);
+
+            foreach (Item item in itemSpawner.spawnedItems)
+            {
+                item.Draw(spriteBatch);
+            }
 
             if (debug == true)
             {
@@ -187,15 +196,7 @@ namespace Inverse
                 powerUp = true;
             }
 
-            background.Draw(spriteBatch, this);
-            background2.Draw(spriteBatch, this);
-            background3.Draw(spriteBatch, this);
-            background4.Draw(spriteBatch, this);
-            player.Draw(spriteBatch);
-            platform.Draw(spriteBatch);
-            portal.Draw(spriteBatch);
-
-            // Run the Draw function for each obstacle inside of our spawned obsatcles array
+            spriteBatch.DrawString(arialFont, "SCORE: " + AddToScore(), new Vector2(20, 20), Color.LightBlue);
 
             spriteBatch.End();
 

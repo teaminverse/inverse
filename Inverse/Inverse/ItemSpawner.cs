@@ -13,15 +13,15 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Inverse
 {
-    public class ObstacleSpawner
+    public class ItemSpawner
     {
         MainGame game = null;
         ContentManager content = null;
 
         float spawnTimer = 0f;
-        float defaultSpawnTimer = 3f;
+        float defaultSpawnTimer = 2.5f;
 
-        public ArrayList spawnedObstacles = new ArrayList();
+        public ArrayList spawnedItems = new ArrayList();
 
         int currentScoreLevel = 30; // score when difficulty increases
         float spawnTimerChange = 0.2f; // the amount of time to take off the current spawn timer on difficulty increase
@@ -42,20 +42,21 @@ namespace Inverse
             // If timer is expired
             if (spawnTimer <= 0)
             {
-                // New instance of obstacle
-                Obstacle newObstacle = new Obstacle();
+                // New instance of object
+                Item newItem = new Item();
 
-                // Run the Load function of our obstacle
-                newObstacle.Load(content, game);
+                // Run the Load function of our item
+                newItem.Load(content, game);
 
                 // Add this instance to ArrayList
-                spawnedObstacles.Add(newObstacle);
+                spawnedItems.Add(newItem);
 
                 // Increase difficulty
                 if (game.totalScore > currentScoreLevel)
                 {
                     defaultSpawnTimer -= spawnTimerChange;
-                    currentScoreLevel += 500;
+                    currentScoreLevel += 30;
+                    game.gameSpeed *= game.speedMultiplier;
 
                     // Prevent spawn rate getting too low
                     if (defaultSpawnTimer < maxSpawnRate)
