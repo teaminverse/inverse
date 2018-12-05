@@ -19,15 +19,13 @@ namespace Inverse
         Player player = new Player();
         public Platform platform = new Platform();
         public Portal portal = new Portal();
-        public PowerUps powerUps = new PowerUps();
         public Vector2 gravity = new Vector2(0, 1000);
         public Collisions collisions = new Collisions();
-        public Extra_Life exLife = new Extra_Life();
+        public PlusScore plusScore = new PlusScore();
         Background background = new Background();
         Background background2 = new Background();
         Background background3 = new Background();
         Background background4 = new Background();
-        public Obstacle obstacle = new Obstacle();
         public ItemSpawner itemSpawner = new ItemSpawner();
 
         public bool debug = false;
@@ -46,9 +44,9 @@ namespace Inverse
 
         public int lives = 1;
         Texture2D heart = null;
-        //Texture2D phaser = null;
-        //Texture2D sloMo = null;
-        //Texture2D oneHitShield = null;
+        Texture2D phaser = null;
+        Texture2D sloMo = null;
+        Texture2D oneHitShield = null;
         Texture2D pub = null;
         public bool powerUp = false;
         public bool phaserPickUp = false;
@@ -102,17 +100,17 @@ namespace Inverse
 
             arialFont = Content.Load<SpriteFont>("arial");
             heart = Content.Load<Texture2D>("Heart");
-            //phaser = Content.Load<Texture2D>("phaser");
-           // sloMo = Content.Load<Texture2D>("sloMo");
-            //oneHitShield = Content.Load<Texture2D>("oneHitShield");
+            phaser = Content.Load<Texture2D>("phaser");
+            sloMo = Content.Load<Texture2D>("sloMo");
+            oneHitShield = Content.Load<Texture2D>("oneHitShield");
             pub = Content.Load<Texture2D>("powerUpBox");
 
             AIE.StateManager.CreateState("SPLASH", new TitleScreen());
             AIE.StateManager.CreateState("GAME", new GameState());
             AIE.StateManager.CreateState("GAMEOVER", new GameOverState());
 
-            gameMusic = Content.Load<Song>("Inverse mp3");
-            MediaPlayer.Play(gameMusic);
+           // gameMusic = Content.Load<Song>("Inverse mp3");
+           // MediaPlayer.Play(gameMusic);
         }
 
         protected override void UnloadContent()
@@ -196,23 +194,23 @@ namespace Inverse
 
             spriteBatch.Draw(pub, new Vector2(GraphicsDevice.Viewport.Width - 100, 380), Color.White);
 
-            /*if (powerUp == false && phaserPickUp == true)
+            if (powerUp == false && phaserPickUp == true)
             {
                 spriteBatch.Draw(phaser, new Vector2(GraphicsDevice.Viewport.Width - 80, 400), Color.White);
                 powerUp = true;
-            }*/
+            }
 
-            /*if (powerUp == false && sloMoPickUp == true)
+            if (powerUp == false && sloMoPickUp == true)
             {
                 spriteBatch.Draw(sloMo, new Vector2(GraphicsDevice.Viewport.Width - 80, 400), Color.White);
                 powerUp = true;
-            }*/
+            }
 
-            /*if (powerUp == false && oneHitShieldPickUp == true)
+            if (powerUp == false && oneHitShieldPickUp == true)
             {
                 spriteBatch.Draw(oneHitShield, new Vector2(GraphicsDevice.Viewport.Width - 80, 400), Color.White);
                 powerUp = true;
-            }*/
+            }
 
             spriteBatch.DrawString(arialFont, "SCORE: " + AddToScore(), new Vector2(20, 20), Color.LightBlue);
             spriteBatch.DrawString(arialFont, "SpawnTimer: " + itemSpawner.spawnTimer, new Vector2(20, 50), Color.LightBlue);
@@ -227,7 +225,7 @@ namespace Inverse
         private string AddToScore()
         {
             totalScore += 0.15f;
-            if (collisions.IsColliding(player.playerSprite, powerUps.plusScoreSprite))
+            if (collisions.IsColliding(player.playerSprite, plusScore.plusScoreSprite))
             {
                 totalScore += 200;
             }

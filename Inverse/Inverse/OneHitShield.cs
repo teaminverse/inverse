@@ -9,21 +9,22 @@ using Microsoft.Xna.Framework;
 
 namespace Inverse
 {
-    class One_Hit_Shield
+    public class OneHitShield
     {
-        /*public Sprite oneHitShieldSprite = new Sprite();
-        Collisions collision = new Collisions();
         MainGame game = null;
-        float oneHitShieldSpeed = 0;
+
+        public Sprite oneHitShieldSprite = new Sprite();
+        Collisions collision = new Collisions();
+
+        public string textureToLoad = null;
 
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame;
+            AnimatedTexture oneHitShieldAnimation = new AnimatedTexture(oneHitShieldSprite.offset, 0, 1, 1);
 
-            AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
-            animation.Load(content, "oneHitShield", 1, 1);
-
-            oneHitShieldSprite.AddAnimation(animation, 0, 3);
+            oneHitShieldAnimation.Load(content, textureToLoad, 1, 1);
+            oneHitShieldSprite.AddAnimation(oneHitShieldAnimation, 0, 0);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -33,12 +34,9 @@ namespace Inverse
         public void Update(float deltaTime)
         {
             collision.game = game;
-
-            oneHitShieldSprite.velocity = new Vector2(oneHitShieldSpeed, 0) * deltaTime;
-            oneHitShieldSprite.position += oneHitShieldSprite.velocity * deltaTime;
-
+            oneHitShieldSprite.Update(deltaTime);
             oneHitShieldSprite.UpdateHitBox();
+        }
 
-        }*/
     }
 }
