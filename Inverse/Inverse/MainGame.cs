@@ -95,10 +95,10 @@ namespace Inverse
             itemSpawner.Load(Content, this);
             background.Load(Content, this);
             background2.Load(Content, this);
-            background2.background.position.X = 737;
+            background2.background.position.X = 1474;
             background3.Load(Content, this);
             background4.Load(Content, this);
-            background4.background.position.X = 1400 ;            
+            background4.background.position.X = 1474 ;            
 
             arialFont = Content.Load<SpriteFont>("arial");
             heart = Content.Load<Texture2D>("Heart");
