@@ -29,7 +29,7 @@ namespace Inverse
 
 
         // for upsidedown ground collision
-       /* public Sprite CollideAbove(Sprite hero, Sprite platform, float deltaTime)
+        public Sprite CollideAbove(Sprite hero, Sprite platform, float deltaTime)
         {
 
             if (IsColliding(hero, platform) == true && hero.velocity.Y < 0)
@@ -56,7 +56,7 @@ namespace Inverse
             }
 
             return hero;
-        }*/
+        }
         //for upsidedown portal collision
         public Sprite CollideAbovePortal(Sprite hero, Sprite portal, float deltaTime)
         {
@@ -64,10 +64,12 @@ namespace Inverse
             if (IsColliding(hero, portal) == true)
             {
                 hero.position.Y = portal.topEdge + hero.offset.Y;
-                //hero.gravDown = false; 
+                hero.gravDown = true; 
+                //hero.canJump = true;
+                hero.canTeleport = false;
 
-                //hero.velocity.Y = 0;
-                hero.canJump = true;
+
+                hero.SetVertFlipped(false);
             }
 
             return hero;
@@ -76,20 +78,15 @@ namespace Inverse
         public Sprite CollideBelowPortal(Sprite hero, Sprite portal, float deltaTime)
         {
             if (IsColliding(hero, portal) == true)
-
             {
-
                 hero.position.Y = portal.bottomEdge + hero.height + hero.offset.Y;
-                //hero.gravityDown = false;
+                hero.gravDown = false;
+                //hero.canJump = true;
+                hero.canTeleport = false;
 
-                //hero.velocity.Y = 0;
-                hero.canJump = true;
-
-
+                hero.SetVertFlipped(true);
             }
-
             return hero;
-
         }
 
         //public Sprite CollideObstacle(Sprite hero, Sprite smallObstacle, float deltaTime)

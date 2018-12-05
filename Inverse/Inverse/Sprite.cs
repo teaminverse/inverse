@@ -16,6 +16,7 @@ namespace Inverse
         public Vector2 offset = Vector2.Zero;
 
         public bool canJump = false;
+        public bool canTeleport = false;
         public bool gravDown = true;
 
         Texture2D texture;
