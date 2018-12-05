@@ -54,6 +54,7 @@
     <Compile Include="Phaser.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="Portal.cs" />
+    <Compile Include="PowerUps.cs" />
     <Compile Include="Slo-Mo.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="MainGame.cs" />

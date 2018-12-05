@@ -21,8 +21,6 @@ namespace Inverse
             {
                 return false;
             }
-
-
             return true;
         }
 
@@ -66,10 +64,12 @@ namespace Inverse
             if (IsColliding(hero, portal) == true)
             {
                 hero.position.Y = portal.topEdge + hero.offset.Y;
-                //hero.gravDown = false; 
+                hero.gravDown = true; 
+                //hero.canJump = true;
+                hero.canTeleport = false;
 
-                //hero.velocity.Y = 0;
-                hero.canJump = true;
+
+                hero.SetVertFlipped(false);
             }
 
             return hero;
@@ -78,28 +78,23 @@ namespace Inverse
         public Sprite CollideBelowPortal(Sprite hero, Sprite portal, float deltaTime)
         {
             if (IsColliding(hero, portal) == true)
-
             {
-
                 hero.position.Y = portal.bottomEdge + hero.height + hero.offset.Y;
-                //hero.gravityDown = false;
+                hero.gravDown = false;
+                //hero.canJump = true;
+                hero.canTeleport = false;
 
-                //hero.velocity.Y = 0;
-                hero.canJump = true;
-
-
+                hero.SetVertFlipped(true);
             }
-
             return hero;
-
         }
 
-        //public Sprite CollideObstacle(Sprite hero, Sprite obstacle, float deltaTime)
+        //public Sprite CollideObstacle(Sprite hero, Sprite smallObstacle, float deltaTime)
         //{
-        //    if (IsColliding(hero, obstacle) == true && hero.velocity.Y > 0)
+        //    if (IsColliding(hero, smallObstacle) == true && hero.velocity.Y > 0)
         //    {
-        //        hero.position.Y = obstacle.rightEdge - hero.height + hero.offset.Y;
-        //        hero.position.Y = obstacle.bottomEdge - hero.height + hero.offset.Y;
+        //        hero.position.Y = smallObstacle.rightEdge - hero.height + hero.offset.Y;
+        //        hero.position.Y = smallObstacle.bottomEdge - hero.height + hero.offset.Y;
         //    }
 
       //  }

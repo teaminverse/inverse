@@ -22,13 +22,13 @@ namespace Inverse
         {
             game = theGame;
 
-            platformSprite.position = new Vector2(0, game.GraphicsDevice.Viewport.Height / 2);
+            platformSprite.position = new Vector2(0, 234);
 
-            platformSprite.Load(content, "Inverse Platform", false);
+            platformSprite.Load(content, "Platform", false);
             
 
             AnimatedTexture animation = new AnimatedTexture(platformSprite.offset, 0, 1, 1);
-            animation.Load(content, "Inverse Platform", 1, 1);
+            animation.Load(content, "Platform", 1, 1);
             platformSprite.AddAnimation(animation, 0, 0);
             platformSprite.Pause();
         }
