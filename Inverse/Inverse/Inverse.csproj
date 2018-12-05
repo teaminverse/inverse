@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AnimatedTexture.cs" />
     <Compile Include="Background.cs" />
+    <Compile Include="Background2.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Collisions.cs" />
     <Compile Include="MediumObstacle.cs" />
