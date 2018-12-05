@@ -99,10 +99,12 @@ namespace Inverse
                         case 5:
                             break;
                         case 6:
+                            game.totalScore += 50; 
                             break;
                         case 7:
                             break;
                         case 8:
+                                game.gameSpeed = 10000;                                           
                             break;
                         case 9:
                             break;

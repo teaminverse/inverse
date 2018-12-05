@@ -9,11 +9,11 @@ using Microsoft.Xna.Framework;
 
 namespace Inverse
 {
-    public class Phaser
+    public class PortaPortal
     {
         MainGame game = null;
 
-        public Sprite phaserSprite = new Sprite();
+        public Sprite portaPortalSprite = new Sprite();
         Collisions collision = new Collisions();
 
         public string textureToLoad = null;
@@ -21,27 +21,30 @@ namespace Inverse
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame;
-            AnimatedTexture phaserAnimation = new AnimatedTexture(phaserSprite.offset, 0, 1, 1);
+            AnimatedTexture portaPortalAnimation = new AnimatedTexture(portaPortalSprite.offset, 0, 1, 1);
 
-            phaserAnimation.Load(content, textureToLoad, 1, 1);
-            phaserSprite.AddAnimation(phaserAnimation, 0, 0);
+            portaPortalAnimation.Load(content, textureToLoad, 1, 1);
+            portaPortalSprite.AddAnimation(portaPortalAnimation, 0, 0);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            phaserSprite.Draw(spriteBatch, game);
+            portaPortalSprite.Draw(spriteBatch, game);
         }
 
         public void Update(float deltaTime)
         {
             collision.game = game;
 
-            phaserSprite.velocity = new Vector2(phaserSprite.xSpeed, 0) * deltaTime;
+            portaPortalSprite.velocity = new Vector2(portaPortalSprite.xSpeed, 0) * deltaTime;
 
-            phaserSprite.position += phaserSprite.velocity * deltaTime;
+            portaPortalSprite.position += portaPortalSprite.velocity * deltaTime;
 
-            phaserSprite.Update(deltaTime);
-            phaserSprite.UpdateHitBox();
+            portaPortalSprite.Update(deltaTime);
+            portaPortalSprite.UpdateHitBox();
         }
+
 
     }
 }
+    
+

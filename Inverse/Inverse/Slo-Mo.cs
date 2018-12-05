@@ -9,25 +9,22 @@ using Microsoft.Xna.Framework;
 
 namespace Inverse
 {
-    class Slo_Mo
+    public class Slo_Mo
     {
-        /*public Sprite sloMoSprite = new Sprite();
-        Collisions collision = new Collisions();
         MainGame game = null;
-        float sloMoSpeed = 0;
+
+        public Sprite sloMoSprite = new Sprite();
+        Collisions collision = new Collisions();
+
+        public string textureToLoad = null; 
 
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame;
+            AnimatedTexture sloMoAnimation = new AnimatedTexture(sloMoSprite.offset, 0, 1, 1);
 
-            sloMoSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 200);
-
-            sloMoSprite.Load(content, "sloMo", false);
-
-            AnimatedTexture animation = new AnimatedTexture(sloMoSprite.offset, 0, 1, 1);
-            animation.Load(content, "sloMo", 1, 1);
-            sloMoSprite.AddAnimation(animation, 0, 0);
-            sloMoSprite.Pause();
+            sloMoAnimation.Load(content, textureToLoad, 1, 1);
+            sloMoSprite.AddAnimation(sloMoAnimation, 0, 0);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -38,11 +35,12 @@ namespace Inverse
         {
             collision.game = game;
 
-            sloMoSprite.velocity = new Vector2(sloMoSpeed, 0) * deltaTime;
+            sloMoSprite.velocity = new Vector2(sloMoSprite.xSpeed, 0) * deltaTime;
+
             sloMoSprite.position += sloMoSprite.velocity * deltaTime;
 
+            sloMoSprite.Update(deltaTime);
             sloMoSprite.UpdateHitBox();
-
-        }*/
+        }
     }
 }

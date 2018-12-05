@@ -18,14 +18,14 @@ namespace Inverse
 
         public int itemType = 0;
 
-        public Obstacle smallObstacle = new Obstacle();
-        public Obstacle mediumObstacle = new Obstacle();
-        public Obstacle largeObstacle = new Obstacle();
-        public PowerUps phaser = new PowerUps();
-        public PowerUps plusScore = new PowerUps();
-        public PowerUps oneHitShield = new PowerUps();
-        public PowerUps sloMo = new PowerUps();
-        public PowerUps portaPortal = new PowerUps();
+        public SmallObstacle smallObstacle = new SmallObstacle();
+        public MediumObstacle mediumObstacle = new MediumObstacle();
+        public LargeObstacle largeObstacle = new LargeObstacle();
+        public PortaPortal portaPortal = new PortaPortal();
+        public Phaser phaser = new Phaser();
+        public OneHitShield oneHitShield = new OneHitShield();
+        public PlusScore plusScore = new PlusScore();
+        public Slo_Mo sloMo = new Slo_Mo();
         public Portal portal = new Portal();
 
         public int spawnPos = 0; 
@@ -37,7 +37,7 @@ namespace Inverse
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame; 
-            itemType = random.Next(1, 4);
+            itemType = random.Next(8, 8);
 
             switch (itemType)
             {
