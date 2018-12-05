@@ -18,8 +18,17 @@ namespace Inverse
 
         public int itemType = 0;
 
-        public Obstacle obstacle = new Obstacle();
+        public Obstacle smallObstacle = new Obstacle();
+        public Obstacle mediumObstacle = new Obstacle();
+        public Obstacle largeObstacle = new Obstacle();
+        public PowerUps phaser = new PowerUps();
+        public PowerUps plusScore = new PowerUps();
+        public PowerUps oneHitShield = new PowerUps();
+        public PowerUps sloMo = new PowerUps();
+        public PowerUps portaPortal = new PowerUps();
         public Portal portal = new Portal();
+
+        public int spawnPos = 0; 
 
         public bool removeItem = false;
 
@@ -28,22 +37,67 @@ namespace Inverse
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame; 
-            itemType = random.Next(1, 3);
+            itemType = random.Next(4, 4);
 
             switch (itemType)
             {
                 case 1:
                     // Small Obstacle
-                    obstacle.textureToLoad = "obstacle";
-                    obstacle.obstacleSprite.xSpeed = -game.gameSpeed;
+                    if (game.upsideDown == false)
+                    {
+                        spawnPos = 190;
+                    }
+                    else if (game.upsideDown == true)
+                    {
+                        spawnPos = 250;
+                    }
+                    smallObstacle.textureToLoad = "obstacle";
+                    smallObstacle.smallObSprite.xSpeed = -game.gameSpeed;
 
-                    // Init obstacle
-                    obstacle.Load(content, game);
+                    // Init smallObstacle
+                    smallObstacle.Load(content, game);
 
                     // Randomize between top and bottom (to be implemented)
-                    obstacle.obstacleSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, (game.GraphicsDevice.Viewport.Height / 2) - (game.platform.platformSprite.height / 2));
+                    smallObstacle.smallObSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, spawnPos);
                     break;
                 case 2:
+                    // Medium Obstacle
+                    if (game.upsideDown == false)
+                    {
+                        spawnPos = 190;
+                    }
+                    else if (game.upsideDown == true)
+                    {
+                        spawnPos = 250;
+                    }
+
+                    mediumObstacle.textureToLoad = "Medium Ob";
+                    mediumObstacle.mediumObSprite.xSpeed = -game.gameSpeed;
+
+                    // Init mediumObstacle
+                    mediumObstacle.Load(content, game);
+
+                    mediumObstacle.mediumObSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, spawnPos);
+                    break;
+                case 3:
+                    // Large Obstacle 
+                    if (game.upsideDown == false)
+                    {
+                        spawnPos = 190;
+                    }
+                    else if (game.upsideDown == true)
+                    {
+                        spawnPos = 250;
+                    }
+                    largeObstacle.textureToLoad = "Large Ob";
+                    largeObstacle.largeObSprite.xSpeed = -game.gameSpeed;
+
+                    // Init largeObstacle
+                    largeObstacle.Load(content, game);
+
+                    largeObstacle.largeObSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, spawnPos);
+                    break;
+                case 4:
                     // Portal
                     portal.textureToLoad = "Portal";
                     portal.portalSprite.xSpeed = -game.gameSpeed;
@@ -52,18 +106,104 @@ namespace Inverse
                     portal.Load(content, game);
 
                     // set portal position
-                    portal.portalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, (game.GraphicsDevice.Viewport.Height / 2) - (game.platform.platformSprite.height / 2));
+                    portal.portalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 162);
                     break;
-                case 3:
-                    // Large Obstacle
-                    //largeObstacle.myTexture = "LargeObstacle";
-                    //largeObstacle.largeObstacleSprite.xSpeed = -game.gameSpeed;
+                case 5:
+                    // Phaser
+                    if (game.upsideDown == false)
+                    {
+                        spawnPos = 140;
+                    }
+                    else if (game.upsideDown == true)
+                    {
+                        spawnPos = 300;
+                    }
+                    phaser.textureToLoad = "phaser";
+                    phaser.phaserSprite.xSpeed = -game.gameSpeed;
 
-                    // Randomize the starting poistion 
-                    //nextPosX = random.Next(0, game.GraphicsDevice.Viewport.Width);
-                    //largeObstacle.obstacleSprite.position = new Vector2(nextPosX, game.GraphicsDevice.Viewport.Height);
+                    // Init Phaser
+                    phaser.Load(content, game);
+
+                    // set Phaser position
+                    phaser.phaserSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, spawnPos);
                     break;
-            }          
+                case 6:
+                    // PlusScore
+                    if (game.upsideDown == false)
+                    {
+                        spawnPos = 140;
+                    }
+                    else if (game.upsideDown == true)
+                    {
+                        spawnPos = 300;
+                    }
+                    plusScore.textureToLoad = "extraLife";
+                    plusScore.plusScoreSprite.xSpeed = -game.gameSpeed;
+
+                    // Init PlusScore
+                    plusScore.Load(content, game);
+
+                    // set PlusScore position
+                    plusScore.plusScoreSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, spawnPos);
+                    break;
+                case 7:
+                    // OneHitShield
+                    if (game.upsideDown == false)
+                    {
+                        spawnPos = 140;
+                    }
+                    else if (game.upsideDown == true)
+                    {
+                        spawnPos = 300;
+                    }
+                    oneHitShield.textureToLoad = "oneHitShield";
+                    oneHitShield.oneHitShieldSprite.xSpeed = -game.gameSpeed;
+
+                    // Init OneHitShield
+                    oneHitShield.Load(content, game);
+
+                    // set OneHitShield position
+                    oneHitShield.oneHitShieldSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, spawnPos);
+                    break;
+                case 8:
+                    // SloMo
+                    if (game.upsideDown == false)
+                    {
+                        spawnPos = 140;
+                    }
+                    else if (game.upsideDown == true)
+                    {
+                        spawnPos = 300;
+                    }
+                    sloMo.textureToLoad = "sloMo";
+                    sloMo.sloMoSprite.xSpeed = -game.gameSpeed;
+
+                    // Init SloMo
+                    sloMo.Load(content, game);
+
+                    // set SloMo position
+                    sloMo.sloMoSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, spawnPos);
+                    break;
+                case 9:
+                    // PortaPortal
+                    if (game.upsideDown == false)
+                    {
+                        spawnPos = 140;
+                    }
+                    else if (game.upsideDown == true)
+                    {
+                        spawnPos = 300;
+                    }
+                    portaPortal.textureToLoad = "portaPortal";
+                    portaPortal.portaPortalSprite.xSpeed = -game.gameSpeed;
+
+                    // Init PortaPortal
+                    portaPortal.Load(content, game);
+
+                    // set PortaPortal position
+                    portaPortal.portaPortalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, spawnPos);
+                    break;
+            }
         }
 
         public void Update(float deltaTime)
@@ -72,8 +212,8 @@ namespace Inverse
             {
                 case 1:
                     // Small Obstacle 
-                    obstacle.Update(deltaTime);
-                    if (obstacle.obstacleSprite.position.X < screenBuffer)
+                    smallObstacle.Update(deltaTime);
+                    if (smallObstacle.smallObSprite.position.X < screenBuffer)
                     {
                         removeItem = true;
                         game.itemSpawner.spawnedItems.Remove(this);
@@ -81,6 +221,26 @@ namespace Inverse
                     }
                     break;
                 case 2:
+                    // Medium Obstacle
+                    mediumObstacle.Update(deltaTime);
+                    if (mediumObstacle.mediumObSprite.position.X < screenBuffer)
+                    {
+                        removeItem = true;
+                        game.itemSpawner.spawnedItems.Remove(this);
+                        return;
+                    }
+                    break;
+                case 3:
+                    // Large Obstacle 
+                    largeObstacle.Update(deltaTime);
+                    if (largeObstacle.largeObSprite.position.X < screenBuffer)
+                    {
+                        removeItem = true;
+                        game.itemSpawner.spawnedItems.Remove(this);
+                        return;
+                    }
+                    break;
+                case 4:
                     // Portal
                     portal.Update(deltaTime);
                     if (portal.portalSprite.position.X < screenBuffer)
@@ -90,8 +250,55 @@ namespace Inverse
                         return;
                     }
                     break;
-                case 3:
-
+                case 5:
+                    // Phaser
+                    phaser.Update(deltaTime);
+                    if (phaser.phaserSprite.position.X < screenBuffer)
+                    {
+                        removeItem = true;
+                        game.itemSpawner.spawnedItems.Remove(this);
+                        return;
+                    }
+                    break;
+                case 6:
+                    // PlusScore
+                    plusScore.Update(deltaTime);
+                    if (plusScore.plusScoreSprite.position.X < screenBuffer)
+                    {
+                        removeItem = true;
+                        game.itemSpawner.spawnedItems.Remove(this);
+                        return;
+                    }
+                    break;
+                case 7:
+                    // OneHitShield
+                    oneHitShield.Update(deltaTime);
+                    if (oneHitShield.oneHitShieldSprite.position.X < screenBuffer)
+                    {
+                        removeItem = true;
+                        game.itemSpawner.spawnedItems.Remove(this);
+                        return;
+                    }
+                    break;
+                case 8:
+                    // SloMo
+                    sloMo.Update(deltaTime);
+                    if (sloMo.sloMoSprite.position.X < screenBuffer)
+                    {
+                        removeItem = true;
+                        game.itemSpawner.spawnedItems.Remove(this);
+                        return;
+                    }
+                    break;
+                case 9:
+                    // PortaPortal
+                    portaPortal.Update(deltaTime);
+                    if (portaPortal.portaPortalSprite.position.X < screenBuffer)
+                    {
+                        removeItem = true;
+                        game.itemSpawner.spawnedItems.Remove(this);
+                        return;
+                    }
                     break;
             }
 
@@ -102,14 +309,39 @@ namespace Inverse
             {
                 case 1:
                     // Small Obstacle 
-                    obstacle.Draw(spriteBatch);
+                    smallObstacle.Draw(spriteBatch);
                     break;
                 case 2:
+                    // Medium Obstacle
+                    mediumObstacle.Draw(spriteBatch);
+                    break;
+                case 3:
+                    // Large Obstacle 
+                    largeObstacle.Draw(spriteBatch);
+                    break; 
+                case 4:
                     // Portal
                     portal.Draw(spriteBatch);
                     break;
-                case 3:
-
+                case 5:
+                    // Phaser
+                    phaser.Draw(spriteBatch);
+                    break;
+                case 6:
+                    // PlusScore
+                    plusScore.Draw(spriteBatch);
+                    break;
+                case 7:
+                    // OneHitShield
+                    oneHitShield.Draw(spriteBatch);
+                    break;
+                case 8:
+                    // SloMo
+                    sloMo.Draw(spriteBatch);
+                    break;
+                case 9:
+                    // PortaPortal
+                    portaPortal.Draw(spriteBatch);
                     break;
             }
         }

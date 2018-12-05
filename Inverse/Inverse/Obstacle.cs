@@ -12,37 +12,55 @@ namespace Inverse
     public class Obstacle
     {
         MainGame game = null;
-        public Sprite obstacleSprite = new Sprite();
+        public Sprite smallObSprite = new Sprite();
+        public Sprite mediumObSprite = new Sprite();
+        public Sprite largeObSprite = new Sprite();
         Collisions collision = new Collisions();
 
         public string textureToLoad = null;
-        
+
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame;
 
-            AnimatedTexture obstacleAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
-            obstacleAnimation.Load(content, textureToLoad, 1, 1);
-            obstacleSprite.AddAnimation(obstacleAnimation, 0, 0);
+            AnimatedTexture smallObAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
+            AnimatedTexture medObAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
+            AnimatedTexture largeObAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
 
-            obstacleSprite.velocity = Vector2.Zero; 
-            obstacleSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 200);
+            smallObAnimation.Load(content, textureToLoad, 1, 1);
+            smallObSprite.AddAnimation(smallObAnimation, 0, 0);
+
+            medObAnimation.Load(content, textureToLoad, 1, 1);
+            mediumObSprite.AddAnimation(medObAnimation, 0, 0);
+
+            largeObAnimation.Load(content, textureToLoad, 1, 1);
+            largeObSprite.AddAnimation(largeObAnimation, 0, 0);
         }
 
         public void Update(float deltaTime)
         {
             collision.game = game;
-            obstacleSprite.velocity = new Vector2(obstacleSprite.xSpeed, 0) * deltaTime;
+            smallObSprite.velocity = new Vector2(smallObSprite.xSpeed, 0) * deltaTime;
+            mediumObSprite.velocity = new Vector2(mediumObSprite.xSpeed, 0) * deltaTime;
+            largeObSprite.velocity = new Vector2(largeObSprite.xSpeed, 0) * deltaTime;
 
-            obstacleSprite.position += obstacleSprite.velocity * deltaTime;
+            smallObSprite.position += smallObSprite.velocity * deltaTime;
+            mediumObSprite.position += mediumObSprite.velocity * deltaTime;
+            largeObSprite.position += largeObSprite.velocity * deltaTime; 
 
-            obstacleSprite.Update(deltaTime);
-            obstacleSprite.UpdateHitBox();
+            smallObSprite.Update(deltaTime);
+            smallObSprite.UpdateHitBox();
+            mediumObSprite.Update(deltaTime);
+            mediumObSprite.UpdateHitBox();
+            largeObSprite.Update(deltaTime);
+            largeObSprite.UpdateHitBox();
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            obstacleSprite.Draw(spriteBatch, game);
+            smallObSprite.Draw(spriteBatch, game);
+            mediumObSprite.Draw(spriteBatch, game);
+            largeObSprite.Draw(spriteBatch, game);
         }
 
     }

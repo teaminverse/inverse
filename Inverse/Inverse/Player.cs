@@ -18,7 +18,6 @@ namespace Inverse
         public bool gravDown = true;
         MainGame game = null;
         public float jumpStrength = 25000f;
-        public bool gravitySwitch = false; 
 
 
         Collisions collision = new Collisions();
@@ -66,25 +65,61 @@ namespace Inverse
 
             foreach (Item item in game.itemSpawner.spawnedItems)
             {
-                if (collision.IsColliding(playerSprite, item.obstacle.obstacleSprite) == true || collision.IsColliding(playerSprite, item.portal.portalSprite) == true)
+                if (collision.IsColliding(playerSprite, item.smallObstacle.smallObSprite) 
+                    || collision.IsColliding(playerSprite, item.mediumObstacle.mediumObSprite) 
+                    || collision.IsColliding(playerSprite, item.largeObstacle.largeObSprite)
+                    || collision.IsColliding(playerSprite, item.portal.portalSprite) 
+                    || collision.IsColliding(playerSprite, item.phaser.phaserSprite)
+                    || collision.IsColliding(playerSprite, item.plusScore.plusScoreSprite)
+                    || collision.IsColliding(playerSprite, item.oneHitShield.oneHitShieldSprite)
+                    || collision.IsColliding(playerSprite, item.sloMo.sloMoSprite) 
+                    || collision.IsColliding(playerSprite, item.portaPortal.portaPortalSprite) == true)
                 {
                     switch (item.itemType)
                     {
                         case 1:
-                            game.lives -= 1;
-                            gravitySwitch = true;
-                            game.gravity = new Vector2(0, -1000);
+                            // SmallOb
+                            game.Exit();
                             break;
                         case 2:
-                            break; 
+                            // MedOb
+                            game.Exit();
+                            break;
+                        case 3:
+                            // LargeOb
+                            game.Exit();
+                            break;
+                        case 4:
+                            // Portal
+                                game.gravity = new Vector2(0, -1000);
+                                playerSprite.position = new Vector2(100, 400);
+                            game.upsideDown = true; 
+                            break;
+                        case 5:
+                            break;
+                        case 6:
+                            break;
+                        case 7:
+                            break;
+                        case 8:
+                            break;
+                        case 9:
+                            break;
                     }                      
                 }
+            }
+
+            if (collision.IsColliding(playerSprite, game.platform.platformSprite) == true)
+            {
+                playerSprite.position.Y = game.platform.platformSprite.topEdge - playerSprite.height + playerSprite.offset.Y;
+                playerSprite.velocity.Y = 0;
+                playerSprite.canJump = true;
             }
 
             if (playerSprite.gravDown == true)
             {
                 playerSprite = collision.CollideBelowPortal(playerSprite, game.portal.portalSprite, deltaTime);
-                playerSprite = collision.CollideBelow(playerSprite, game.platform.platformSprite, deltaTime);
+               // playerSprite = collision.CollideBelow(playerSprite, game.platform.platformSprite, deltaTime);
 
                 Vector2 localAcceleration = game.gravity;
 
@@ -100,7 +135,7 @@ namespace Inverse
             else
             {
                 playerSprite = collision.CollideAbovePortal(playerSprite, game.portal.portalSprite, deltaTime);
-                playerSprite = collision.CollideAbove(playerSprite, game.platform.platformSprite, deltaTime);
+               // playerSprite = collision.CollideAbove(playerSprite, game.platform.platformSprite, deltaTime);
                 Vector2 localAcceleration = -game.gravity;
 
                 if (Keyboard.GetState().IsKeyDown(Keys.Space) && playerSprite.canJump == true)

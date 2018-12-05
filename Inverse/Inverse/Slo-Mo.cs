@@ -11,7 +11,7 @@ namespace Inverse
 {
     class Slo_Mo
     {
-        public Sprite sloMoSprite = new Sprite();
+        /*public Sprite sloMoSprite = new Sprite();
         Collisions collision = new Collisions();
         MainGame game = null;
         float sloMoSpeed = 0;
@@ -43,6 +43,6 @@ namespace Inverse
 
             sloMoSprite.UpdateHitBox();
 
-        }
+        }*/
     }
 }

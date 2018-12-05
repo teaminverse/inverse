@@ -11,7 +11,7 @@ namespace Inverse
 {
     class One_Hit_Shield
     {
-        public Sprite oneHitShieldSprite = new Sprite();
+        /*public Sprite oneHitShieldSprite = new Sprite();
         Collisions collision = new Collisions();
         MainGame game = null;
         float oneHitShieldSpeed = 0;
@@ -39,6 +39,6 @@ namespace Inverse
 
             oneHitShieldSprite.UpdateHitBox();
 
-        }
+        }*/
     }
 }

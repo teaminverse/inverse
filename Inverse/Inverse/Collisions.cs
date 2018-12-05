@@ -21,8 +21,6 @@ namespace Inverse
             {
                 return false;
             }
-
-
             return true;
         }
 
@@ -31,7 +29,7 @@ namespace Inverse
 
 
         // for upsidedown ground collision
-        public Sprite CollideAbove(Sprite hero, Sprite platform, float deltaTime)
+       /* public Sprite CollideAbove(Sprite hero, Sprite platform, float deltaTime)
         {
 
             if (IsColliding(hero, platform) == true && hero.velocity.Y < 0)
@@ -58,7 +56,7 @@ namespace Inverse
             }
 
             return hero;
-        }
+        }*/
         //for upsidedown portal collision
         public Sprite CollideAbovePortal(Sprite hero, Sprite portal, float deltaTime)
         {
@@ -94,12 +92,12 @@ namespace Inverse
 
         }
 
-        //public Sprite CollideObstacle(Sprite hero, Sprite obstacle, float deltaTime)
+        //public Sprite CollideObstacle(Sprite hero, Sprite smallObstacle, float deltaTime)
         //{
-        //    if (IsColliding(hero, obstacle) == true && hero.velocity.Y > 0)
+        //    if (IsColliding(hero, smallObstacle) == true && hero.velocity.Y > 0)
         //    {
-        //        hero.position.Y = obstacle.rightEdge - hero.height + hero.offset.Y;
-        //        hero.position.Y = obstacle.bottomEdge - hero.height + hero.offset.Y;
+        //        hero.position.Y = smallObstacle.rightEdge - hero.height + hero.offset.Y;
+        //        hero.position.Y = smallObstacle.bottomEdge - hero.height + hero.offset.Y;
         //    }
 
       //  }

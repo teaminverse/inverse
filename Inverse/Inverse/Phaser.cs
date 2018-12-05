@@ -11,7 +11,7 @@ namespace Inverse
 {
     class Phaser
     {
-        public Sprite phaserSprite = new Sprite();
+       /* public Sprite phaserSprite = new Sprite();
         Collisions collision = new Collisions();
         MainGame game = null;
         float phaserSpeed = 0;
@@ -44,6 +44,6 @@ namespace Inverse
 
             phaserSprite.UpdateHitBox();
 
-        }
+        }*/
     }
 }

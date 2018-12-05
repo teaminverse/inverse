@@ -11,7 +11,7 @@ namespace Inverse
 {
     public class Extra_Life
     {
-        public Sprite extraLifeSprite = new Sprite();
+       /* public Sprite extraLifeSprite = new Sprite();
         Collisions collision = new Collisions();
         MainGame game = null;
         float extraLifeSpeed = -440;
@@ -44,6 +44,6 @@ namespace Inverse
             extraLifeSprite.Update(deltaTime);
             extraLifeSprite.UpdateHitBox();
 
-        }
+        }*/
     }
 }

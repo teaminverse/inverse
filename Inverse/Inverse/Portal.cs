@@ -21,12 +21,11 @@ namespace Inverse
         {
             game = theGame;
 
-            AnimatedTexture portalAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
-            portalAnimation.Load(content, textureToLoad, 1, 1);
-            portalSprite.AddAnimation(portalAnimation, 0, 0);
+             AnimatedTexture portalAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
+             portalAnimation.Load(content, textureToLoad, 12, 12);
+             portalSprite.AddAnimation(portalAnimation, 0, 0);
 
             portalSprite.velocity = Vector2.Zero;
-            portalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 196);
         }
 
         public void Update(float deltaTime)
