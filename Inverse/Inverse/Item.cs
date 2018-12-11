@@ -37,7 +37,7 @@ namespace Inverse
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame; 
-            itemType = random.Next(8, 8);
+            itemType = random.Next(1, 5);
 
             switch (itemType)
             {

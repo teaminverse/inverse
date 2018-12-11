@@ -20,8 +20,9 @@ namespace Inverse
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame;
+            portalSprite.Load(content, "Portal1", true);
 
-             AnimatedTexture portalAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
+            AnimatedTexture portalAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
              portalAnimation.Load(content, textureToLoad, 12, 12);
              portalSprite.AddAnimation(portalAnimation, 0, 0);
 

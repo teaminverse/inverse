@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
+
 namespace Inverse
 {
     public class Player
@@ -32,7 +33,7 @@ namespace Inverse
             game = theGame;
 
             AnimatedTexture runAnimation = new AnimatedTexture(playerSprite.offset, 0, 1, 1);
-            runAnimation.Load(content, "Run", 10, 20);
+            runAnimation.Load(content, "Run", 10, game.playerFPS);
             playerSprite.AddAnimation(runAnimation, 0, -5);
             playerSprite.Play();
 
@@ -94,19 +95,39 @@ namespace Inverse
                                 game.gravity = new Vector2(0, -1000);
                                 playerSprite.position = new Vector2(100, 400);
                             game.upsideDown = true;
-                            playerSprite.SetVertFlipped(true);
+                            playerSprite.SetVertFlipped(true);   
                             break;
                         case 5:
+                            // Phaser
+                            game.phaserPickUp = true;
+                            if(collision.IsColliding(playerSprite, item.largeObstacle.largeObSprite) 
+                                || collision.IsColliding(playerSprite, item.mediumObstacle.mediumObSprite) 
+                                || collision.IsColliding(playerSprite, item.smallObstacle.smallObSprite) == true)
+                            {
+                                return; 
+                            }
                             break;
                         case 6:
+                            // PlusScore
                             game.totalScore += 50; 
                             break;
                         case 7:
+                            // OneHitShield
                             break;
                         case 8:
-                                game.gameSpeed = 10000;                                           
+                            // SloMo
+                                game.gameSpeed = 10000;
+                            game.playerFPS = 10; 
                             break;
                         case 9:
+                            // PortaPortal
+                            game.portaPortalOn = true;
+                            if (Keyboard.GetState().IsKeyDown(Keys.Down) == true && game.portaPortalOn == true)
+                            {
+                                game.gravity = new Vector2(0, -1000);
+                                game.upsideDown = true;
+                                playerSprite.SetVertFlipped(true);
+                            }
                             break;
                     }                      
                 }
@@ -115,6 +136,7 @@ namespace Inverse
             if (collision.IsColliding(playerSprite, game.platform.platformSprite) == true)
             {
                 playerSprite.position.Y = game.platform.platformSprite.topEdge - playerSprite.height + playerSprite.offset.Y;
+
                 playerSprite.velocity.Y = 0;
                 playerSprite.canJump = true;
             }
@@ -145,6 +167,8 @@ namespace Inverse
             {
                 playerSprite = collision.CollideAbovePortal(playerSprite, game.portal.portalSprite, deltaTime);
                 playerSprite = collision.CollideAbove(playerSprite, game.platform.platformSprite, deltaTime);
+            
+
                 Vector2 localAcceleration = -game.gravity;
 
                 if (Keyboard.GetState().IsKeyDown(Keys.Space) && playerSprite.canJump == true)

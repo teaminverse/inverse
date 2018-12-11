@@ -24,18 +24,20 @@ namespace Inverse
         public PlusScore plusScore = new PlusScore();
         Background background = new Background();
         Background background2 = new Background();
-        Background background3 = new Background();
-        Background background4 = new Background();
+        Background2 background3 = new Background2();
+        Background2 background4 = new Background2();
         public ItemSpawner itemSpawner = new ItemSpawner();
 
         public bool debug = false;
+
+        public int playerFPS = 20;
 
         public bool staticObject = false;
 
         public float totalScore = 0.0f;
         public int counter = 1;
 
-        public float gameSpeed = 16000;
+        public float gameSpeed = 20000;
         public float speedMultiplier = 1.2f;
 
         public bool animatedSprite = true; 
@@ -52,8 +54,8 @@ namespace Inverse
         public bool phaserPickUp = false;
         public bool sloMoPickUp = false;
         public bool oneHitShieldPickUp = false;
-
         public bool upsideDown = false;
+        public bool portaPortalOn = false; 
 
         Song gameMusic; 
 
@@ -94,9 +96,10 @@ namespace Inverse
             background.Load(Content, this);
             background2.Load(Content, this);
             background2.background.position.X = 1474;
+
             background3.Load(Content, this);
             background4.Load(Content, this);
-            background4.background.position.X = 1474 ;            
+            background4.background.position.X = 1473;            
 
             arialFont = Content.Load<SpriteFont>("arial");
             heart = Content.Load<Texture2D>("Heart");
@@ -206,14 +209,14 @@ namespace Inverse
                 powerUp = true;
             }
 
-            if (powerUp == false && oneHitShieldPickUp == true)
+            if (powerUp == false && oneHitShieldPickUp == true) 
             {
                 spriteBatch.Draw(oneHitShield, new Vector2(GraphicsDevice.Viewport.Width - 80, 400), Color.White);
                 powerUp = true;
             }
 
-            spriteBatch.DrawString(arialFont, "SCORE: " + AddToScore(), new Vector2(20, 20), Color.LightBlue);
-            spriteBatch.DrawString(arialFont, "SpawnTimer: " + itemSpawner.spawnTimer, new Vector2(20, 50), Color.LightBlue);
+            spriteBatch.DrawString(arialFont, "SCORE: " + (int)AddToScore(), new Vector2(20, 20), Color.LightBlue);
+            spriteBatch.DrawString(arialFont, "SpawnTimer: " + (int)itemSpawner.spawnTimer, new Vector2(20, 50), Color.LightBlue);
 
 
             spriteBatch.End();
@@ -222,14 +225,14 @@ namespace Inverse
 
             base.Draw(gameTime);
         }
-        private string AddToScore()
+        private float AddToScore()
         {
             totalScore += 0.15f;
             if (collisions.IsColliding(player.playerSprite, plusScore.plusScoreSprite))
             {
                 totalScore += 200;
             }
-            return totalScore.ToString();
+            return totalScore;
         }
     }
 }

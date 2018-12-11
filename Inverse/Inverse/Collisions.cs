@@ -34,7 +34,7 @@ namespace Inverse
 
             if (IsColliding(hero, platform) == true && hero.velocity.Y < 0)
             {
-                hero.position.Y = platform.bottomEdge + hero.offset.Y;
+                hero.position.Y = platform.bottomEdge + hero.height - hero.offset.Y;
                 hero.velocity.Y = 0;
                 hero.canJump = true;
             }
