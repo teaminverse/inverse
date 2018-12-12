@@ -23,6 +23,8 @@ namespace Inverse
         {
             game = theGame;
 
+            mediumObSprite.Load(content, textureToLoad, false, true, 1);
+
             AnimatedTexture medObAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
 
             medObAnimation.Load(content, textureToLoad, 1, 1);

@@ -38,7 +38,7 @@ namespace Inverse
             playerSprite.Play();
 
             playerSprite.velocity = Vector2.Zero;
-            playerSprite.position = new Vector2(50, 150);
+            playerSprite.position = new Vector2(100, 150);
         }
 
         public void Update(float deltaTime)
@@ -74,7 +74,7 @@ namespace Inverse
                     || collision.IsColliding(playerSprite, item.plusScore.plusScoreSprite)
                     || collision.IsColliding(playerSprite, item.oneHitShield.oneHitShieldSprite)
                     || collision.IsColliding(playerSprite, item.sloMo.sloMoSprite) 
-                    || collision.IsColliding(playerSprite, item.portaPortal.portaPortalSprite) == true)
+                    == true)
                 {
                     switch (item.itemType)
                     {
@@ -119,16 +119,6 @@ namespace Inverse
                                 game.gameSpeed = 10000;
                             game.playerFPS = 10; 
                             break;
-                        case 9:
-                            // PortaPortal
-                            game.portaPortalOn = true;
-                            if (Keyboard.GetState().IsKeyDown(Keys.Down) == true && game.portaPortalOn == true)
-                            {
-                                game.gravity = new Vector2(0, -1000);
-                                game.upsideDown = true;
-                                playerSprite.SetVertFlipped(true);
-                            }
-                            break;
                     }                      
                 }
             }
@@ -145,10 +135,10 @@ namespace Inverse
             {
                 Vector2 localAcceleration = game.gravity;
 
-                if (playerSprite.canTeleport == true)
+               /* if (playerSprite.canTeleport == true)
                 {
                     playerSprite = collision.CollideBelowPortal(playerSprite, game.portal.portalSprite, deltaTime);
-                }
+                }*/
 
                 playerSprite = collision.CollideBelow(playerSprite, game.platform.platformSprite, deltaTime);
 
@@ -165,7 +155,7 @@ namespace Inverse
             }
             else
             {
-                playerSprite = collision.CollideAbovePortal(playerSprite, game.portal.portalSprite, deltaTime);
+                //playerSprite = collision.CollideAbovePortal(playerSprite, game.portal.portalSprite, deltaTime);
                 playerSprite = collision.CollideAbove(playerSprite, game.platform.platformSprite, deltaTime);
             
 

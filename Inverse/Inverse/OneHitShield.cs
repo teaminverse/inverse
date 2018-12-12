@@ -21,6 +21,9 @@ namespace Inverse
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame;
+
+            oneHitShieldSprite.Load(content, textureToLoad, false, true, 1);
+
             AnimatedTexture oneHitShieldAnimation = new AnimatedTexture(oneHitShieldSprite.offset, 0, 1, 1);
 
             oneHitShieldAnimation.Load(content, textureToLoad, 1, 1);

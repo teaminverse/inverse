@@ -23,6 +23,8 @@ namespace Inverse
         {
             game = theGame;
 
+            smallObSprite.Load(content, textureToLoad, false, true, 1);
+
             AnimatedTexture smallObAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
 
             smallObAnimation.Load(content, textureToLoad, 1, 1);

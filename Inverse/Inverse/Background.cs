@@ -43,6 +43,9 @@ namespace Inverse
             background.position = new Vector2(0, 0);
             background2.position = new Vector2(offsetPosition, 0);
 
+            background.isBackground = true;
+            background2.isBackground = true; 
+
         }
         public void Update(float deltaTime)
         {

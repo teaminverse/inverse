@@ -47,6 +47,9 @@ namespace Inverse
             paraBG.position = new Vector2(0, vertOffset);
             paraBG2.position = new Vector2(offsetPosition, vertOffset);
 
+            paraBG.isBackground = true;
+            paraBG2.isBackground = true; 
+
         }
         public void Update(float deltaTime)
         {

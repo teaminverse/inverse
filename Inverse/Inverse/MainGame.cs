@@ -18,7 +18,6 @@ namespace Inverse
 
         Player player = new Player();
         public Platform platform = new Platform();
-        public Portal portal = new Portal();
         public Vector2 gravity = new Vector2(0, 1000);
         public Collisions collisions = new Collisions();
         public PlusScore plusScore = new PlusScore();
@@ -55,7 +54,7 @@ namespace Inverse
         public bool sloMoPickUp = false;
         public bool oneHitShieldPickUp = false;
         public bool upsideDown = false;
-        public bool portaPortalOn = false; 
+        public bool portaPortalOn = true; 
 
         Song gameMusic; 
 

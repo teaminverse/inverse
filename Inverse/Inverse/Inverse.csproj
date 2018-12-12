@@ -56,7 +56,6 @@
     <Compile Include="Phaser.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="Portal.cs" />
-    <Compile Include="PortaPortal.cs" />
     <Compile Include="Slo-Mo.cs" />
     <Compile Include="SmallObstacle.cs" />
     <Compile Include="Sprite.cs" />

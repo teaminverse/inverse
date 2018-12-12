@@ -21,7 +21,6 @@ namespace Inverse
         public SmallObstacle smallObstacle = new SmallObstacle();
         public MediumObstacle mediumObstacle = new MediumObstacle();
         public LargeObstacle largeObstacle = new LargeObstacle();
-        public PortaPortal portaPortal = new PortaPortal();
         public Phaser phaser = new Phaser();
         public OneHitShield oneHitShield = new OneHitShield();
         public PlusScore plusScore = new PlusScore();
@@ -37,7 +36,7 @@ namespace Inverse
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame; 
-            itemType = random.Next(1, 5);
+            itemType = random.Next(7, 7);
 
             switch (itemType)
             {
@@ -183,26 +182,7 @@ namespace Inverse
 
                     // set SloMo position
                     sloMo.sloMoSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, spawnPos);
-                    break;
-                case 9:
-                    // PortaPortal
-                    if (game.upsideDown == false)
-                    {
-                        spawnPos = 140;
-                    }
-                    else if (game.upsideDown == true)
-                    {
-                        spawnPos = 300;
-                    }
-                    portaPortal.textureToLoad = "portaPortal";
-                    portaPortal.portaPortalSprite.xSpeed = -game.gameSpeed;
-
-                    // Init PortaPortal
-                    portaPortal.Load(content, game);
-
-                    // set PortaPortal position
-                    portaPortal.portaPortalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, spawnPos);
-                    break;
+                    break;   
             }
         }
 
@@ -290,16 +270,6 @@ namespace Inverse
                         return;
                     }
                     break;
-                case 9:
-                    // PortaPortal
-                    portaPortal.Update(deltaTime);
-                    if (portaPortal.portaPortalSprite.position.X < screenBuffer)
-                    {
-                        removeItem = true;
-                        game.itemSpawner.spawnedItems.Remove(this);
-                        return;
-                    }
-                    break;
             }
 
         }
@@ -318,7 +288,7 @@ namespace Inverse
                 case 3:
                     // Large Obstacle 
                     largeObstacle.Draw(spriteBatch);
-                    break; 
+                    break;
                 case 4:
                     // Portal
                     portal.Draw(spriteBatch);
@@ -338,10 +308,6 @@ namespace Inverse
                 case 8:
                     // SloMo
                     sloMo.Draw(spriteBatch);
-                    break;
-                case 9:
-                    // PortaPortal
-                    portaPortal.Draw(spriteBatch);
                     break;
             }
         }
