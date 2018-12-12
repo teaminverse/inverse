@@ -145,10 +145,10 @@ namespace Inverse
             {
                 Vector2 localAcceleration = game.gravity;
 
-               /* if (playerSprite.canTeleport == true)
+                if (playerSprite.canTeleport == true)
                 {
                     playerSprite = collision.CollideBelowPortal(playerSprite, game.portal.portalSprite, deltaTime);
-                }*/
+                }
 
                 playerSprite = collision.CollideBelow(playerSprite, game.platform.platformSprite, deltaTime);
 
@@ -165,7 +165,7 @@ namespace Inverse
             }
             else
             {
-               // playerSprite = collision.CollideAbovePortal(playerSprite, game.portal.portalSprite, deltaTime);
+                playerSprite = collision.CollideAbovePortal(playerSprite, game.portal.portalSprite, deltaTime);
                 playerSprite = collision.CollideAbove(playerSprite, game.platform.platformSprite, deltaTime);
             
 

@@ -30,8 +30,6 @@ namespace Inverse
            
             paraBG.velocity = Vector2.Zero;
             paraBG.position = new Vector2(0, 0);
-
-            paraBG.isBackground = true;
         }
         public void Update(float deltaTime)
         {
