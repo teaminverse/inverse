@@ -113,7 +113,7 @@ namespace Inverse
             pub = Content.Load<Texture2D>("powerUpBox");
 
             intro = Content.Load<Texture2D>("titlescreen");
-            instruction = Content.Load<Texture2D>("Heart"); 
+            instruction = Content.Load<Texture2D>("Instruct"); 
             introPos.X = 30;
             introPos.Y = 30;
 
