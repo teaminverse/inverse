@@ -37,7 +37,7 @@ namespace Inverse
         public int counter = 1;
 
         public float gameSpeed = 20000;
-        public float speedMultiplier = 1.2f; 
+        public float speedMultiplier = 1000f; 
 
         SpriteFont arialFont;
 
@@ -51,7 +51,7 @@ namespace Inverse
         public bool phaserPickUp = false;
         public bool sloMoPickUp = false;
         public bool oneHitShieldPickUp = false;
-        public bool upsideDown = false;
+        public float platformSide = 1;
 
         Song gameMusic;
 
@@ -108,7 +108,7 @@ namespace Inverse
             arialFont = Content.Load<SpriteFont>("arial");
             heart = Content.Load<Texture2D>("Heart");
             phaser = Content.Load<Texture2D>("phaser");
-            sloMo = Content.Load<Texture2D>("sloMo");
+            sloMo = Content.Load<Texture2D>("Clock");
             oneHitShield = Content.Load<Texture2D>("oneHitShield");
             pub = Content.Load<Texture2D>("powerUpBox");
 
@@ -117,8 +117,8 @@ namespace Inverse
             introPos.X = 30;
             introPos.Y = 30;
 
-            // gameMusic = Content.Load<Song>("Inverse mp3");
-            // MediaPlayer.Play(gameMusic);
+            gameMusic = Content.Load<Song>("Inverse mp3");
+            MediaPlayer.Play(gameMusic);
         }
 
         protected override void UnloadContent()
@@ -156,6 +156,10 @@ namespace Inverse
             if (Keyboard.GetState().IsKeyDown(Keys.RightShift))
             {
                 gameState = STATE_INSTRUCTION;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+            {
+                gameState = STATE_GAME;
             }
         }
         private void UpdateInstructionState(float deltaTime)
@@ -245,7 +249,7 @@ namespace Inverse
         private void DrawSplashState(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(intro, new Rectangle(0, 0, 920, 524), Color.White);
-            spriteBatch.DrawString(arialFont, "Press enter to Play!", new Vector2(350, 20), Color.Black);
+            spriteBatch.DrawString(arialFont, "Press enter to Play! Press Shift to see Instructions", new Vector2(350, 20), Color.Black);
         }
 
         private void DrawInstructionState(SpriteBatch spriteBatch)
@@ -294,11 +298,12 @@ namespace Inverse
 
             if (powerUp == false && sloMoPickUp == true)
             {
-                spriteBatch.Draw(sloMo, new Vector2(GraphicsDevice.Viewport.Width - 75, 405), Color.White);
-                spriteBatch.DrawString(arialFont, "SloMo: " + (int)player.sloMoTimer, new Vector2(GraphicsDevice.Viewport.Width - 200, 405), Color.LightBlue);
+                spriteBatch.Draw(sloMo, new Vector2(GraphicsDevice.Viewport.Width - 78, 400), Color.White);
+                spriteBatch.DrawString(arialFont, "Slo-Mo: " + (int)player.sloMoTimer, new Vector2(GraphicsDevice.Viewport.Width - 200, 405), Color.LightBlue);
             }
 
             spriteBatch.DrawString(arialFont, "SCORE: " + (int)AddToScore(), new Vector2(20, 20), Color.LightBlue);
+            spriteBatch.DrawString(arialFont, "Side: " + platformSide, new Vector2(20, 50), Color.LightBlue);
         }
 
         private void DrawGameOverState(SpriteBatch spriteBatch)

@@ -21,6 +21,9 @@ namespace Inverse
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame;
+
+            sloMoSprite.Load(content, textureToLoad, false, true, 1);
+
             AnimatedTexture sloMoAnimation = new AnimatedTexture(sloMoSprite.offset, 0, 1, 1);
 
             sloMoAnimation.Load(content, textureToLoad, 1, 1);

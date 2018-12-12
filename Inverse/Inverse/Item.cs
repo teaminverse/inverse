@@ -40,13 +40,13 @@ namespace Inverse
             {
                 case 1:
                     // Small Obstacle
-                    if (game.upsideDown == false)
+                    if (game.platformSide == 1)
                     {
                         spawnPos = 190;
                     }
-                    else if (game.upsideDown == true)
+                    else if (game.platformSide == 2)
                     {
-                        spawnPos = 250;
+                        spawnPos = 285;
                     }
                     smallObstacle.textureToLoad = "obstacle";
                     smallObstacle.smallObSprite.xSpeed = -game.gameSpeed;
@@ -59,13 +59,13 @@ namespace Inverse
                     break;
                 case 2:
                     // Medium Obstacle
-                    if (game.upsideDown == false)
+                    if (game.platformSide == 1)
                     {
-                        spawnPos = 190;
+                        spawnPos = 140;
                     }
-                    else if (game.upsideDown == true)
+                    else if (game.platformSide == 2)
                     {
-                        spawnPos = 250;
+                        spawnPos = 285;
                     }
 
                     mediumObstacle.textureToLoad = "Medium Ob";
@@ -85,17 +85,17 @@ namespace Inverse
                     portal.Load(content, game);
 
                     // set portal position
-                    portal.portalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 162);
+                    portal.portalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 170);
                     break;
                 case 4:
                     // Phaser
-                    if (game.upsideDown == false)
+                    if (game.platformSide == 1)
                     {
-                        spawnPos = 140;
+                        spawnPos = 170;
                     }
-                    else if (game.upsideDown == true)
+                    else if (game.platformSide == 2)
                     {
-                        spawnPos = 300;
+                        spawnPos = 350;
                     }
                     phaser.textureToLoad = "phaser";
                     phaser.phaserSprite.xSpeed = -game.gameSpeed;
@@ -108,15 +108,15 @@ namespace Inverse
                     break;
                 case 5:
                     // PlusScore
-                    if (game.upsideDown == false)
+                    if (game.platformSide == 1)
                     {
-                        spawnPos = 140;
+                        spawnPos = 150;
                     }
-                    else if (game.upsideDown == true)
+                    else if (game.platformSide == 2)
                     {
-                        spawnPos = 300;
+                        spawnPos = 400;
                     }
-                    plusScore.textureToLoad = "extraLife";
+                    plusScore.textureToLoad = "PlusScore";
                     plusScore.plusScoreSprite.xSpeed = -game.gameSpeed;
 
                     // Init PlusScore
@@ -127,15 +127,15 @@ namespace Inverse
                     break;                
                 case 6:
                     // SloMo
-                    if (game.upsideDown == false)
+                    if (game.platformSide == 1)
                     {
-                        spawnPos = 140;
+                        spawnPos = 160;
                     }
-                    else if (game.upsideDown == true)
+                    else if (game.platformSide == 2)
                     {
-                        spawnPos = 300;
+                        spawnPos = 380;
                     }
-                    sloMo.textureToLoad = "sloMo";
+                    sloMo.textureToLoad = "Clock";
                     sloMo.sloMoSprite.xSpeed = -game.gameSpeed;
 
                     // Init SloMo

@@ -22,13 +22,13 @@ namespace Inverse
         public float jumpStrength = 25000;
 
         public bool isPhasing = false;
-        public float phaseTime = 6f;
+        public float phaseTime = 11f;
         public float phaseTimer = 0f;
 
         bool isShielded = false;
 
         public bool sloMotion = false;
-        public float sloMoTime = 6f;
+        public float sloMoTime = 11f;
         public float sloMoTimer = 0f;
 
         bool canPort = true;
@@ -36,9 +36,6 @@ namespace Inverse
         float portalTimer = 0f;
 
         bool removeArrayObject = false;
-
-      //  SoundEffect plusScoreSound;
-      //  SoundEffectInstance plusScoreSoundInstance; 
 
         Collisions collision = new Collisions();
 
@@ -56,9 +53,6 @@ namespace Inverse
             runAnimation.Load(content, "Run", 10, game.playerFPS);
             playerSprite.AddAnimation(runAnimation, 0, -5);
             playerSprite.Play();
-
-            //plusScoreSound = content.Load<SoundEffect>("itemPickup.mp3");
-          //  plusScoreSoundInstance = plusScoreSound.CreateInstance();
 
             playerSprite.velocity = Vector2.Zero;
             playerSprite.position = new Vector2(100, 150);
@@ -198,12 +192,13 @@ namespace Inverse
                 {
                     case 3:
                         // Portal
-                        game.upsideDown = true; 
+
                         // use a timer to prevent player moving back through portal?
                         if (canPort == true)
                         {
                             if (playerSprite.gravDown == true)
                             {
+                                game.platformSide += 1;
                                 playerSprite.gravDown = false;
 
                                 playerSprite.position = new Vector2(playerSprite.position.X, item.portal.portalSprite.bottomEdge);
@@ -215,6 +210,7 @@ namespace Inverse
                             }
                             else if (playerSprite.gravDown == false)
                             {
+                                game.platformSide -= 1;
                                 playerSprite.gravDown = true;
 
                                 playerSprite.position = new Vector2(playerSprite.position.X, item.portal.portalSprite.topEdge);
