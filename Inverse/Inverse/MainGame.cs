@@ -22,10 +22,10 @@ namespace Inverse
         public Vector2 gravity = new Vector2(0, 1000);
         public Collisions collisions = new Collisions();
         public PlusScore plusScore = new PlusScore();
+
         Background background = new Background();
-        Background background2 = new Background();
-        Background2 background3 = new Background2();
-        Background2 background4 = new Background2();
+        Background2 foreground = new Background2();
+
         public ItemSpawner itemSpawner = new ItemSpawner();
 
         public bool debug = false;
@@ -93,13 +93,10 @@ namespace Inverse
             player.Load(Content, this);
             platform.Load(Content, this);
             itemSpawner.Load(Content, this);
-            background.Load(Content, this);
-            background2.Load(Content, this);
-            background2.background.position.X = 1474;
 
-            background3.Load(Content, this);
-            background4.Load(Content, this);
-            background4.background.position.X = 1473;            
+            background.Load(Content, this);
+            foreground.Load(Content, this);
+        
 
             arialFont = Content.Load<SpriteFont>("arial");
             heart = Content.Load<Texture2D>("Heart");
@@ -142,10 +139,10 @@ namespace Inverse
             player.Update(deltaTime);
             platform.Update(deltaTime);
             itemSpawner.Update(deltaTime);
+
             background.Update(deltaTime);
-            background2.Update(deltaTime);
-            background3.Update(deltaTime);
-            background4.Update(deltaTime);
+            foreground.Update(deltaTime);
+
 
 
             if (itemSpawner.spawnedItems.Count > 0)
@@ -168,9 +165,8 @@ namespace Inverse
             spriteBatch.Begin();
 
             background.Draw(spriteBatch, this);
-            background2.Draw(spriteBatch, this);
-            background3.Draw(spriteBatch, this);
-            background4.Draw(spriteBatch, this);
+            foreground.Draw(spriteBatch, this);
+
             player.Draw(spriteBatch);
             platform.Draw(spriteBatch);
 
