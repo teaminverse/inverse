@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 
 namespace Inverse
@@ -18,11 +19,17 @@ namespace Inverse
         public Sprite playerJump = new Sprite();
 
         MainGame game = null;
-        public float jumpStrength = 35000f;
+        public float jumpStrength = 25000;
 
-        bool isPhasing = false;
-        float phaseTime = 8f;
-        float phaseTimer = 0f;
+        public bool isPhasing = false;
+        public float phaseTime = 6f;
+        public float phaseTimer = 0f;
+
+        bool isShielded = false;
+
+        public bool sloMotion = false;
+        public float sloMoTime = 6f;
+        public float sloMoTimer = 0f;
 
         bool canPort = true;
         float portalTime = 1f;
@@ -30,7 +37,8 @@ namespace Inverse
 
         bool removeArrayObject = false;
 
-        
+      //  SoundEffect plusScoreSound;
+      //  SoundEffectInstance plusScoreSoundInstance; 
 
         Collisions collision = new Collisions();
 
@@ -48,6 +56,9 @@ namespace Inverse
             runAnimation.Load(content, "Run", 10, game.playerFPS);
             playerSprite.AddAnimation(runAnimation, 0, -5);
             playerSprite.Play();
+
+            //plusScoreSound = content.Load<SoundEffect>("itemPickup.mp3");
+          //  plusScoreSoundInstance = plusScoreSound.CreateInstance();
 
             playerSprite.velocity = Vector2.Zero;
             playerSprite.position = new Vector2(100, 150);
@@ -68,6 +79,7 @@ namespace Inverse
             if (phaseTimer < 0)
             {
                 isPhasing = false;
+                game.phaserPickUp = false; 
             }
 
             portalTimer -= deltaTime;
@@ -76,6 +88,16 @@ namespace Inverse
             {
                 canPort = true;
             }
+
+            sloMoTimer -= deltaTime;
+
+            if (sloMoTimer < 0)
+            {
+                sloMotion = false;
+                game.gameSpeed = 20000;
+                jumpStrength = 35000;
+                game.sloMoPickUp = false; 
+            } 
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -105,18 +127,7 @@ namespace Inverse
                     removeArrayObject = false;
                     break;
                 }
-            }
-
-            /*
-            if (collision.IsColliding(playerSprite, game.platform.platformSprite) == true)
-            {
-                playerSprite.position.Y = game.platform.platformSprite.topEdge - playerSprite.height + playerSprite.offset.Y;
-
-                playerSprite.velocity.Y = 0;
-                playerSprite.canJump = true;
-            }
-            */
-            
+            }          
 
             if (playerSprite.gravDown == true)
             {
@@ -156,7 +167,7 @@ namespace Inverse
 
         void CheckCollisionsWithObstacles(Item item)
         {
-            if (isPhasing == false)
+            if (isPhasing == false && isShielded == false)
             {
                 if (collision.IsColliding(playerSprite, item.smallObstacle.smallObSprite)
                 || collision.IsColliding(playerSprite, item.mediumObstacle.mediumObSprite)
@@ -167,18 +178,19 @@ namespace Inverse
                     {
                         case 1:
                             // SmallOb
-                            game.Exit();
+                            game.gameState += 1;
                             break;
                         case 2:
                             // MedOb
-                            game.Exit();
+                            game.gameState += 1;
                             break;
                         case 3:
                             // LargeOb
-                            game.Exit();
+                            game.gameState += 1;
                             break;
                     }
                 }
+         
             }
 
         }
@@ -226,7 +238,6 @@ namespace Inverse
         {
             if (collision.IsColliding(playerSprite, item.phaser.phaserSprite)
             || collision.IsColliding(playerSprite, item.plusScore.plusScoreSprite)
-            || collision.IsColliding(playerSprite, item.oneHitShield.oneHitShieldSprite)
             || collision.IsColliding(playerSprite, item.sloMo.sloMoSprite)
             == true)
             {
@@ -238,6 +249,8 @@ namespace Inverse
                         {
                             isPhasing = true;
                             phaseTimer = phaseTime; // reset the timer
+                            game.phaserPickUp = true;
+                            game.powerUp = false; 
                         }
 
                         removeArrayObject = true;
@@ -248,24 +261,21 @@ namespace Inverse
                     case 6:
                         // PlusScore
                         game.totalScore += 50;
-
                         removeArrayObject = true;
-
+                        //plusScoreSoundInstance.Play();
                         game.itemSpawner.spawnedItems.Remove(item); // remove item from array
 
                         break;
                     case 7:
-                        // OneHitShield
-                        removeArrayObject = true;
-
-                        game.itemSpawner.spawnedItems.Remove(item); // remove item from array
-
-                        break;
-                    case 8:
-                        // SloMo
-                        game.gameSpeed = 10000;
-                        game.playerFPS = 10;
-
+                        // SloMo       
+                        if (sloMotion == false)
+                        {
+                            sloMotion = true;                       
+                            game.gameSpeed = 10000;
+                            game.sloMoPickUp = true; 
+                            sloMoTimer = sloMoTime; // reset the timer 
+                        } 
+                    
                         removeArrayObject = true;
 
                         game.itemSpawner.spawnedItems.Remove(item); // remove item from array

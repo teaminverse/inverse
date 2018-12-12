@@ -22,7 +22,6 @@ namespace Inverse
         public MediumObstacle mediumObstacle = new MediumObstacle();
         public LargeObstacle largeObstacle = new LargeObstacle();
         public Phaser phaser = new Phaser();
-        public OneHitShield oneHitShield = new OneHitShield();
         public PlusScore plusScore = new PlusScore();
         public Slo_Mo sloMo = new Slo_Mo();
         public Portal portal = new Portal();
@@ -36,7 +35,7 @@ namespace Inverse
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame; 
-            itemType = random.Next(1,9);
+            itemType = random.Next(1,7);
 
             switch (itemType)
             {
@@ -144,27 +143,8 @@ namespace Inverse
 
                     // set PlusScore position
                     plusScore.plusScoreSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, spawnPos);
-                    break;
+                    break;                
                 case 7:
-                    // OneHitShield
-                    if (game.upsideDown == false)
-                    {
-                        spawnPos = 140;
-                    }
-                    else if (game.upsideDown == true)
-                    {
-                        spawnPos = 300;
-                    }
-                    oneHitShield.textureToLoad = "oneHitShield";
-                    oneHitShield.oneHitShieldSprite.xSpeed = -game.gameSpeed;
-
-                    // Init OneHitShield
-                    oneHitShield.Load(content, game);
-
-                    // set OneHitShield position
-                    oneHitShield.oneHitShieldSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, spawnPos);
-                    break;
-                case 8:
                     // SloMo
                     if (game.upsideDown == false)
                     {
@@ -249,18 +229,8 @@ namespace Inverse
                         game.itemSpawner.spawnedItems.Remove(this);
                         return;
                     }
-                    break;
+                    break;     
                 case 7:
-                    // OneHitShield
-                    oneHitShield.Update(deltaTime);
-                    if (oneHitShield.oneHitShieldSprite.position.X < screenBuffer)
-                    {
-                        removeItem = true;
-                        game.itemSpawner.spawnedItems.Remove(this);
-                        return;
-                    }
-                    break;
-                case 8:
                     // SloMo
                     sloMo.Update(deltaTime);
                     if (sloMo.sloMoSprite.position.X < screenBuffer)
@@ -302,10 +272,6 @@ namespace Inverse
                     plusScore.Draw(spriteBatch);
                     break;
                 case 7:
-                    // OneHitShield
-                    oneHitShield.Draw(spriteBatch);
-                    break;
-                case 8:
                     // SloMo
                     sloMo.Draw(spriteBatch);
                     break;

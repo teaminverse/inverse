@@ -302,3 +302,9 @@
 /processorParam:TextureFormat=Color
 /build:titlescreen.png
 
+#begin itemPickup.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:itemPickup.mp3
+
