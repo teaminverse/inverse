@@ -34,6 +34,8 @@ namespace Inverse
         public int rightCollisionOffset = 0;
         public int vertCollisionOffset = 0;
 
+        public bool isBackground = false; 
+
         List<AnimatedTexture> animations = new List<AnimatedTexture>();
         List<Vector2> animationOffsets = new List<Vector2>();
         int currentAnimation = 0;
@@ -47,7 +49,7 @@ namespace Inverse
 
         }
 
-        public void Load(ContentManager content, string asset, bool useOffset)
+        public void Load(ContentManager content, string asset, bool useOffset, bool isSpriteSheet = false, int spritesInSheet = 0)
         {
             texture = content.Load<Texture2D>(asset);
             width = texture.Bounds.Width;
@@ -56,6 +58,11 @@ namespace Inverse
             if (useOffset == true)
             {
                 offset = new Vector2(leftEdge + width / 2, topEdge + height / 2);
+            }
+
+            if (isSpriteSheet)
+            {
+                width = texture.Bounds.Width / spritesInSheet;
             }
 
             UpdateHitBox();
@@ -84,7 +91,7 @@ namespace Inverse
                 spriteBatch.Draw(texture, position, Color.White); 
             }
             
-            if (game.debug == true)
+            if (game.debug == true && isBackground == false)
             {
                 game.DrawRectangle(new Rectangle(leftEdge, topEdge, width - rightCollisionOffset, height - vertCollisionOffset), Color.Red);
             }

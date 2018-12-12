@@ -29,7 +29,8 @@ namespace Inverse
 
             background.velocity = Vector2.Zero;
             background.position = new Vector2(0, 0);
-         
+
+            background.isBackground = true; 
         }
         public void Update(float deltaTime)
         {
