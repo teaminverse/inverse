@@ -41,8 +41,7 @@ namespace Inverse
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.DrawString(font, "Game Over... :(",
-           new Vector2(200, 200), Color.White);
+            
             spriteBatch.End();
         }
         public override void CleanUp()
