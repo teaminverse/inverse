@@ -113,7 +113,7 @@ namespace Inverse
             pub = Content.Load<Texture2D>("powerUpBox");
 
             intro = Content.Load<Texture2D>("titlescreen");
-            instruction = Content.Load<Texture2D>("Instruct"); 
+            instruction = Content.Load<Texture2D>("Heart"); 
             introPos.X = 30;
             introPos.Y = 30;
 
@@ -153,7 +153,7 @@ namespace Inverse
 
         private void UpdateSplashState(float deltaTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+            if (Keyboard.GetState().IsKeyDown(Keys.RightShift))
             {
                 gameState = STATE_INSTRUCTION;
             }

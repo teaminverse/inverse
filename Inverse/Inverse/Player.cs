@@ -170,8 +170,7 @@ namespace Inverse
             if (isPhasing == false && isShielded == false)
             {
                 if (collision.IsColliding(playerSprite, item.smallObstacle.smallObSprite)
-                || collision.IsColliding(playerSprite, item.mediumObstacle.mediumObSprite)
-                || collision.IsColliding(playerSprite, item.largeObstacle.largeObSprite)
+                || collision.IsColliding(playerSprite, item.mediumObstacle.mediumObSprite)                
                 == true)
                 {
                     switch (item.itemType)
@@ -182,10 +181,6 @@ namespace Inverse
                             break;
                         case 2:
                             // MedOb
-                            game.gameState += 1;
-                            break;
-                        case 3:
-                            // LargeOb
                             game.gameState += 1;
                             break;
                     }
@@ -201,9 +196,9 @@ namespace Inverse
             {
                 switch (item.itemType)
                 {
-                    case 4:
+                    case 3:
                         // Portal
-
+                        game.upsideDown = true; 
                         // use a timer to prevent player moving back through portal?
                         if (canPort == true)
                         {
@@ -243,7 +238,7 @@ namespace Inverse
             {
                 switch (item.itemType)
                 {
-                    case 5:
+                    case 4:
                         // Phaser
                         if (isPhasing == false)
                         {
@@ -258,7 +253,7 @@ namespace Inverse
                         game.itemSpawner.spawnedItems.Remove(item); // remove item from array
 
                         break;
-                    case 6:
+                    case 5:
                         // PlusScore
                         game.totalScore += 50;
                         removeArrayObject = true;
@@ -266,7 +261,7 @@ namespace Inverse
                         game.itemSpawner.spawnedItems.Remove(item); // remove item from array
 
                         break;
-                    case 7:
+                    case 6:
                         // SloMo       
                         if (sloMotion == false)
                         {

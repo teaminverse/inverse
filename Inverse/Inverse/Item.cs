@@ -20,7 +20,6 @@ namespace Inverse
 
         public SmallObstacle smallObstacle = new SmallObstacle();
         public MediumObstacle mediumObstacle = new MediumObstacle();
-        public LargeObstacle largeObstacle = new LargeObstacle();
         public Phaser phaser = new Phaser();
         public PlusScore plusScore = new PlusScore();
         public Slo_Mo sloMo = new Slo_Mo();
@@ -78,24 +77,6 @@ namespace Inverse
                     mediumObstacle.mediumObSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, spawnPos);
                     break;
                 case 3:
-                    // Large Obstacle 
-                    if (game.upsideDown == false)
-                    {
-                        spawnPos = 190;
-                    }
-                    else if (game.upsideDown == true)
-                    {
-                        spawnPos = 250;
-                    }
-                    largeObstacle.textureToLoad = "Large Ob";
-                    largeObstacle.largeObSprite.xSpeed = -game.gameSpeed;
-
-                    // Init largeObstacle
-                    largeObstacle.Load(content, game);
-
-                    largeObstacle.largeObSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, spawnPos);
-                    break;
-                case 4:
                     // Portal
                     portal.textureToLoad = "Portal";
                     portal.portalSprite.xSpeed = -game.gameSpeed;
@@ -106,7 +87,7 @@ namespace Inverse
                     // set portal position
                     portal.portalSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, 162);
                     break;
-                case 5:
+                case 4:
                     // Phaser
                     if (game.upsideDown == false)
                     {
@@ -125,7 +106,7 @@ namespace Inverse
                     // set Phaser position
                     phaser.phaserSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, spawnPos);
                     break;
-                case 6:
+                case 5:
                     // PlusScore
                     if (game.upsideDown == false)
                     {
@@ -144,7 +125,7 @@ namespace Inverse
                     // set PlusScore position
                     plusScore.plusScoreSprite.position = new Vector2(game.GraphicsDevice.Viewport.Width, spawnPos);
                     break;                
-                case 7:
+                case 6:
                     // SloMo
                     if (game.upsideDown == false)
                     {
@@ -191,16 +172,6 @@ namespace Inverse
                     }
                     break;
                 case 3:
-                    // Large Obstacle 
-                    largeObstacle.Update(deltaTime);
-                    if (largeObstacle.largeObSprite.position.X < screenBuffer)
-                    {
-                        removeItem = true;
-                        game.itemSpawner.spawnedItems.Remove(this);
-                        return;
-                    }
-                    break;
-                case 4:
                     // Portal
                     portal.Update(deltaTime);
                     if (portal.portalSprite.position.X < screenBuffer)
@@ -210,7 +181,7 @@ namespace Inverse
                         return;
                     }
                     break;
-                case 5:
+                case 4:
                     // Phaser
                     phaser.Update(deltaTime);
                     if (phaser.phaserSprite.position.X < screenBuffer)
@@ -220,7 +191,7 @@ namespace Inverse
                         return;
                     }
                     break;
-                case 6:
+                case 5:
                     // PlusScore
                     plusScore.Update(deltaTime);
                     if (plusScore.plusScoreSprite.position.X < screenBuffer)
@@ -230,7 +201,7 @@ namespace Inverse
                         return;
                     }
                     break;     
-                case 7:
+                case 6:
                     // SloMo
                     sloMo.Update(deltaTime);
                     if (sloMo.sloMoSprite.position.X < screenBuffer)
@@ -256,22 +227,18 @@ namespace Inverse
                     mediumObstacle.Draw(spriteBatch);
                     break;
                 case 3:
-                    // Large Obstacle 
-                    largeObstacle.Draw(spriteBatch);
-                    break;
-                case 4:
                     // Portal
                     portal.Draw(spriteBatch);
                     break;
-                case 5:
+                case 4:
                     // Phaser
                     phaser.Draw(spriteBatch);
                     break;
-                case 6:
+                case 5:
                     // PlusScore
                     plusScore.Draw(spriteBatch);
                     break;
-                case 7:
+                case 6:
                     // SloMo
                     sloMo.Draw(spriteBatch);
                     break;
