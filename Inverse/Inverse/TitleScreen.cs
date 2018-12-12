@@ -15,8 +15,7 @@ namespace Inverse
     {
         SpriteFont font = null;
         float timer = 3;
-        public Texture2D intro;
-        public Vector2 introPos;
+
         public GraphicsDevice graphicsDevice;
         GraphicsDeviceManager graphics;
 
@@ -27,9 +26,7 @@ namespace Inverse
         public void initialize(Texture2D texture, Vector2 position, ContentManager Content)
         {
             
-            intro = Content.Load<Texture2D>("titlescreen");
-            introPos.X = 30;
-            introPos.Y = 30;
+            
             
         }
         public override void Update(ContentManager content, GameTime gameTime)
@@ -52,7 +49,7 @@ namespace Inverse
             spriteBatch.Begin();
             spriteBatch.DrawString(font, "Inverse",
             new Vector2(200, 200), Color.White);
-            spriteBatch.Draw(intro, new Rectangle(30, 30, 466, 199), Color.White);
+
             spriteBatch.End();
            
         }

@@ -57,7 +57,16 @@ namespace Inverse
         public bool upsideDown = false;
         public bool portaPortalOn = false; 
 
-        Song gameMusic; 
+        Song gameMusic;
+
+        public Texture2D intro;
+        public Vector2 introPos;
+
+        const int STATE_SPLASH = 0;
+        const int STATE_GAME = 1;
+        const int STATE_GAMEOVER = 2;
+
+        public int gameState = STATE_SPLASH;
 
         public Texture2D rect;
 
@@ -105,12 +114,12 @@ namespace Inverse
             oneHitShield = Content.Load<Texture2D>("oneHitShield");
             pub = Content.Load<Texture2D>("powerUpBox");
 
-            AIE.StateManager.CreateState("SPLASH", new TitleScreen());
-            AIE.StateManager.CreateState("GAME", new GameState());
-            AIE.StateManager.CreateState("GAMEOVER", new GameOverState());
+            intro = Content.Load<Texture2D>("titlescreen");
+            introPos.X = 30;
+            introPos.Y = 30;
 
-           // gameMusic = Content.Load<Song>("Inverse mp3");
-           // MediaPlayer.Play(gameMusic);
+            // gameMusic = Content.Load<Song>("Inverse mp3");
+            // MediaPlayer.Play(gameMusic);
         }
 
         protected override void UnloadContent()
@@ -123,6 +132,33 @@ namespace Inverse
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            switch (gameState)
+            {
+                case STATE_SPLASH:
+                    UpdateSplashState(deltaTime);
+                    break;
+                case STATE_GAME:
+                    UpdateGameState(deltaTime);
+                    break;
+                case STATE_GAMEOVER:
+                    UpdateGameOverState(deltaTime);
+                    break;
+            }
+
+        }
+
+        private void UpdateSplashState(float deltaTime)
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+            {
+                gameState = STATE_GAME;
+            }
+        }
+
+        private void UpdateGameState(float deltaTime)
+        {
             if (Keyboard.GetState().IsKeyDown(Keys.F1))
             {
                 debug = true;
@@ -132,9 +168,8 @@ namespace Inverse
                 debug = false;
             }
 
-            totalScore += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            totalScore += deltaTime;
 
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             player.Update(deltaTime);
             platform.Update(deltaTime);
@@ -149,7 +184,7 @@ namespace Inverse
             {
                 foreach (Item item in itemSpawner.spawnedItems)
                 {
-                    item.Update(deltaTime); 
+                    item.Update(deltaTime);
                     {
                         return;
                     }
@@ -158,11 +193,46 @@ namespace Inverse
 
         }
 
+        private void UpdateGameOverState(float deltaTime)
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+            {
+                gameState = STATE_SPLASH;
+            }
+        }
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.DarkSlateGray);
 
             spriteBatch.Begin();
+
+            switch (gameState)
+            {
+                case STATE_SPLASH:
+                    DrawSplashState(spriteBatch);
+                    break;
+                case STATE_GAME:
+                    DrawGameState(spriteBatch);
+                    break;
+                case STATE_GAMEOVER:
+                    DrawGameOverState(spriteBatch);
+                    break;
+            }
+           
+            spriteBatch.End();
+
+            base.Draw(gameTime);
+        }
+
+        private void DrawSplashState(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(intro, new Rectangle(30, 30, 466, 199), Color.White);
+            spriteBatch.DrawString(arialFont, "Press enter to continue!", new Vector2(200, 240), Color.White);
+        }
+
+        private void DrawGameState(SpriteBatch spriteBatch)
+        {
 
             background.Draw(spriteBatch, this);
             foreground.Draw(spriteBatch, this);
@@ -205,22 +275,24 @@ namespace Inverse
                 powerUp = true;
             }
 
-            if (powerUp == false && oneHitShieldPickUp == true) 
+            if (powerUp == false && oneHitShieldPickUp == true)
             {
                 spriteBatch.Draw(oneHitShield, new Vector2(GraphicsDevice.Viewport.Width - 80, 400), Color.White);
                 powerUp = true;
             }
 
             spriteBatch.DrawString(arialFont, "SCORE: " + (int)AddToScore(), new Vector2(20, 20), Color.LightBlue);
+
             spriteBatch.DrawString(arialFont, "SpawnTimer: " + (int)itemSpawner.spawnTimer, new Vector2(20, 50), Color.LightBlue);
 
-
-            spriteBatch.End();
-
-            AIE.StateManager.Draw(spriteBatch);
-
-            base.Draw(gameTime);
         }
+
+        private void DrawGameOverState(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(arialFont, "Game Over... :(", new Vector2(200, 200), Color.White);
+            spriteBatch.DrawString(arialFont, "Press enter to continue!", new Vector2(200, 240), Color.White);
+        }
+
         private float AddToScore()
         {
             totalScore += 0.15f;
