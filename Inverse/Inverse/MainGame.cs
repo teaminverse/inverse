@@ -244,8 +244,8 @@ namespace Inverse
 
         private void DrawSplashState(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(intro, new Rectangle(30, 30, 466, 199), Color.White);
-            spriteBatch.DrawString(arialFont, "Press enter to Play!", new Vector2(200, 240), Color.White);
+            spriteBatch.Draw(intro, new Rectangle(0, 0, 920, 524), Color.White);
+            spriteBatch.DrawString(arialFont, "Press enter to Play!", new Vector2(350, 20), Color.Black);
         }
 
         private void DrawInstructionState(SpriteBatch spriteBatch)
