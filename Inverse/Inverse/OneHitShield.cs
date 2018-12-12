@@ -22,7 +22,7 @@ namespace Inverse
         {
             game = theGame;
 
-            oneHitShieldSprite.Load(content, textureToLoad, false, true, 1);
+            oneHitShieldSprite.Load(content, textureToLoad, false);
 
             AnimatedTexture oneHitShieldAnimation = new AnimatedTexture(oneHitShieldSprite.offset, 0, 1, 1);
 
@@ -37,6 +37,11 @@ namespace Inverse
         public void Update(float deltaTime)
         {
             collision.game = game;
+
+            oneHitShieldSprite.velocity = new Vector2(oneHitShieldSprite.xSpeed, 0) * deltaTime;
+
+            oneHitShieldSprite.position += oneHitShieldSprite.velocity * deltaTime;
+
             oneHitShieldSprite.Update(deltaTime);
             oneHitShieldSprite.UpdateHitBox();
         }

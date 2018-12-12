@@ -57,37 +57,7 @@ namespace Inverse
 
             return hero;
         }
-        //for upsidedown portal collision
-        public Sprite CollideAbovePortal(Sprite hero, Sprite portal, float deltaTime)
-        {
 
-            if (IsColliding(hero, portal) == true)
-            {
-                hero.position.Y = portal.topEdge + hero.offset.Y;
-                hero.gravDown = true; 
-                //hero.canJump = true;
-                hero.canTeleport = false;
-
-
-                hero.SetVertFlipped(false);
-            }
-
-            return hero;
-        }
-        //for right way up portal collision
-        public Sprite CollideBelowPortal(Sprite hero, Sprite portal, float deltaTime)
-        {
-            if (IsColliding(hero, portal) == true)
-            {
-                hero.position.Y = portal.bottomEdge + hero.height + hero.offset.Y;
-                hero.gravDown = false;
-                //hero.canJump = true;
-                hero.canTeleport = false;
-
-                hero.SetVertFlipped(true);
-            }
-            return hero;
-        }
 
         //public Sprite CollideObstacle(Sprite hero, Sprite smallObstacle, float deltaTime)
         //{

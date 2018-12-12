@@ -44,6 +44,8 @@ namespace Inverse
         public float xSpeed = 0f;
         public float ySpeed = 0f;
 
+        public Color spriteColor = Color.White;
+
         public Sprite()
         {
 
