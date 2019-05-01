@@ -19,13 +19,13 @@ namespace Inverse
         ContentManager content = null;
 
         public float spawnTimer = 0f;
-        float defaultSpawnTimer = 2.5f;
+        float defaultSpawnTimer = 0.5f;
 
         public ArrayList spawnedItems = new ArrayList();
 
-        int currentScoreLevel = 30; // score when difficulty increases
-        float spawnTimerChange = 0.2f; // the amount of time to take off the current spawn timer on difficulty increase
-        float maxSpawnRate = 0.2f; // the maximum spawn rate
+        int currentScoreLevel = 1; // score when difficulty increases
+        float spawnTimerChange = 0.02f; // the amount of time to take off the current spawn timer on difficulty increase
+       // float maxSpawnRate = 0.001f; // the maximum spawn rate
 
         public void Load(ContentManager theContent, MainGame theGame)
         {
@@ -51,21 +51,21 @@ namespace Inverse
                 // Add this instance to ArrayList
                 spawnedItems.Add(newItem);
 
-                /*
+                
                 // Increase difficulty
                 if (game.totalScore > currentScoreLevel)
                 {
                     defaultSpawnTimer -= spawnTimerChange;
-                    currentScoreLevel += 30;
+                    currentScoreLevel += 1;
                     game.gameSpeed *= game.speedMultiplier;
 
                     // Prevent spawn rate getting too low
-                    if (defaultSpawnTimer < maxSpawnRate)
-                    {
-                        defaultSpawnTimer = maxSpawnRate;
-                    }
+                  //  if (defaultSpawnTimer < maxSpawnRate)
+                   // {
+                       // defaultSpawnTimer = maxSpawnRate;
+                   // }
                 }
-                */
+                
 
                 // Reset the timer 
                 spawnTimer = defaultSpawnTimer;

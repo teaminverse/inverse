@@ -51,8 +51,6 @@
     <Compile Include="GameOverScreen.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="ItemSpawner.cs" />
-    <Compile Include="LargeObstacle.cs" />
-    <Compile Include="OneHitShield.cs" />
     <Compile Include="Phaser.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="Portal.cs" />

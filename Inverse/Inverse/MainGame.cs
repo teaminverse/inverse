@@ -33,13 +33,11 @@ namespace Inverse
 
         public bool staticObject = false;
 
-        public float totalScore = 0.0f;
+        public float totalScore = 0f;
         public int counter = 1;
 
         public float gameSpeed = 20000;
-        public float speedMultiplier = 1.2f;
-
-        public bool animatedSprite = true; 
+        public float speedMultiplier = 1000f; 
 
         SpriteFont arialFont;
 
@@ -53,17 +51,18 @@ namespace Inverse
         public bool phaserPickUp = false;
         public bool sloMoPickUp = false;
         public bool oneHitShieldPickUp = false;
-        public bool upsideDown = false;
-        public bool portaPortalOn = true; 
+        public float platformSide = 1;
 
         Song gameMusic;
 
         public Texture2D intro;
+        public Texture2D instruction; 
         public Vector2 introPos;
 
         const int STATE_SPLASH = 0;
-        const int STATE_GAME = 1;
-        const int STATE_GAMEOVER = 2;
+        const int STATE_INSTRUCTION = 1;
+        const int STATE_GAME = 2;
+        public const int STATE_GAMEOVER = 3;
 
         public int gameState = STATE_SPLASH;
 
@@ -109,16 +108,17 @@ namespace Inverse
             arialFont = Content.Load<SpriteFont>("arial");
             heart = Content.Load<Texture2D>("Heart");
             phaser = Content.Load<Texture2D>("phaser");
-            sloMo = Content.Load<Texture2D>("sloMo");
+            sloMo = Content.Load<Texture2D>("Clock");
             oneHitShield = Content.Load<Texture2D>("oneHitShield");
             pub = Content.Load<Texture2D>("powerUpBox");
 
             intro = Content.Load<Texture2D>("titlescreen");
+            instruction = Content.Load<Texture2D>("Instruct"); 
             introPos.X = 30;
             introPos.Y = 30;
 
-            // gameMusic = Content.Load<Song>("Inverse mp3");
-            // MediaPlayer.Play(gameMusic);
+            gameMusic = Content.Load<Song>("Inverse mp3");
+            MediaPlayer.Play(gameMusic);
         }
 
         protected override void UnloadContent()
@@ -138,6 +138,9 @@ namespace Inverse
                 case STATE_SPLASH:
                     UpdateSplashState(deltaTime);
                     break;
+                case STATE_INSTRUCTION:
+                    UpdateInstructionState(deltaTime);
+                    break;
                 case STATE_GAME:
                     UpdateGameState(deltaTime);
                     break;
@@ -150,11 +153,23 @@ namespace Inverse
 
         private void UpdateSplashState(float deltaTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.RightShift))
+            {
+                gameState = STATE_INSTRUCTION;
+            }
             if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
                 gameState = STATE_GAME;
             }
         }
+        private void UpdateInstructionState(float deltaTime)
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+            {
+                gameState = STATE_GAME;
+            }
+        }
+
 
         private void UpdateGameState(float deltaTime)
         {
@@ -194,9 +209,13 @@ namespace Inverse
 
         private void UpdateGameOverState(float deltaTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+            itemSpawner.spawnedItems.Clear();
+            totalScore = 0;
+            powerUp = false; 
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
                 gameState = STATE_SPLASH;
+
             }
         }
 
@@ -210,6 +229,9 @@ namespace Inverse
             {
                 case STATE_SPLASH:
                     DrawSplashState(spriteBatch);
+                    break;
+                case STATE_INSTRUCTION:
+                    DrawInstructionState(spriteBatch);
                     break;
                 case STATE_GAME:
                     DrawGameState(spriteBatch);
@@ -226,9 +248,15 @@ namespace Inverse
 
         private void DrawSplashState(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(intro, new Rectangle(30, 30, 466, 199), Color.White);
-            spriteBatch.DrawString(arialFont, "Press enter to continue!", new Vector2(200, 240), Color.White);
+            spriteBatch.Draw(intro, new Rectangle(0, 0, 920, 524), Color.White);
+            spriteBatch.DrawString(arialFont, "Press enter to Play! Press Shift to see Instructions", new Vector2(350, 20), Color.Black);
         }
+
+        private void DrawInstructionState(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(instruction, new Rectangle(0, 0, 920, 542), Color.White);
+        }
+
 
         private void DrawGameState(SpriteBatch spriteBatch)
         {
@@ -264,40 +292,31 @@ namespace Inverse
 
             if (powerUp == false && phaserPickUp == true)
             {
-                spriteBatch.Draw(phaser, new Vector2(GraphicsDevice.Viewport.Width - 80, 400), Color.White);
-                powerUp = true;
+                spriteBatch.Draw(phaser, new Vector2(GraphicsDevice.Viewport.Width - 75, 405), Color.White);
+                spriteBatch.DrawString(arialFont, "Phaser: " + (int)player.phaseTimer, new Vector2(GraphicsDevice.Viewport.Width - 200, 405), Color.LightBlue);
             }
 
             if (powerUp == false && sloMoPickUp == true)
             {
-                spriteBatch.Draw(sloMo, new Vector2(GraphicsDevice.Viewport.Width - 80, 400), Color.White);
-                powerUp = true;
-            }
-
-            if (powerUp == false && oneHitShieldPickUp == true)
-            {
-                spriteBatch.Draw(oneHitShield, new Vector2(GraphicsDevice.Viewport.Width - 80, 400), Color.White);
-                powerUp = true;
+                spriteBatch.Draw(sloMo, new Vector2(GraphicsDevice.Viewport.Width - 78, 400), Color.White);
+                spriteBatch.DrawString(arialFont, "Slo-Mo: " + (int)player.sloMoTimer, new Vector2(GraphicsDevice.Viewport.Width - 200, 405), Color.LightBlue);
             }
 
             spriteBatch.DrawString(arialFont, "SCORE: " + (int)AddToScore(), new Vector2(20, 20), Color.LightBlue);
-
-            spriteBatch.DrawString(arialFont, "SpawnTimer: " + (int)itemSpawner.spawnTimer, new Vector2(20, 50), Color.LightBlue);
-
+            spriteBatch.DrawString(arialFont, "Side: " + platformSide, new Vector2(20, 50), Color.LightBlue);
         }
 
         private void DrawGameOverState(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(arialFont, "Game Over... :(", new Vector2(200, 200), Color.White);
-            spriteBatch.DrawString(arialFont, "Press enter to continue!", new Vector2(200, 240), Color.White);
+            spriteBatch.DrawString(arialFont, "Press space to continue!", new Vector2(200, 240), Color.White);
         }
 
         private float AddToScore()
         {
-            totalScore += 0.15f;
-            if (collisions.IsColliding(player.playerSprite, plusScore.plusScoreSprite))
+            if (gameState == 1f)
             {
-                totalScore += 200;
+                totalScore += 0.15f;
             }
             return totalScore;
         }
