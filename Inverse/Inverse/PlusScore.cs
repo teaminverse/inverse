@@ -21,9 +21,6 @@ namespace Inverse
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame;
-
-            plusScoreSprite.Load(content, textureToLoad, false, true, 1);
-
             AnimatedTexture plusScoreAnimation = new AnimatedTexture(plusScoreSprite.offset, 0, 1, 1);
 
             plusScoreAnimation.Load(content, textureToLoad, 1, 1);

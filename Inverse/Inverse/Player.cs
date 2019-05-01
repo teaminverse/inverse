@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
 
 
 namespace Inverse
@@ -19,23 +18,19 @@ namespace Inverse
         public Sprite playerJump = new Sprite();
 
         MainGame game = null;
-        public float jumpStrength = 25000;
+        public float jumpStrength = 35000f;
 
-        public bool isPhasing = false;
-        public float phaseTime = 11f;
-        public float phaseTimer = 0f;
-
-        bool isShielded = false;
-
-        public bool sloMotion = false;
-        public float sloMoTime = 11f;
-        public float sloMoTimer = 0f;
+        bool isPhasing = false;
+        float phaseTime = 8f;
+        float phaseTimer = 0f;
 
         bool canPort = true;
         float portalTime = 1f;
         float portalTimer = 0f;
 
         bool removeArrayObject = false;
+
+        
 
         Collisions collision = new Collisions();
 
@@ -73,7 +68,6 @@ namespace Inverse
             if (phaseTimer < 0)
             {
                 isPhasing = false;
-                game.phaserPickUp = false; 
             }
 
             portalTimer -= deltaTime;
@@ -82,16 +76,6 @@ namespace Inverse
             {
                 canPort = true;
             }
-
-            sloMoTimer -= deltaTime;
-
-            if (sloMoTimer < 0)
-            {
-                sloMotion = false;
-                game.gameSpeed = 20000;
-                jumpStrength = 35000;
-                game.sloMoPickUp = false; 
-            } 
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -121,7 +105,18 @@ namespace Inverse
                     removeArrayObject = false;
                     break;
                 }
-            }          
+            }
+
+            /*
+            if (collision.IsColliding(playerSprite, game.platform.platformSprite) == true)
+            {
+                playerSprite.position.Y = game.platform.platformSprite.topEdge - playerSprite.height + playerSprite.offset.Y;
+
+                playerSprite.velocity.Y = 0;
+                playerSprite.canJump = true;
+            }
+            */
+            
 
             if (playerSprite.gravDown == true)
             {
@@ -161,25 +156,29 @@ namespace Inverse
 
         void CheckCollisionsWithObstacles(Item item)
         {
-            if (isPhasing == false && isShielded == false)
+            if (isPhasing == false)
             {
                 if (collision.IsColliding(playerSprite, item.smallObstacle.smallObSprite)
-                || collision.IsColliding(playerSprite, item.mediumObstacle.mediumObSprite)                
+                || collision.IsColliding(playerSprite, item.mediumObstacle.mediumObSprite)
+                || collision.IsColliding(playerSprite, item.largeObstacle.largeObSprite)
                 == true)
                 {
                     switch (item.itemType)
                     {
                         case 1:
                             // SmallOb
-                            game.gameState += 1;
+                            game.Exit();
                             break;
                         case 2:
                             // MedOb
-                            game.gameState += 1;
+                            game.Exit();
+                            break;
+                        case 3:
+                            // LargeOb
+                            game.Exit();
                             break;
                     }
                 }
-         
             }
 
         }
@@ -190,7 +189,7 @@ namespace Inverse
             {
                 switch (item.itemType)
                 {
-                    case 3:
+                    case 4:
                         // Portal
 
                         // use a timer to prevent player moving back through portal?
@@ -198,7 +197,6 @@ namespace Inverse
                         {
                             if (playerSprite.gravDown == true)
                             {
-                                game.platformSide += 1;
                                 playerSprite.gravDown = false;
 
                                 playerSprite.position = new Vector2(playerSprite.position.X, item.portal.portalSprite.bottomEdge);
@@ -210,7 +208,6 @@ namespace Inverse
                             }
                             else if (playerSprite.gravDown == false)
                             {
-                                game.platformSide -= 1;
                                 playerSprite.gravDown = true;
 
                                 playerSprite.position = new Vector2(playerSprite.position.X, item.portal.portalSprite.topEdge);
@@ -229,19 +226,18 @@ namespace Inverse
         {
             if (collision.IsColliding(playerSprite, item.phaser.phaserSprite)
             || collision.IsColliding(playerSprite, item.plusScore.plusScoreSprite)
+            || collision.IsColliding(playerSprite, item.oneHitShield.oneHitShieldSprite)
             || collision.IsColliding(playerSprite, item.sloMo.sloMoSprite)
             == true)
             {
                 switch (item.itemType)
                 {
-                    case 4:
+                    case 5:
                         // Phaser
                         if (isPhasing == false)
                         {
                             isPhasing = true;
                             phaseTimer = phaseTime; // reset the timer
-                            game.phaserPickUp = true;
-                            game.powerUp = false; 
                         }
 
                         removeArrayObject = true;
@@ -249,24 +245,27 @@ namespace Inverse
                         game.itemSpawner.spawnedItems.Remove(item); // remove item from array
 
                         break;
-                    case 5:
+                    case 6:
                         // PlusScore
                         game.totalScore += 50;
+
                         removeArrayObject = true;
-                        //plusScoreSoundInstance.Play();
+
                         game.itemSpawner.spawnedItems.Remove(item); // remove item from array
 
                         break;
-                    case 6:
-                        // SloMo       
-                        if (sloMotion == false)
-                        {
-                            sloMotion = true;                       
-                            game.gameSpeed = 10000;
-                            game.sloMoPickUp = true; 
-                            sloMoTimer = sloMoTime; // reset the timer 
-                        } 
-                    
+                    case 7:
+                        // OneHitShield
+                        removeArrayObject = true;
+
+                        game.itemSpawner.spawnedItems.Remove(item); // remove item from array
+
+                        break;
+                    case 8:
+                        // SloMo
+                        game.gameSpeed = 10000;
+                        game.playerFPS = 10;
+
                         removeArrayObject = true;
 
                         game.itemSpawner.spawnedItems.Remove(item); // remove item from array

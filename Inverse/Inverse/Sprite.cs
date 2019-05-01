@@ -84,8 +84,14 @@ namespace Inverse
 
         public void Draw(SpriteBatch spriteBatch, MainGame game)
         {     
-     
-            animations[currentAnimation].DrawFrame(spriteBatch, position + animationOffsets[currentAnimation], effects);           
+            if (game.animatedSprite == true)
+            {
+                animations[currentAnimation].DrawFrame(spriteBatch, position + animationOffsets[currentAnimation], effects);
+            }
+            else if (game.animatedSprite == false)
+            {
+                spriteBatch.Draw(texture, position, Color.White); 
+            }
             
             if (game.debug == true && isBackground == false)
             {

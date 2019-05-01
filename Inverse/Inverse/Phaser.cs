@@ -21,9 +21,6 @@ namespace Inverse
         public void Load(ContentManager content, MainGame theGame)
         {
             game = theGame;
-
-            phaserSprite.Load(content, textureToLoad, false, true, 1);
-
             AnimatedTexture phaserAnimation = new AnimatedTexture(phaserSprite.offset, 0, 1, 1);
 
             phaserAnimation.Load(content, textureToLoad, 1, 1);
